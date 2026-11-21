@@ -6,353 +6,184 @@
 <title>Lives Control</title>
 <style>
 :root {
-  --bg-body: #0b0f19;
-  --bg-card: #151b2b;
-  --bg-card-hover: #1e2638;
-  --border: #2a3449;
-  --text-main: #f1f5f9;
-  --text-muted: #8b9bb4;
-  --neon-pink: #ff2a85;
-  --neon-cyan: #00e5ff;
-  --neon-green: #00ff88;
-  --neon-red: #ff3366;
-  --glow-pink: 0 0 10px rgba(255, 42, 133, 0.4);
-  --glow-cyan: 0 0 10px rgba(0, 229, 255, 0.4);
-  --radius: 12px;
-  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --bg-body: #0b0f19; --bg-card: #151b2b; --bg-card-hover: #1e2638;
+  --border: #2a3449; --text-main: #f1f5f9; --text-muted: #8b9bb4;
+  --neon-pink: #ff2a85; --neon-cyan: #00e5ff; --neon-green: #00ff88; --neon-red: #ff3366;
+  --glow-pink: 0 0 10px rgba(255, 42, 133, 0.4); --glow-cyan: 0 0 10px rgba(0, 229, 255, 0.4);
+  --radius: 12px; --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  background: var(--bg-body); color: var(--text-main); font-family: var(--font);
-  font-size: 14px; line-height: 1.5; padding-bottom: 70px;
-  -webkit-tap-highlight-color: transparent;
-}
+body { background: var(--bg-body); color: var(--text-main); font-family: var(--font); font-size: 14px; line-height: 1.5; padding-bottom: 70px; -webkit-tap-highlight-color: transparent; }
 h1, h2, h3, h4 { font-weight: 600; }
 h1 { font-size: 1.5rem; color: var(--text-main); }
 h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
 
-/* ===== LOGIN ===== */
-.login-screen {
-  padding: 15px; min-height: 100vh; display: flex;
-  align-items: center; justify-content: center; text-align: center;
-}
-.login-card {
-  background: var(--bg-card); border-radius: var(--radius); padding: 25px;
-  width: 100%; max-width: 380px; border: 1px solid var(--border);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-}
+.login-screen { padding: 15px; min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; }
+.login-card { background: var(--bg-card); border-radius: var(--radius); padding: 25px; width: 100%; max-width: 380px; border: 1px solid var(--border); box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
 .login-card h2 { color: var(--neon-cyan); text-transform: none; font-size: 1.6rem; margin-bottom: 8px; }
 .login-card .sub { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px; }
 .login-card form { text-align: left; }
 .login-card .form-group { margin-bottom: 12px; }
-.login-error {
-  color: var(--neon-red); font-size: 0.8rem; text-align: center;
-  margin-top: 12px; padding: 8px; border-radius: 6px;
-  background: rgba(255,51,102,0.1); display: none;
-}
+.login-error { color: var(--neon-red); font-size: 0.8rem; text-align: center; margin-top: 12px; padding: 8px; border-radius: 6px; background: rgba(255,51,102,0.1); display: none; }
 .login-loading { color: var(--neon-cyan); font-size: 0.8rem; text-align: center; margin-top: 12px; }
-.auth-toggle {
-  margin-top: 18px; text-align: center; font-size: 0.82rem;
-  color: var(--text-muted); padding-top: 15px; border-top: 1px solid var(--border);
-}
+.auth-toggle { margin-top: 18px; text-align: center; font-size: 0.82rem; color: var(--text-muted); padding-top: 15px; border-top: 1px solid var(--border); }
 .auth-toggle a { color: var(--neon-cyan); text-decoration: none; font-weight: 600; cursor: pointer; }
 .auth-toggle a:hover { text-decoration: underline; }
 
-/* ===== LAYOUT ===== */
 .view-section { display: none; padding: 15px; max-width: 1200px; margin: 0 auto; }
 .view-section.active { display: block; animation: fadeIn 0.3s ease; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-/* ===== HOME (ANIMAÇÃO DA FLOR) ===== */
-.home-container {
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  min-height: 80vh; text-align: center;
-}
-.home-logo { 
-  font-size: 3rem; margin-bottom: 10px; 
-  animation: pulseGlow 3s infinite ease-in-out;
-}
+.home-container { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 80vh; text-align: center; }
+.home-logo { font-size: 3rem; margin-bottom: 10px; animation: pulseGlow 3s infinite ease-in-out; }
 @keyframes pulseGlow {
-  0% { 
-    filter: drop-shadow(0 0 8px var(--neon-pink)) drop-shadow(0 0 15px rgba(255, 42, 133, 0.5));
-    transform: scale(1);
-  }
-  50% { 
-    filter: drop-shadow(0 0 15px var(--neon-cyan)) drop-shadow(0 0 25px rgba(0, 229, 255, 0.6));
-    transform: scale(1.08);
-  }
-  100% { 
-    filter: drop-shadow(0 0 8px var(--neon-pink)) drop-shadow(0 0 15px rgba(255, 42, 133, 0.5));
-    transform: scale(1);
-  }
+  0% { filter: drop-shadow(0 0 8px var(--neon-pink)) drop-shadow(0 0 15px rgba(255, 42, 133, 0.5)); transform: scale(1); }
+  50% { filter: drop-shadow(0 0 15px var(--neon-cyan)) drop-shadow(0 0 25px rgba(0, 229, 255, 0.6)); transform: scale(1.08); }
+  100% { filter: drop-shadow(0 0 8px var(--neon-pink)) drop-shadow(0 0 15px rgba(255, 42, 133, 0.5)); transform: scale(1); }
 }
-.home-title {
-  font-size: 2rem;
-  background: linear-gradient(90deg, var(--neon-pink), var(--neon-cyan));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px;
-}
+.home-title { font-size: 2rem; background: linear-gradient(90deg, var(--neon-pink), var(--neon-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; }
 .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; width: 100%; max-width: 800px; }
-.menu-card {
-  background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
-  padding: 25px 20px; cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column;
-  align-items: center; gap: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-}
+.menu-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 25px 20px; cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
 .menu-card:hover { border-color: var(--neon-pink); box-shadow: var(--glow-pink); transform: translateY(-3px); }
-.menu-card .icon { font-size: 2rem; }
-.menu-card .label { font-size: 1.1rem; font-weight: 600; }
-.menu-card .sub { font-size: 0.8rem; color: var(--text-muted); }
+.menu-card .icon { font-size: 2rem; } .menu-card .label { font-size: 1.1rem; font-weight: 600; } .menu-card .sub { font-size: 0.8rem; color: var(--text-muted); }
 .menu-card.danger:hover { border-color: var(--neon-red); box-shadow: 0 0 10px rgba(255,51,102,0.4); }
 
-/* ===== HEADER ===== */
-.dash-header {
-  display: flex; justify-content: space-between; align-items: center;
-  background: var(--bg-card); padding: 10px 15px; border-bottom: 1px solid var(--border);
-  position: sticky; top: 0; z-index: 100;
-}
+.dash-header { display: flex; justify-content: space-between; align-items: center; background: var(--bg-card); padding: 10px 15px; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
 .live-title { display: flex; flex-direction: column; }
 .live-title span { font-size: 0.75rem; color: var(--neon-cyan); text-transform: uppercase; font-weight: bold; }
 .live-title strong { font-size: 1.1rem; color: var(--text-main); }
 
-/* ===== CARDS ===== */
-.card {
-  background: var(--bg-card); border-radius: var(--radius); padding: 15px;
-  margin-bottom: 15px; border: 1px solid var(--border); box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
+.card { background: var(--bg-card); border-radius: var(--radius); padding: 15px; margin-bottom: 15px; border: 1px solid var(--border); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
 
-/* ===== FORM ===== */
 .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
 .form-group { display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px; }
 .form-group label { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; }
-.form-group input, .form-group select, .form-group textarea {
-  padding: 8px; background: #0f1420; border: 1px solid var(--border);
-  border-radius: 8px; color: var(--text-main); font-size: 0.85rem; font-family: inherit;
-}
-.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-  outline: none; border-color: var(--neon-cyan); box-shadow: 0 0 5px rgba(0,229,255,0.3);
-}
+.form-group input:not([type="checkbox"]), .form-group select, .form-group textarea { padding: 8px; background: #0f1420; border: 1px solid var(--border); border-radius: 8px; color: var(--text-main); font-size: 0.85rem; font-family: inherit; }
+.form-group input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--neon-pink); cursor: pointer; }
+.form-group input:not([type="checkbox"]):focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--neon-cyan); box-shadow: 0 0 5px rgba(0,229,255,0.3); }
 .form-group textarea { resize: vertical; min-height: 60px; font-family: inherit; }
 
-/* ===== BOTÕES ===== */
-.btn {
-  border: none; border-radius: 8px; padding: 8px 14px; font-size: 0.8rem; font-weight: 600;
-  cursor: pointer; transition: all 0.2s; font-family: inherit; display: inline-flex;
-  align-items: center; justify-content: center; gap: 5px;
-}
-.btn:active { transform: scale(0.97); }
-.btn:disabled { opacity: 0.6; cursor: not-allowed; }
-.btn-primary { background: var(--neon-pink); color: white; box-shadow: 0 0 8px rgba(255,42,133,0.4); }
-.btn-primary:hover:not(:disabled) { background: #ff4d9a; }
-.btn-secondary { background: transparent; color: var(--text-main); border: 1px solid var(--border); }
-.btn-secondary:hover { background: var(--bg-card-hover); }
+.btn { border: none; border-radius: 8px; padding: 8px 14px; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: inherit; display: inline-flex; align-items: center; justify-content: center; gap: 5px; }
+.btn:active { transform: scale(0.97); } .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.btn-primary { background: var(--neon-pink); color: white; box-shadow: 0 0 8px rgba(255,42,133,0.4); } .btn-primary:hover:not(:disabled) { background: #ff4d9a; }
+.btn-secondary { background: transparent; color: var(--text-main); border: 1px solid var(--border); } .btn-secondary:hover { background: var(--bg-card-hover); }
 .btn-danger { background: var(--neon-red); color: white; }
 .btn-block { width: 100%; margin-top: 10px; padding: 12px; font-size: 0.95rem; }
 .btn-icon { background: none; border: none; cursor: pointer; font-size: 0.9rem; padding: 4px; border-radius: 4px; color: var(--text-muted); }
 .btn-icon:hover { color: var(--text-main); background: var(--border); }
 
-/* ===== TABELAS ===== */
 .table { width: 100%; font-size: 0.8rem; }
 .table-header, .table-row { display: grid; align-items: center; padding: 8px 4px; border-bottom: 1px solid var(--border); gap: 5px; }
 .table-header { font-weight: 700; color: var(--text-muted); font-size: 0.7rem; text-transform: uppercase; border-bottom: 1px solid var(--border); }
-
 #flow-table .table-header, #flow-table .table-row { grid-template-columns: 35px 1fr 1fr 70px 65px; }
 #codes-table .table-header, #codes-table .table-row { grid-template-columns: 1fr 1fr 55px; }
 #gifts-table .table-header, #gifts-table .table-row { grid-template-columns: 55px 30px 1fr 1fr 1fr; }
 #queues-table .table-header, #queues-table .table-row { grid-template-columns: 1fr 1fr 1fr; }
 #summary-table .table-header, #summary-table .table-row { grid-template-columns: 1fr 50px 70px 50px; }
-
 .cell { display: flex; justify-content: space-between; align-items: center; min-width: 0; }
-.cell-content { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.cell-sym { font-size: 0.7rem; opacity: 0.8; }
-.row-cancelled { opacity: 0.5; }
-.row-cancelled .cell-content { text-decoration: line-through; }
-.row-gift { background: rgba(0, 255, 136, 0.05); }
+.cell-content { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .cell-sym { font-size: 0.7rem; opacity: 0.8; }
+.row-cancelled { opacity: 0.5; } .row-cancelled .cell-content { text-decoration: line-through; } .row-gift { background: rgba(0, 255, 136, 0.05); }
 .subtotal-row { font-weight: 700; border-top: 2px solid var(--border); background: rgba(255,255,255,0.02); padding: 10px 4px; }
 
-/* ===== TOTAIS ===== */
 .totals { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }
 .total-box { background: #0f1420; border: 1px solid var(--border); border-radius: 8px; padding: 12px; text-align: center; }
 .total-box span { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 5px; }
 .total-box strong { font-size: 1.1rem; color: var(--neon-cyan); }
 
-/* ===== HISTÓRICO ===== */
 .history-list { display: flex; flex-direction: column; gap: 10px; }
-.history-item {
-  background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
-  padding: 15px; display: flex; justify-content: space-between; align-items: center; transition: border-color 0.2s;
-}
+.history-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 15px; display: flex; justify-content: space-between; align-items: center; transition: border-color 0.2s; }
 .history-item:hover { border-color: var(--neon-cyan); }
-.history-info h3 { font-size: 1rem; margin-bottom: 5px; color: var(--text-main); }
-.history-info p { font-size: 0.75rem; color: var(--text-muted); }
+.history-info h3 { font-size: 1rem; margin-bottom: 5px; color: var(--text-main); } .history-info p { font-size: 0.75rem; color: var(--text-muted); }
 
-/* ===== MODAL ===== */
-.modal-overlay {
-  position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: flex;
-  align-items: center; justify-content: center; z-index: 1000; padding: 15px; backdrop-filter: blur(3px);
-}
-.modal {
-  background: var(--bg-card); border-radius: var(--radius); padding: 20px;
-  width: 100%; max-width: 500px; border: 1px solid var(--border);
-  box-shadow: var(--glow-pink); max-height: 90vh; overflow-y: auto;
-}
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 15px; backdrop-filter: blur(3px); }
+.modal { background: var(--bg-card); border-radius: var(--radius); padding: 20px; width: 100%; max-width: 500px; border: 1px solid var(--border); box-shadow: var(--glow-pink); max-height: 90vh; overflow-y: auto; }
 .modal h3 { margin-bottom: 15px; color: var(--neon-pink); }
 .modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
 .modal-section { border-top: 1px solid var(--border); margin-top: 15px; padding-top: 15px; }
 .modal-section h4 { color: var(--neon-cyan); margin-bottom: 10px; font-size: 0.85rem; }
 
-/* ===== TOAST ===== */
-.toast {
-  position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(20px);
-  background: var(--bg-card); border: 1px solid var(--neon-cyan); color: var(--text-main);
-  padding: 10px 20px; border-radius: 20px; font-size: 0.85rem; font-weight: 600;
-  box-shadow: var(--glow-cyan); opacity: 0; transition: all 0.3s; z-index: 2000; pointer-events: none;
-}
+.toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--bg-card); border: 1px solid var(--neon-cyan); color: var(--text-main); padding: 10px 20px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; box-shadow: var(--glow-cyan); opacity: 0; transition: all 0.3s; z-index: 2000; pointer-events: none; }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-/* ===== GRÁFICOS ===== */
-.chart-container {
-  display: flex; flex-direction: column; gap: 12px;
-  background: #0f1420; border: 1px solid var(--border); border-radius: var(--radius);
-  padding: 15px; margin-bottom: 15px;
-}
+.chart-container { display: flex; flex-direction: column; gap: 12px; background: #0f1420; border: 1px solid var(--border); border-radius: var(--radius); padding: 15px; margin-bottom: 15px; }
 .chart-title { font-size: 0.85rem; color: var(--neon-cyan); font-weight: 600; text-transform: uppercase; margin-bottom: 5px; }
 .chart-row { display: flex; align-items: center; gap: 8px; font-size: 0.75rem; }
 .chart-label { width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text-muted); }
 .chart-bar-wrap { flex: 1; height: 12px; background: var(--border); border-radius: 6px; overflow: hidden; }
-.chart-bar {
-  height: 100%; border-radius: 6px; transition: width 0.5s ease-out;
-  background: linear-gradient(90deg, var(--neon-pink), var(--neon-cyan));
-  box-shadow: 0 0 8px rgba(255,42,133,0.6);
-}
+.chart-bar { height: 100%; border-radius: 6px; transition: width 0.5s ease-out; background: linear-gradient(90deg, var(--neon-pink), var(--neon-cyan)); box-shadow: 0 0 8px rgba(255,42,133,0.6); }
 .chart-val { width: 90px; text-align: right; font-weight: 600; color: var(--text-main); }
 .chart-stats { display: flex; gap: 15px; justify-content: space-between; margin-bottom: 15px; flex-wrap: wrap; }
 .chart-stat-box { background: #0f1420; border: 1px solid var(--border); padding: 10px; border-radius: 8px; flex: 1; min-width: 100px; text-align: center; }
 .chart-stat-box .stat-label { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; }
 .chart-stat-box .stat-value { font-size: 1.1rem; color: var(--neon-green); font-weight: 700; }
 .chart-scroll { max-height: 400px; overflow-y: auto; padding-right: 5px; }
-.chart-scroll::-webkit-scrollbar { width: 6px; }
-.chart-scroll::-webkit-scrollbar-track { background: transparent; }
-.chart-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+.chart-scroll::-webkit-scrollbar { width: 6px; } .chart-scroll::-webkit-scrollbar-track { background: transparent; } .chart-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
 @media (max-width: 400px) {
   #flow-table .table-header, #flow-table .table-row { grid-template-columns: 30px 1fr 1fr 60px 55px; font-size: 0.75rem; }
   #summary-table .table-header, #summary-table .table-row { grid-template-columns: 1fr 40px 60px 40px; font-size: 0.75rem; }
-  .chart-label { width: 70px; font-size: 0.7rem; }
-  .chart-val { width: 75px; font-size: 0.7rem; }
+  .chart-label { width: 70px; font-size: 0.7rem; } .chart-val { width: 75px; font-size: 0.7rem; }
 }
 </style>
 </head>
 <body>
 
-<!-- ==================== LOGIN ==================== -->
 <section id="view-login" class="login-screen">
   <div class="login-card">
     <h2 style="margin-top: 10px;">Lives Control</h2>
     <p class="sub" id="auth-subtitle">Acesse sua conta para gerenciar suas lives</p>
-
     <form id="login-form" onsubmit="event.preventDefault(); realizarLogin();">
-      <div class="form-group">
-        <label>E-mail</label>
-        <input type="email" id="login-email" placeholder="seu@email.com" autocomplete="email" required>
-      </div>
-      <div class="form-group">
-        <label>Senha</label>
-        <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password" required>
-      </div>
+      <div class="form-group"><label>E-mail</label><input type="email" id="login-email" placeholder="seu@email.com" autocomplete="email" required></div>
+      <div class="form-group"><label>Senha</label><input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password" required></div>
       <button type="submit" class="btn btn-primary btn-block" id="login-btn">🔐 Entrar</button>
-      <div id="login-error" class="login-error"></div>
-      <div id="login-loading" class="login-loading" style="display:none;">⏳ Autenticando...</div>
+      <div id="login-error" class="login-error"></div><div id="login-loading" class="login-loading" style="display:none;">⏳ Autenticando...</div>
     </form>
-
     <form id="signup-form" onsubmit="event.preventDefault(); realizarCadastro();" style="display:none;">
-      <div class="form-group">
-        <label>E-mail</label>
-        <input type="email" id="signup-email" placeholder="seu@email.com" autocomplete="email" required>
-      </div>
-      <div class="form-group">
-        <label>Senha (mínimo 6 caracteres)</label>
-        <input type="password" id="signup-password" placeholder="••••••••" autocomplete="new-password" required>
-      </div>
-      <div class="form-group">
-        <label>Confirmar Senha</label>
-        <input type="password" id="signup-password-confirm" placeholder="••••••••" autocomplete="new-password" required>
-      </div>
+      <div class="form-group"><label>E-mail</label><input type="email" id="signup-email" placeholder="seu@email.com" autocomplete="email" required></div>
+      <div class="form-group"><label>Senha (mínimo 6 caracteres)</label><input type="password" id="signup-password" placeholder="••••••••" autocomplete="new-password" required></div>
+      <div class="form-group"><label>Confirmar Senha</label><input type="password" id="signup-password-confirm" placeholder="••••••••" autocomplete="new-password" required></div>
       <button type="submit" class="btn btn-primary btn-block" id="signup-btn">✨ Criar Conta</button>
-      <div id="signup-error" class="login-error"></div>
-      <div id="signup-loading" class="login-loading" style="display:none;">⏳ Criando conta...</div>
+      <div id="signup-error" class="login-error"></div><div id="signup-loading" class="login-loading" style="display:none;">⏳ Criando conta...</div>
     </form>
-
-    <div class="auth-toggle">
-      <span id="toggle-text">Não tem conta?</span>
-      <a id="toggle-link" onclick="event.preventDefault(); toggleAuthMode();">Criar conta</a>
-    </div>
+    <div class="auth-toggle"><span id="toggle-text">Não tem conta?</span> <a id="toggle-link" onclick="event.preventDefault(); toggleAuthMode();">Criar conta</a></div>
   </div>
 </section>
 
-<!-- ==================== APP PRINCIPAL ==================== -->
 <div id="app-main" style="display: none;">
 
-<!-- TELA 1: HOME -->
 <section id="view-home" class="view-section active">
   <div class="home-container">
     <div class="home-logo">🌸</div>
     <h1 class="home-title">Lives Control</h1>
-    <p id="home-store-name" style="color: var(--text-muted); margin-bottom: 30px; font-weight: 600; letter-spacing: 1px;">
-      Configure o nome da loja nas Configurações
-    </p>
-
+    <p id="home-store-name" style="color: var(--text-muted); margin-bottom: 30px; font-weight: 600; letter-spacing: 1px;">Configure o nome da loja nas Configurações</p>
     <div class="menu-grid">
-      <div class="menu-card" onclick="createNewLivePrompt()">
-        <span class="icon">✨</span>
-        <span class="label">Iniciar Nova Live</span>
-        <span class="sub">Começar um novo registro</span>
-      </div>
-      <div class="menu-card" onclick="showView('view-history')">
-        <span class="icon">📁</span>
-        <span class="label">Histórico de Lives</span>
-        <span class="sub">Acessar lives salvas</span>
-      </div>
-      <div class="menu-card" onclick="openSettingsModal()">
-        <span class="icon">⚙️</span>
-        <span class="label">Configurações</span>
-        <span class="sub">Dados e Textos</span>
-      </div>
-      <div class="menu-card danger" onclick="realizarLogout()">
-        <span class="icon">🚪</span>
-        <span class="label">Sair</span>
-        <span class="sub">Encerrar sessão</span>
-      </div>
+      <div class="menu-card" onclick="createNewLivePrompt()"><span class="icon">✨</span><span class="label">Iniciar Nova Live</span><span class="sub">Começar um novo registro</span></div>
+      <div class="menu-card" onclick="showView('view-history')"><span class="icon">📁</span><span class="label">Histórico de Lives</span><span class="sub">Acessar lives salvas</span></div>
+      <div class="menu-card" onclick="openSettingsModal()"><span class="icon">⚙️</span><span class="label">Configurações</span><span class="sub">Dados e Textos</span></div>
+      <div class="menu-card danger" onclick="realizarLogout()"><span class="icon">🚪</span><span class="label">Sair</span><span class="sub">Encerrar sessão</span></div>
     </div>
   </div>
 </section>
 
-<!-- TELA 2: HISTÓRICO -->
 <section id="view-history" class="view-section">
   <div class="dash-header" style="position: relative; margin-bottom: 20px; border-radius: var(--radius); border: 1px solid var(--border);">
-    <div class="live-title">
-      <span>Gerenciamento</span>
-      <strong>Histórico de Lives</strong>
-    </div>
+    <div class="live-title"><span>Gerenciamento</span><strong>Histórico de Lives</strong></div>
     <button class="btn btn-secondary" onclick="showView('view-home')">← Voltar</button>
   </div>
   <div class="history-list" id="history-list"></div>
 </section>
 
-<!-- TELA 3: DASHBOARD -->
 <section id="view-dashboard" class="view-section">
   <div class="dash-header">
-    <div class="live-title">
-      <span>Live Ativa</span>
-      <strong id="dash-live-name">Carregando...</strong>
-    </div>
+    <div class="live-title"><span>Live Ativa</span><strong id="dash-live-name">Carregando...</strong></div>
     <div style="display: flex; gap: 8px;">
       <button class="btn btn-secondary" onclick="showView('view-home')">🏠 Home</button>
       <button class="btn btn-danger" onclick="handleEndLive()">🏁 Encerrar</button>
     </div>
   </div>
-
   <div style="padding-top: 15px;">
     <div class="card">
-      <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 10px;">
+      <div id="deadline-row" style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 10px;">
         <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">⏰ Prazo Pgto:</span>
         <input type="date" id="deadline-date" style="background: #0f1420; border: 1px solid var(--border); color: white; padding: 5px; border-radius: 6px;">
         <input type="time" id="deadline-time" style="background: #0f1420; border: 1px solid var(--border); color: white; padding: 5px; border-radius: 6px;">
@@ -374,16 +205,9 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
           <div class="form-group"><label>Código</label><input type="text" id="f-codigo"></div>
           <div class="form-group"><label>Valor (R$)</label><input type="number" id="f-valor" min="0" step="0.01" placeholder="0,00"></div>
           <div class="form-group"><label>Status</label>
-            <select id="f-status" onchange="toggleOrigemField()">
-              <option value="venda">Venda</option>
-              <option value="cancelada">Cancelada</option>
-              <option value="brinde">Brinde</option>
-            </select>
+            <select id="f-status" onchange="toggleOrigemField()"><option value="venda">Venda</option><option value="cancelada">Cancelada</option><option value="brinde">Brinde</option></select>
           </div>
-          <div class="form-group" id="origem-group" style="display:none">
-            <label>Origem do Brinde</label>
-            <input type="text" id="f-origem" placeholder="Ex: Sorteio...">
-          </div>
+          <div class="form-group" id="origem-group" style="display:none"><label>Origem do Brinde</label><input type="text" id="f-origem" placeholder="Ex: Sorteio..."></div>
           <div class="form-group">
             <label>Fila de Espera (Opcional)</label>
             <input type="text" id="f-fila-1" placeholder="1º da fila" list="clientes-list" style="margin-bottom: 4px;">
@@ -414,7 +238,6 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
   </div>
 </section>
 
-<!-- MODAL EDIÇÃO -->
 <div id="modal-overlay" class="modal-overlay" style="display:none">
   <div class="modal">
     <h3>✏️ Editar Peça</h3>
@@ -426,11 +249,7 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
         <div class="form-group"><label>Código</label><input type="text" id="e-codigo"></div>
         <div class="form-group"><label>Valor</label><input type="number" id="e-valor" step="0.01"></div>
         <div class="form-group"><label>Status</label>
-          <select id="e-status">
-            <option value="venda">Venda</option>
-            <option value="cancelada">Cancelada</option>
-            <option value="brinde">Brinde</option>
-          </select>
+          <select id="e-status"><option value="venda">Venda</option><option value="cancelada">Cancelada</option><option value="brinde">Brinde</option></select>
         </div>
         <div class="form-group"><label>Origem (Se Brinde)</label><input type="text" id="e-origem"></div>
         <div class="form-group">
@@ -452,14 +271,10 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
   </div>
 </div>
 
-<!-- MODAL NOVA LIVE -->
 <div id="modal-new-live" class="modal-overlay" style="display:none">
   <div class="modal">
     <h3>✨ Nova Live</h3>
-    <div class="form-group">
-      <label>Dê um nome para esta live</label>
-      <input type="text" id="new-live-name" placeholder="Ex: Live Coleção Verão" style="margin-top: 5px;">
-    </div>
+    <div class="form-group"><label>Dê um nome para esta live</label><input type="text" id="new-live-name" placeholder="Ex: Live Coleção Verão" style="margin-top: 5px;"></div>
     <div class="modal-actions">
       <button type="button" class="btn btn-secondary" onclick="closeNewLiveModal()">Cancelar</button>
       <button type="button" class="btn btn-primary" onclick="confirmNewLive()">Criar Live</button>
@@ -467,60 +282,58 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
   </div>
 </div>
 
-<!-- MODAL CONFIGURAÇÕES -->
 <div id="modal-settings" class="modal-overlay" style="display:none">
   <div class="modal">
     <h3>⚙️ Configurações</h3>
 
     <div class="modal-section" style="margin-top:0; border:none; padding-top:0;">
       <h4>🏪 Informações da Loja</h4>
-      <div class="form-group">
-        <label>Nome da Loja (aparece na Home e na assinatura dos cards)</label>
-        <input type="text" id="set-loja" placeholder="Ex: Lilika Kids">
-      </div>
-      <div class="form-group">
-        <label>Assinatura final do card</label>
-        <input type="text" id="set-assinatura" placeholder="Ex: Com carinho, 💕">
-      </div>
+      <div class="form-group"><label>Nome da Loja</label><input type="text" id="set-loja" placeholder="Ex: Lilika Kids"></div>
+      <div class="form-group"><label>Assinatura final</label><input type="text" id="set-assinatura" placeholder="Ex: Com carinho, 💕"></div>
     </div>
 
     <div class="modal-section">
-      <h4>💳 Dados Bancários e Pagamento</h4>
+      <h4>💳 Dados Bancários</h4>
+      <div class="form-group"><label>Formas de Pagamento</label><input type="text" id="set-formas" placeholder="Ex: Pix ou link (WhatsApp)"></div>
+      <div class="form-group"><label>Chave Pix</label><input type="text" id="set-pix" placeholder="Ex: email@dominio.com"></div>
+      <div class="form-group"><label>Banco</label><input type="text" id="set-banco" placeholder="Ex: Nubank"></div>
+      <div class="form-group"><label>Nome do Titular</label><input type="text" id="set-nome" placeholder="Ex: Maria Silva"></div>
+    </div>
+
+    <div class="modal-section">
+      <h4>📅 Prazo de Pagamento</h4>
       <div class="form-group">
-        <label>Formas de Pagamento</label>
-        <input type="text" id="set-formas" placeholder="Ex: Pix ou link de pagamento (solicite no WhatsApp)">
+        <label style="display:flex; align-items:center; gap:8px; cursor:pointer; padding:10px; background:#0a0e17; border-radius:8px;">
+          <input type="checkbox" id="set-tem-prazo" onchange="togglePrazoFields()">
+          <span style="font-size:0.8rem; color:var(--text-main); font-weight:600;">Minha loja usa prazo de pagamento nas lives</span>
+        </label>
       </div>
-      <div class="form-group">
-        <label>Chave Pix</label>
-        <input type="text" id="set-pix" placeholder="Ex: email@dominio.com">
-      </div>
-      <div class="form-group">
-        <label>Banco</label>
-        <input type="text" id="set-banco" placeholder="Ex: Nubank">
-      </div>
-      <div class="form-group">
-        <label>Nome do Titular</label>
-        <input type="text" id="set-nome" placeholder="Ex: Maria Silva">
+
+      <div id="prazo-fields" style="display:none;">
+        <div class="form-group">
+          <label>Texto ANTES da data e hora</label>
+          <input type="text" id="set-texto-antes" placeholder="Ex: O prazo de pagamento está liberado até">
+        </div>
+        <div class="form-group">
+          <label>📅 Data e hora (definidas na live — não editáveis aqui)</label>
+          <div style="padding:10px; background:#0a0e17; border-radius:8px; border:1px dashed var(--border); font-size:0.8rem; color:var(--neon-cyan); text-align:center;">
+            <span id="preview-data-hora">⚠️ Defina a data no topo do dashboard da live</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Texto DEPOIS da data e hora</label>
+          <textarea id="set-texto-depois" rows="2" placeholder="Ex: Após esse prazo, as peças ficarão disponíveis novamente."></textarea>
+        </div>
       </div>
     </div>
 
     <div class="modal-section">
       <h4>📝 Textos dos Cards</h4>
+      <div class="form-group"><label>Saudação inicial</label><input type="text" id="set-saudacao" placeholder="Ex: Olá"></div>
+      <div class="form-group"><label>Elogio (se vazio, usa elogios aleatórios)</label><input type="text" id="set-elogio" placeholder="Ex: Que escolha linda"></div>
       <div class="form-group">
-        <label>Saudação inicial</label>
-        <input type="text" id="set-saudacao" placeholder="Ex: Olá">
-      </div>
-      <div class="form-group">
-        <label>Elogio inicial (se vazio, usa elogios aleatórios)</label>
-        <input type="text" id="set-elogio" placeholder="Ex: Que escolha linda">
-      </div>
-      <div class="form-group">
-        <label>Mensagem sobre o prazo (use {hora}, {dia_semana}, {data})</label>
-        <textarea id="set-prazo" rows="3" placeholder="O prazo de pagamento está liberado até as {hora} da {dia_semana}, dia {data}..."></textarea>
-      </div>
-      <div class="form-group">
-        <label>Mensagem de encerramento</label>
-        <input type="text" id="set-mensagem" placeholder="Ex: Fico no aguardo para separarmos o seu pedido com muito carinho! ✨">
+        <label>Mensagem de Encerramento</label>
+        <textarea id="set-mensagem" rows="3" placeholder="Ex: Fico no aguardo para separarmos o seu pedido com muito carinho! ✨"></textarea>
       </div>
     </div>
 
@@ -531,12 +344,10 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
   </div>
 </div>
 
-<!-- TOAST -->
 <div id="toast" class="toast"></div>
 
-</div><!-- /#app-main -->
+</div>
 
-<!-- ==================== FIREBASE MODULE ==================== -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
@@ -562,19 +373,14 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
   window.firebaseReady = true;
 
   window.salvarNoFirestore = async (uid, dados) => {
-    try {
-      await setDoc(doc(db, 'users', uid), dados, { merge: true });
-    } catch (e) {
-      console.error('Erro ao salvar no Firestore:', e);
-    }
+    try { await setDoc(doc(db, 'users', uid), dados, { merge: true }); }
+    catch (e) { console.error('Erro ao salvar no Firestore:', e); }
   };
 
   window.ouvirFirestore = (uid, callback) => {
     return onSnapshot(doc(db, 'users', uid), (snap) => {
       if (snap.exists()) callback(snap.data());
-    }, (error) => {
-      console.error('Erro no listener do Firestore:', error);
-    });
+    }, (error) => { console.error('Erro no listener do Firestore:', error); });
   };
 
   window.currentUserUid = null;
@@ -612,43 +418,28 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
       if (loginBtn) loginBtn.disabled = false;
       if (signupBtn) signupBtn.disabled = false;
       resetAuthMode();
-      if (window._unsubscribeFirestore) {
-        window._unsubscribeFirestore();
-        window._unsubscribeFirestore = null;
-      }
+      if (window._unsubscribeFirestore) { window._unsubscribeFirestore(); window._unsubscribeFirestore = null; }
     }
   });
 </script>
 
-<!-- ==================== APP SCRIPT ==================== -->
 <script>
 let currentStorageKey = null;
-function getStorageKey(uid) { return 'lives_control_v8_' + (uid || 'anon'); }
+function getStorageKey(uid) { return 'lives_control_v9_' + (uid || 'anon'); }
 
 const ALIASES = { 'dany': 'Dani Souza', 'mary': 'Mari', 'renata': 'Renata Alves' };
 const COMPLIMENTS = ['Que escolha linda', 'Você tem um gosto maravilhoso', 'Suas peças ficaram perfeitas', 'Adorei cada escolha sua', 'Que pedido mais fofo', 'Você arrasou nas escolhas'];
 
-let appState = {
-  lives: [],
-  activeLiveId: null,
-  settings: {
-    loja: '',
-    assinatura: '',
-    formas: '',
-    pix: '',
-    banco: '',
-    nome: '',
-    saudacao: 'Olá',
-    elogio: '',
-    prazo: '',
-    mensagem: ''
-  }
+const DEFAULT_SETTINGS = {
+  loja: '', assinatura: '', formas: '', pix: '', banco: '', nome: '',
+  saudacao: 'Olá', elogio: '', temPrazo: true, textoAntes: '', textoDepois: '', mensagem: ''
 };
+
+let appState = { lives: [], activeLiveId: null, settings: { ...DEFAULT_SETTINGS } };
 let filterText = '';
 let editingNumber = null;
 let firestoreInitialized = false;
 
-/* ---------- UTILS ---------- */
 function formatCurrency(v) { return 'R$ ' + (Number(v)||0).toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
 function escapeHtml(str) { return String(str||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]); }
 function applyAlias(name) { const t = String(name||'').trim(); return ALIASES[t.toLowerCase()] || t; }
@@ -662,14 +453,12 @@ function fallbackCopy(text) {
   try { const ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.left = '-9999px'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); return true; } catch(e) { return false; }
 }
 
-/* ---------- AUTH ---------- */
 function toggleAuthMode() {
   const loginForm = document.getElementById('login-form');
   const signupForm = document.getElementById('signup-form');
   const toggleText = document.getElementById('toggle-text');
   const toggleLink = document.getElementById('toggle-link');
   const subtitle = document.getElementById('auth-subtitle');
-
   if (loginForm.style.display === 'none') {
     loginForm.style.display = 'block'; signupForm.style.display = 'none';
     toggleText.textContent = 'Não tem conta?'; toggleLink.textContent = 'Criar conta';
@@ -680,14 +469,12 @@ function toggleAuthMode() {
     subtitle.textContent = 'Crie sua conta para começar';
   }
 }
-
 function resetAuthMode() {
   const loginForm = document.getElementById('login-form');
   const signupForm = document.getElementById('signup-form');
   const toggleText = document.getElementById('toggle-text');
   const toggleLink = document.getElementById('toggle-link');
   const subtitle = document.getElementById('auth-subtitle');
-
   if (loginForm) loginForm.style.display = 'block';
   if (signupForm) signupForm.style.display = 'none';
   if (toggleText) toggleText.textContent = 'Não tem conta?';
@@ -701,39 +488,24 @@ function realizarLogin() {
   const errorEl = document.getElementById('login-error');
   const loadingEl = document.getElementById('login-loading');
   const btn = document.getElementById('login-btn');
-
   errorEl.style.display = 'none';
-
-  if (!window.firebaseLogin) {
-    errorEl.textContent = '⚠️ Firebase não carregado.';
-    errorEl.style.display = 'block';
-    return;
-  }
-
-  loadingEl.style.display = 'block';
-  btn.disabled = true;
-
-  window.firebaseLogin(email, senha)
-    .then(() => {
-      loadingEl.style.display = 'none';
-      btn.disabled = false;
-      document.getElementById('login-password').value = '';
-    })
-    .catch((error) => {
-      loadingEl.style.display = 'none';
-      btn.disabled = false;
-      let msg = 'Erro ao fazer login.';
-      if (error.code === 'auth/user-not-found') msg = '❌ Usuário não encontrado.';
-      else if (error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') msg = '❌ Senha incorreta.';
-      else if (error.code === 'auth/invalid-email') msg = '❌ E-mail inválido.';
-      else if (error.code === 'auth/too-many-requests') msg = '❌ Muitas tentativas. Tente mais tarde.';
-      else if (error.code === 'auth/network-request-failed') msg = '❌ Erro de rede.';
-      else if (error.code === 'auth/operation-not-allowed') msg = '❌ Login por e-mail não ativado.';
-      errorEl.textContent = msg;
-      errorEl.style.display = 'block';
-    });
+  if (!window.firebaseLogin) { errorEl.textContent = '⚠️ Firebase não carregado.'; errorEl.style.display = 'block'; return; }
+  loadingEl.style.display = 'block'; btn.disabled = true;
+  window.firebaseLogin(email, senha).then(() => {
+    loadingEl.style.display = 'none'; btn.disabled = false;
+    document.getElementById('login-password').value = '';
+  }).catch((error) => {
+    loadingEl.style.display = 'none'; btn.disabled = false;
+    let msg = 'Erro ao fazer login.';
+    if (error.code === 'auth/user-not-found') msg = '❌ Usuário não encontrado.';
+    else if (error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') msg = '❌ Senha incorreta.';
+    else if (error.code === 'auth/invalid-email') msg = '❌ E-mail inválido.';
+    else if (error.code === 'auth/too-many-requests') msg = '❌ Muitas tentativas.';
+    else if (error.code === 'auth/network-request-failed') msg = '❌ Erro de rede.';
+    else if (error.code === 'auth/operation-not-allowed') msg = '❌ Login por e-mail não ativado.';
+    errorEl.textContent = msg; errorEl.style.display = 'block';
+  });
 }
-
 function realizarCadastro() {
   const email = document.getElementById('signup-email').value.trim();
   const senha = document.getElementById('signup-password').value;
@@ -741,76 +513,45 @@ function realizarCadastro() {
   const errorEl = document.getElementById('signup-error');
   const loadingEl = document.getElementById('signup-loading');
   const btn = document.getElementById('signup-btn');
-
   errorEl.style.display = 'none';
-
-  if (!window.firebaseSignup) {
-    errorEl.textContent = '⚠️ Firebase não carregado.';
-    errorEl.style.display = 'block';
-    return;
-  }
-
-  if (senha.length < 6) {
-    errorEl.textContent = '❌ A senha deve ter no mínimo 6 caracteres.';
-    errorEl.style.display = 'block';
-    return;
-  }
-
-  if (senha !== confirm) {
-    errorEl.textContent = '❌ As senhas não coincidem.';
-    errorEl.style.display = 'block';
-    return;
-  }
-
-  loadingEl.style.display = 'block';
-  btn.disabled = true;
-
-  window.firebaseSignup(email, senha)
-    .then(() => {
-      loadingEl.style.display = 'none';
-      btn.disabled = false;
-      document.getElementById('signup-password').value = '';
-      document.getElementById('signup-password-confirm').value = '';
-      document.getElementById('signup-email').value = '';
-      toast('✅ Conta criada com sucesso!');
-    })
-    .catch((error) => {
-      loadingEl.style.display = 'none';
-      btn.disabled = false;
-      let msg = 'Erro ao criar conta.';
-      if (error.code === 'auth/email-already-in-use') msg = '❌ E-mail já cadastrado. Faça login.';
-      else if (error.code === 'auth/invalid-email') msg = '❌ E-mail inválido.';
-      else if (error.code === 'auth/weak-password') msg = '❌ Senha muito fraca.';
-      else if (error.code === 'auth/network-request-failed') msg = '❌ Erro de rede.';
-      else if (error.code === 'auth/operation-not-allowed') msg = '❌ Cadastro desativado no Firebase.';
-      else if (error.code === 'auth/unauthorized-domain') msg = '❌ Domínio não autorizado no Firebase.';
-      errorEl.textContent = msg;
-      errorEl.style.display = 'block';
-    });
+  if (!window.firebaseSignup) { errorEl.textContent = '⚠️ Firebase não carregado.'; errorEl.style.display = 'block'; return; }
+  if (senha.length < 6) { errorEl.textContent = '❌ A senha deve ter no mínimo 6 caracteres.'; errorEl.style.display = 'block'; return; }
+  if (senha !== confirm) { errorEl.textContent = '❌ As senhas não coincidem.'; errorEl.style.display = 'block'; return; }
+  loadingEl.style.display = 'block'; btn.disabled = true;
+  window.firebaseSignup(email, senha).then(() => {
+    loadingEl.style.display = 'none'; btn.disabled = false;
+    document.getElementById('signup-password').value = '';
+    document.getElementById('signup-password-confirm').value = '';
+    document.getElementById('signup-email').value = '';
+    toast('✅ Conta criada com sucesso!');
+  }).catch((error) => {
+    loadingEl.style.display = 'none'; btn.disabled = false;
+    let msg = 'Erro ao criar conta.';
+    if (error.code === 'auth/email-already-in-use') msg = '❌ E-mail já cadastrado. Faça login.';
+    else if (error.code === 'auth/invalid-email') msg = '❌ E-mail inválido.';
+    else if (error.code === 'auth/weak-password') msg = '❌ Senha muito fraca.';
+    else if (error.code === 'auth/network-request-failed') msg = '❌ Erro de rede.';
+    else if (error.code === 'auth/operation-not-allowed') msg = '❌ Cadastro desativado no Firebase.';
+    else if (error.code === 'auth/unauthorized-domain') msg = '❌ Domínio não autorizado.';
+    errorEl.textContent = msg; errorEl.style.display = 'block';
+  });
 }
-
 function realizarLogout() {
   if (!window.firebaseLogout) return;
   if (!confirm('Deseja sair da conta?')) return;
   window.firebaseLogout().then(() => toast('👋 Você saiu da conta')).catch(() => toast('❌ Erro ao sair'));
 }
 
-/* ---------- PERSISTÊNCIA ---------- */
 async function saveState() {
   const key = currentStorageKey || getStorageKey(window.currentUserUid);
   try { localStorage.setItem(key, JSON.stringify(appState)); } catch (e) {}
-
   if (window.currentUserUid && window.salvarNoFirestore) {
     try {
       await window.salvarNoFirestore(window.currentUserUid, {
-        lives: appState.lives,
-        activeLiveId: appState.activeLiveId,
-        settings: appState.settings,
-        updatedAt: new Date().toISOString()
+        lives: appState.lives, activeLiveId: appState.activeLiveId,
+        settings: appState.settings, updatedAt: new Date().toISOString()
       });
-    } catch (e) {
-      console.warn('Erro ao salvar no Firestore:', e);
-    }
+    } catch (e) { console.warn('Erro ao salvar no Firestore:', e); }
   }
 }
 
@@ -822,17 +563,7 @@ function loadLocalState(uid) {
       const parsed = JSON.parse(raw);
       if (parsed && Array.isArray(parsed.lives)) {
         appState = parsed;
-        if (!appState.settings) {
-          appState.settings = { loja: '', assinatura: '', formas: '', pix: '', banco: '', nome: '', saudacao: 'Olá', elogio: '', prazo: '', mensagem: '' };
-        } else {
-          // Garante campos novos
-          if (appState.settings.loja === undefined) appState.settings.loja = '';
-          if (appState.settings.assinatura === undefined) appState.settings.assinatura = '';
-          if (appState.settings.saudacao === undefined) appState.settings.saudacao = 'Olá';
-          if (appState.settings.elogio === undefined) appState.settings.elogio = '';
-          if (appState.settings.prazo === undefined) appState.settings.prazo = '';
-          if (appState.settings.mensagem === undefined) appState.settings.mensagem = '';
-        }
+        appState.settings = Object.assign({ ...DEFAULT_SETTINGS }, parsed.settings || {});
         return true;
       }
     }
@@ -840,76 +571,45 @@ function loadLocalState(uid) {
   return false;
 }
 
-/* ---------- LOGIN INICIAL ---------- */
 function onUserLoggedIn(uid) {
   currentStorageKey = getStorageKey(uid);
   firestoreInitialized = false;
-
-  appState = {
-    lives: [],
-    activeLiveId: null,
-    settings: { loja: '', assinatura: '', formas: '', pix: '', banco: '', nome: '', saudacao: 'Olá', elogio: '', prazo: '', mensagem: '' }
-  };
-
+  appState = { lives: [], activeLiveId: null, settings: { ...DEFAULT_SETTINGS } };
   loadLocalState(uid);
-
   if (window.ouvirFirestore && !firestoreInitialized) {
     firestoreInitialized = true;
     window._unsubscribeFirestore = window.ouvirFirestore(uid, (dados) => {
       if (dados) {
         appState.lives = dados.lives || [];
         appState.activeLiveId = dados.activeLiveId || null;
-        if (dados.settings) {
-          appState.settings = Object.assign(
-            { loja: '', assinatura: '', formas: '', pix: '', banco: '', nome: '', saudacao: 'Olá', elogio: '', prazo: '', mensagem: '' },
-            dados.settings
-          );
-        }
+        if (dados.settings) appState.settings = Object.assign({ ...DEFAULT_SETTINGS }, dados.settings);
         try { localStorage.setItem(currentStorageKey, JSON.stringify(appState)); } catch(e) {}
-
-        if (!appState.activeLiveId || !getActiveLive()) {
-          showView('view-home');
-        } else if (document.getElementById('view-dashboard').classList.contains('active')) {
-          renderDashboard();
-        } else if (document.getElementById('view-history').classList.contains('active')) {
-          renderHistory();
-        }
+        if (!appState.activeLiveId || !getActiveLive()) showView('view-home');
+        else if (document.getElementById('view-dashboard').classList.contains('active')) renderDashboard();
+        else if (document.getElementById('view-history').classList.contains('active')) renderHistory();
       }
     });
   }
-
-  if (!appState.activeLiveId || !getActiveLive()) {
-    showView('view-home');
-  } else {
-    showView('view-dashboard');
-  }
-
+  if (!appState.activeLiveId || !getActiveLive()) showView('view-home');
+  else showView('view-dashboard');
   toast('☁️ Sincronização ativa!');
 }
 
-/* ---------- NAVEGAÇÃO ---------- */
 function showView(viewId) {
   document.querySelectorAll('#app-main .view-section').forEach(el => el.classList.remove('active'));
-  const target = document.getElementById(viewId);
-  if (target) target.classList.add('active');
-
+  const target = document.getElementById(viewId); if (target) target.classList.add('active');
   if (viewId === 'view-history') renderHistory();
   if (viewId === 'view-dashboard') renderDashboard();
   if (viewId === 'view-home') {
     const storeEl = document.getElementById('home-store-name');
     if (storeEl) {
-      if (appState.settings.loja && appState.settings.loja.trim()) {
-        storeEl.textContent = appState.settings.loja;
-      } else {
-        storeEl.textContent = 'Configure o nome da loja nas Configurações';
-      }
+      if (appState.settings.loja && appState.settings.loja.trim()) storeEl.textContent = appState.settings.loja;
+      else storeEl.textContent = 'Configure o nome da loja nas Configurações';
     }
   }
 }
 
-/* ---------- LIVES ---------- */
 function getActiveLive() { return appState.lives.find(l => l.id === appState.activeLiveId); }
-
 function createNewLivePrompt() { document.getElementById('new-live-name').value = ''; document.getElementById('modal-new-live').style.display = 'flex'; }
 function closeNewLiveModal() { document.getElementById('modal-new-live').style.display = 'none'; }
 function confirmNewLive() {
@@ -918,10 +618,7 @@ function confirmNewLive() {
     const newLive = { id: 'live_' + Date.now(), name, date: new Date().toISOString(), deadline: { date: '', time: '18:00' }, records: [], nextNumber: 1 };
     appState.lives.push(newLive);
     appState.activeLiveId = newLive.id;
-    saveState();
-    closeNewLiveModal();
-    showView('view-dashboard');
-    toast('✨ Live iniciada!');
+    saveState(); closeNewLiveModal(); showView('view-dashboard'); toast('✨ Live iniciada!');
   } catch (e) { toast('❌ Erro: ' + e.message); }
 }
 function loadLive(id) { appState.activeLiveId = id; saveState(); showView('view-dashboard'); }
@@ -933,34 +630,20 @@ function deleteLive(id, event) {
   saveState(); renderHistory(); toast('🗑️ Apagada');
 }
 
-/* ---------- HISTÓRICO ---------- */
 function renderHistory() {
-  const container = document.getElementById('history-list');
-  if (!container) return;
-  if (appState.lives.length === 0) {
-    container.innerHTML = '<div style="text-align:center; color:var(--text-muted); padding:30px;">Nenhuma live salva.</div>';
-    return;
-  }
+  const container = document.getElementById('history-list'); if (!container) return;
+  if (appState.lives.length === 0) { container.innerHTML = '<div style="text-align:center; color:var(--text-muted); padding:30px;">Nenhuma live salva.</div>'; return; }
   container.innerHTML = '';
   const sorted = [...appState.lives].sort((a,b) => new Date(b.date) - new Date(a.date));
   sorted.forEach(live => {
     const total = live.records.filter(r => r.status === 'venda').reduce((s, r) => s + r.valor, 0);
     const div = document.createElement('div');
     div.className = 'history-item';
-    div.innerHTML = `
-      <div class="history-info" onclick="loadLive('${live.id}')" style="flex:1; cursor:pointer;">
-        <h3>${escapeHtml(live.name)}</h3>
-        <p>📅 ${new Date(live.date).toLocaleDateString('pt-BR')} | 💰 ${formatCurrency(total)}</p>
-      </div>
-      <div style="display:flex; gap:5px;">
-        <button class="btn btn-secondary" onclick="loadLive('${live.id}')">Abrir</button>
-        <button class="btn-icon" onclick="deleteLive('${live.id}', event)" style="color:var(--neon-red); font-size:1.2rem;">🗑️</button>
-      </div>`;
+    div.innerHTML = `<div class="history-info" onclick="loadLive('${live.id}')" style="flex:1; cursor:pointer;"><h3>${escapeHtml(live.name)}</h3><p>📅 ${new Date(live.date).toLocaleDateString('pt-BR')} | 💰 ${formatCurrency(total)}</p></div><div style="display:flex; gap:5px;"><button class="btn btn-secondary" onclick="loadLive('${live.id}')">Abrir</button><button class="btn-icon" onclick="deleteLive('${live.id}', event)" style="color:var(--neon-red); font-size:1.2rem;">🗑️</button></div>`;
     container.appendChild(div);
   });
 }
 
-/* ---------- DASHBOARD ---------- */
 function renderDashboard() {
   const live = getActiveLive();
   if (!live) { showView('view-home'); return; }
@@ -968,10 +651,11 @@ function renderDashboard() {
   document.getElementById('dash-live-name').textContent = live.name;
   document.getElementById('deadline-date').value = live.deadline.date;
   document.getElementById('deadline-time').value = live.deadline.time;
-  renderPaymentSettings();
-  renderTables();
-  updateFormNumber();
-  updateDatalists();
+  
+  const temPrazo = appState.settings.temPrazo !== false;
+  document.getElementById('deadline-row').style.display = temPrazo ? 'flex' : 'none';
+  
+  renderPaymentSettings(); renderTables(); updateFormNumber(); updateDatalists();
   document.getElementById('results-section').style.display = 'none';
 }
 
@@ -998,7 +682,6 @@ function saveDeadline() {
   saveState(); toast('⏰ Prazo atualizado');
 }
 
-/* ---------- TABELAS ---------- */
 function getFilteredRecords() {
   const live = getActiveLive(); if (!live) return [];
   return live.records.filter(r => !filterText || r.cliente.toLowerCase().includes(filterText.toLowerCase())).sort((a,b) => a.numero - b.numero);
@@ -1017,24 +700,11 @@ function renderTables() {
       let valor = r.status === 'brinde' ? formatCurrency(0) : (r.valor > 0 ? formatCurrency(r.valor) : 'Sem valor');
       const row = document.createElement('div');
       row.className = 'table-row ' + rowClass;
-      row.innerHTML = `
-        <div class="cell"><span class="cell-content">${r.numero}</span><span class="cell-sym">${sym}</span></div>
-        <div class="cell"><span class="cell-content">${escapeHtml(r.cliente)}</span><span class="cell-sym">${sym}</span></div>
-        <div class="cell"><span class="cell-content">${escapeHtml(r.tipoPeca)}</span><span class="cell-sym">${sym}</span></div>
-        <div class="cell"><span class="cell-content">${valor}</span></div>
-        <div class="actions" style="display:flex; justify-content:flex-end;">
-          <button class="btn-icon" onclick="openEdit(${r.numero})">✏️</button>
-          <button class="btn-icon" onclick="deleteRecord(${r.numero})">🗑️</button>
-        </div>`;
+      row.innerHTML = `<div class="cell"><span class="cell-content">${r.numero}</span><span class="cell-sym">${sym}</span></div><div class="cell"><span class="cell-content">${escapeHtml(r.cliente)}</span><span class="cell-sym">${sym}</span></div><div class="cell"><span class="cell-content">${escapeHtml(r.tipoPeca)}</span><span class="cell-sym">${sym}</span></div><div class="cell"><span class="cell-content">${valor}</span></div><div class="actions" style="display:flex; justify-content:flex-end;"><button class="btn-icon" onclick="openEdit(${r.numero})">✏️</button><button class="btn-icon" onclick="deleteRecord(${r.numero})">🗑️</button></div>`;
       flowBody.appendChild(row);
     });
     const totalVendas = records.filter(r => r.status === 'venda').reduce((s,r) => s + r.valor, 0);
-    flowBody.innerHTML += `<div class="table-row subtotal-row">
-      <div class="cell"><span class="cell-content">SBTL</span></div>
-      <div class="cell"><span class="cell-content">💶</span></div>
-      <div class="cell"><span class="cell-content">💶</span></div>
-      <div class="cell"><span class="cell-content" style="color:var(--neon-cyan)">${formatCurrency(totalVendas)} 💶</span></div>
-      <div></div></div>`;
+    flowBody.innerHTML += `<div class="table-row subtotal-row"><div class="cell"><span class="cell-content">SBTL</span></div><div class="cell"><span class="cell-content">💶</span></div><div class="cell"><span class="cell-content">💶</span></div><div class="cell"><span class="cell-content" style="color:var(--neon-cyan)">${formatCurrency(totalVendas)} 💶</span></div><div></div></div>`;
   }
 
   const codesBody = document.getElementById('codes-body');
@@ -1042,34 +712,20 @@ function renderTables() {
     codesBody.innerHTML = records.map(r => {
       const sym = r.status === 'venda' ? '●' : r.status === 'cancelada' ? '🔻' : '🎁';
       const code = r.status === 'brinde' ? 'brinde' : (r.codigo || '—');
-      return `<div class="table-row ${r.status==='cancelada'?'row-cancelled':''}">
-        <div class="cell"><span class="cell-content">${escapeHtml(code)}</span><span class="cell-sym">${sym}</span></div>
-        <div class="cell"><span class="cell-content">${r.numero}</span><span class="cell-sym">${sym}</span></div><div></div></div>`;
+      return `<div class="table-row ${r.status==='cancelada'?'row-cancelled':''}"><div class="cell"><span class="cell-content">${escapeHtml(code)}</span><span class="cell-sym">${sym}</span></div><div class="cell"><span class="cell-content">${r.numero}</span><span class="cell-sym">${sym}</span></div><div></div></div>`;
     }).join('') || '<div style="padding:10px; color:var(--text-muted); text-align:center;">Sem registros</div>';
   }
 
   const giftsBody = document.getElementById('gifts-body');
   if (giftsBody) {
     const gifts = records.filter(r => r.status === 'brinde');
-    giftsBody.innerHTML = gifts.map((g, i) => `
-      <div class="table-row">
-        <div class="cell"><span class="cell-content">Brinde #${i+1}</span></div>
-        <div class="cell"><span class="cell-content">${g.numero}</span></div>
-        <div class="cell"><span class="cell-content">${escapeHtml(g.cliente)}</span></div>
-        <div class="cell"><span class="cell-content">${escapeHtml(g.tipoPeca)}</span></div>
-        <div class="cell"><span class="cell-content">${escapeHtml(g.origemBrinde||'')}</span></div>
-      </div>`).join('') || '<div style="padding:10px; color:var(--text-muted); text-align:center;">Sem brindes</div>';
+    giftsBody.innerHTML = gifts.map((g, i) => `<div class="table-row"><div class="cell"><span class="cell-content">Brinde #${i+1}</span></div><div class="cell"><span class="cell-content">${g.numero}</span></div><div class="cell"><span class="cell-content">${escapeHtml(g.cliente)}</span></div><div class="cell"><span class="cell-content">${escapeHtml(g.tipoPeca)}</span></div><div class="cell"><span class="cell-content">${escapeHtml(g.origemBrinde||'')}</span></div></div>`).join('') || '<div style="padding:10px; color:var(--text-muted); text-align:center;">Sem brindes</div>';
   }
 
   const queuesBody = document.getElementById('queues-body');
   if (queuesBody) {
     const queues = records.filter(r => r.fila && r.fila.length > 0);
-    queuesBody.innerHTML = queues.map(q => `
-      <div class="table-row">
-        <div class="cell"><span class="cell-content">${escapeHtml(q.tipoPeca)}</span></div>
-        <div class="cell"><span class="cell-content">${escapeHtml(q.cliente)}</span></div>
-        <div class="cell"><span class="cell-content">${escapeHtml(q.fila.join(' | '))}</span></div>
-      </div>`).join('') || '<div style="padding:10px; color:var(--text-muted); text-align:center;">Sem filas</div>';
+    queuesBody.innerHTML = queues.map(q => `<div class="table-row"><div class="cell"><span class="cell-content">${escapeHtml(q.tipoPeca)}</span></div><div class="cell"><span class="cell-content">${escapeHtml(q.cliente)}</span></div><div class="cell"><span class="cell-content">${escapeHtml(q.fila.join(' | '))}</span></div></div>`).join('') || '<div style="padding:10px; color:var(--text-muted); text-align:center;">Sem filas</div>';
   }
 
   const summaryBody = document.getElementById('summary-body');
@@ -1082,13 +738,7 @@ function renderTables() {
       if (r.status === 'brinde') sumMap[r.cliente].g++;
     });
     const sumArr = Object.keys(sumMap).map(k => ({ n: k, ...sumMap[k] })).sort((a,b) => b.t - a.t);
-    summaryBody.innerHTML = sumArr.map(s => `
-      <div class="table-row">
-        <div class="cell"><span class="cell-content">${escapeHtml(s.n)}</span></div>
-        <div class="cell"><span class="cell-content">${s.c}</span></div>
-        <div class="cell"><span class="cell-content">${formatCurrency(s.t)}</span></div>
-        <div class="cell"><span class="cell-content">${s.g}</span></div>
-      </div>`).join('') || '<div style="padding:10px; color:var(--text-muted); text-align:center;">Sem clientes</div>';
+    summaryBody.innerHTML = sumArr.map(s => `<div class="table-row"><div class="cell"><span class="cell-content">${escapeHtml(s.n)}</span></div><div class="cell"><span class="cell-content">${s.c}</span></div><div class="cell"><span class="cell-content">${formatCurrency(s.t)}</span></div><div class="cell"><span class="cell-content">${s.g}</span></div></div>`).join('') || '<div style="padding:10px; color:var(--text-muted); text-align:center;">Sem clientes</div>';
   }
 
   const totalsArea = document.getElementById('totals-area');
@@ -1098,22 +748,15 @@ function renderTables() {
     const canc = records.filter(r => r.status === 'cancelada').length;
     const bri = records.filter(r => r.status === 'brinde').length;
     const fil = records.filter(r => r.fila && r.fila.length > 0).length;
-    totalsArea.innerHTML = `
-      <div class="total-box"><span>Vendido</span><strong>${formatCurrency(vendido)}</strong></div>
-      <div class="total-box"><span>Reg. c/ Valor</span><strong>${comVal}</strong></div>
-      <div class="total-box"><span>Canceladas</span><strong>${canc}</strong></div>
-      <div class="total-box"><span>Brindes</span><strong>${bri}</strong></div>
-      <div class="total-box"><span>Filas</span><strong>${fil}</strong></div>`;
+    totalsArea.innerHTML = `<div class="total-box"><span>Vendido</span><strong>${formatCurrency(vendido)}</strong></div><div class="total-box"><span>Reg. c/ Valor</span><strong>${comVal}</strong></div><div class="total-box"><span>Canceladas</span><strong>${canc}</strong></div><div class="total-box"><span>Brindes</span><strong>${bri}</strong></div><div class="total-box"><span>Filas</span><strong>${fil}</strong></div>`;
   }
 }
 
-/* ---------- FORMULÁRIO ---------- */
 function toggleOrigemField() {
   const status = document.getElementById('f-status').value;
   document.getElementById('origem-group').style.display = status === 'brinde' ? 'flex' : 'none';
   const valInput = document.getElementById('f-valor');
-  if (status === 'brinde') { valInput.disabled = true; valInput.value = ''; }
-  else { valInput.disabled = false; }
+  if (status === 'brinde') { valInput.disabled = true; valInput.value = ''; } else { valInput.disabled = false; }
 }
 function updateFormNumber() {
   const live = getActiveLive(); if (!live) return;
@@ -1121,23 +764,15 @@ function updateFormNumber() {
   document.getElementById('f-numero').value = maxNum + 1;
 }
 function updateDatalists() {
-  const clientes = new Set();
-  const tipos = new Set();
-  appState.lives.forEach(live => {
-    live.records.forEach(r => {
-      if (r.cliente) clientes.add(r.cliente);
-      if (r.tipoPeca) tipos.add(r.tipoPeca);
-    });
-  });
+  const clientes = new Set(); const tipos = new Set();
+  appState.lives.forEach(live => { live.records.forEach(r => { if (r.cliente) clientes.add(r.cliente); if (r.tipoPeca) tipos.add(r.tipoPeca); }); });
   document.getElementById('clientes-list').innerHTML = [...clientes].sort().map(n => `<option value="${escapeHtml(n)}">`).join('');
   document.getElementById('tipos-list').innerHTML = [...tipos].sort().map(n => `<option value="${escapeHtml(n)}">`).join('');
 }
 
 function registrarVenda() {
   try {
-    const live = getActiveLive();
-    if (!live) { toast('Nenhuma live ativa'); return; }
-
+    const live = getActiveLive(); if (!live) { toast('Nenhuma live ativa'); return; }
     const num = parseInt(document.getElementById('f-numero').value, 10);
     let cli = applyAlias(document.getElementById('f-cliente').value);
     const tipo = document.getElementById('f-tipo').value.trim();
@@ -1145,124 +780,77 @@ function registrarVenda() {
     const status = document.getElementById('f-status').value;
     let val = parseFloat(document.getElementById('f-valor').value) || 0;
     let orig = document.getElementById('f-origem').value.trim() || null;
-
-    const fila1 = applyAlias(document.getElementById('f-fila-1').value);
-    const fila2 = applyAlias(document.getElementById('f-fila-2').value);
-    const fila3 = applyAlias(document.getElementById('f-fila-3').value);
+    const fila1 = applyAlias(document.getElementById('f-fila-1').value); const fila2 = applyAlias(document.getElementById('f-fila-2').value); const fila3 = applyAlias(document.getElementById('f-fila-3').value);
     let fila = [fila1, fila2, fila3].filter(Boolean);
-
     if (!num || num < 1) { toast('Número inválido'); return; }
     if (!cli) { toast('Cliente obrigatório'); return; }
     if (!tipo) { toast('Tipo obrigatório'); return; }
     if (live.records.some(r => r.numero === num)) { toast('Nº já existe'); return; }
-
     if (status === 'brinde') { val = 0; if (!orig) orig = 'Brinde'; } else { orig = null; }
-
     live.records.push({ numero: num, cliente: cli, tipoPeca: tipo, codigo: cod, valor: val, status, origemBrinde: orig, fila });
     saveState(); renderTables(); updateFormNumber(); updateDatalists();
-
-    document.getElementById('f-cliente').value = '';
-    document.getElementById('f-tipo').value = '';
-    document.getElementById('f-codigo').value = '';
-    document.getElementById('f-valor').value = '';
-    document.getElementById('f-fila-1').value = '';
-    document.getElementById('f-fila-2').value = '';
-    document.getElementById('f-fila-3').value = '';
-    document.getElementById('f-origem').value = '';
-    document.getElementById('f-status').value = 'venda';
-    toggleOrigemField();
-    document.getElementById('f-cliente').focus();
-
+    document.getElementById('f-cliente').value = ''; document.getElementById('f-tipo').value = ''; document.getElementById('f-codigo').value = ''; document.getElementById('f-valor').value = ''; document.getElementById('f-fila-1').value = ''; document.getElementById('f-fila-2').value = ''; document.getElementById('f-fila-3').value = ''; document.getElementById('f-origem').value = ''; document.getElementById('f-status').value = 'venda'; toggleOrigemField(); document.getElementById('f-cliente').focus();
     toast('✅ Peça #' + num + ' registrada!');
   } catch (e) { toast('❌ Erro: ' + e.message); }
 }
 
-/* ---------- EDITAR / EXCLUIR ---------- */
 function openEdit(num) {
-  const live = getActiveLive(); if (!live) return;
-  const r = live.records.find(x => x.numero === num); if (!r) return;
+  const live = getActiveLive(); if (!live) return; const r = live.records.find(x => x.numero === num); if (!r) return;
   editingNumber = num;
-  document.getElementById('e-numero').value = r.numero;
-  document.getElementById('e-cliente').value = r.cliente;
-  document.getElementById('e-tipo').value = r.tipoPeca;
-  document.getElementById('e-codigo').value = r.codigo;
-  document.getElementById('e-valor').value = r.valor;
-  document.getElementById('e-status').value = r.status;
-  document.getElementById('e-origem').value = r.origemBrinde || '';
-  document.getElementById('e-fila-1').value = r.fila[0] || '';
-  document.getElementById('e-fila-2').value = r.fila[1] || '';
-  document.getElementById('e-fila-3').value = r.fila[2] || '';
+  document.getElementById('e-numero').value = r.numero; document.getElementById('e-cliente').value = r.cliente; document.getElementById('e-tipo').value = r.tipoPeca; document.getElementById('e-codigo').value = r.codigo; document.getElementById('e-valor').value = r.valor; document.getElementById('e-status').value = r.status; document.getElementById('e-origem').value = r.origemBrinde || '';
+  document.getElementById('e-fila-1').value = r.fila[0] || ''; document.getElementById('e-fila-2').value = r.fila[1] || ''; document.getElementById('e-fila-3').value = r.fila[2] || '';
   document.getElementById('promote-section').style.display = (r.fila && r.fila.length > 0) ? 'block' : 'none';
   document.getElementById('modal-overlay').style.display = 'flex';
 }
-
 function promoverFilaEdicao() {
-  const fila1 = document.getElementById('e-fila-1').value.trim();
-  const fila2 = document.getElementById('e-fila-2').value.trim();
-  const fila3 = document.getElementById('e-fila-3').value.trim();
+  const fila1 = document.getElementById('e-fila-1').value.trim(); const fila2 = document.getElementById('e-fila-2').value.trim(); const fila3 = document.getElementById('e-fila-3').value.trim();
   const fila = [fila1, fila2, fila3].filter(Boolean);
-
-  if (fila.length === 0) {
-    toast('Sem fila para promover');
-    document.getElementById('promote-section').style.display = 'none';
-    return;
-  }
-
-  document.getElementById('e-cliente').value = fila[0];
-  document.getElementById('e-fila-1').value = fila[1] || '';
-  document.getElementById('e-fila-2').value = fila[2] || '';
-  document.getElementById('e-fila-3').value = '';
-
-  if (fila.length <= 1) {
-    document.getElementById('promote-section').style.display = 'none';
-  }
-
+  if (fila.length === 0) { toast('Sem fila'); document.getElementById('promote-section').style.display = 'none'; return; }
+  document.getElementById('e-cliente').value = fila[0]; document.getElementById('e-fila-1').value = fila[1] || ''; document.getElementById('e-fila-2').value = fila[2] || ''; document.getElementById('e-fila-3').value = '';
+  if (fila.length <= 1) document.getElementById('promote-section').style.display = 'none';
   toast('🔄 Campos atualizados! Salve para confirmar.');
 }
-
 function closeModal() { document.getElementById('modal-overlay').style.display = 'none'; editingNumber = null; }
-
 function salvarEdicao() {
   try {
-    const live = getActiveLive(); if (!live) return;
-    const r = live.records.find(x => x.numero === editingNumber); if (!r) return;
-
+    const live = getActiveLive(); if (!live) return; const r = live.records.find(x => x.numero === editingNumber); if (!r) return;
     const newNum = parseInt(document.getElementById('e-numero').value, 10);
     if (!newNum || newNum < 1) { toast('Número inválido'); return; }
     if (newNum !== editingNumber && live.records.some(x => x.numero === newNum)) { toast('Nº já existe'); return; }
-
-    let cli = applyAlias(document.getElementById('e-cliente').value);
-    if (!cli) { toast('Cliente obrigatório'); return; }
-
-    const fila1 = applyAlias(document.getElementById('e-fila-1').value);
-    const fila2 = applyAlias(document.getElementById('e-fila-2').value);
-    const fila3 = applyAlias(document.getElementById('e-fila-3').value);
+    let cli = applyAlias(document.getElementById('e-cliente').value); if (!cli) { toast('Cliente obrigatório'); return; }
+    const fila1 = applyAlias(document.getElementById('e-fila-1').value); const fila2 = applyAlias(document.getElementById('e-fila-2').value); const fila3 = applyAlias(document.getElementById('e-fila-3').value);
     let fila = [fila1, fila2, fila3].filter(Boolean);
-
     const status = document.getElementById('e-status').value;
-
-    r.numero = newNum;
-    r.cliente = cli;
-    r.tipoPeca = document.getElementById('e-tipo').value.trim();
-    r.codigo = document.getElementById('e-codigo').value.trim();
-    r.valor = status === 'brinde' ? 0 : (parseFloat(document.getElementById('e-valor').value)||0);
-    r.status = status;
-    r.origemBrinde = status === 'brinde' ? (document.getElementById('e-origem').value.trim() || 'Brinde') : null;
-    r.fila = fila;
-
-    saveState(); renderTables(); updateFormNumber(); updateDatalists(); closeModal();
-    toast('✅ Atualizado! Resumos recalculados.');
+    r.numero = newNum; r.cliente = cli; r.tipoPeca = document.getElementById('e-tipo').value.trim(); r.codigo = document.getElementById('e-codigo').value.trim(); r.valor = status === 'brinde' ? 0 : (parseFloat(document.getElementById('e-valor').value)||0); r.status = status; r.origemBrinde = status === 'brinde' ? (document.getElementById('e-origem').value.trim() || 'Brinde') : null; r.fila = fila;
+    saveState(); renderTables(); updateFormNumber(); updateDatalists(); closeModal(); toast('✅ Atualizado! Resumos recalculados.');
   } catch (e) { toast('❌ Erro: ' + e.message); }
 }
-
 function deleteRecord(num) {
-  const live = getActiveLive(); if (!live) return;
-  if (!confirm('Excluir peça #' + num + '?')) return;
-  live.records = live.records.filter(r => r.numero !== num);
-  saveState(); renderTables(); updateFormNumber(); toast('🗑️ Excluída');
+  const live = getActiveLive(); if (!live) return; if (!confirm('Excluir peça #' + num + '?')) return;
+  live.records = live.records.filter(r => r.numero !== num); saveState(); renderTables(); updateFormNumber(); toast('🗑️ Excluída');
 }
 
-/* ---------- CONFIGURAÇÕES ---------- */
+function togglePrazoFields() {
+  const temPrazo = document.getElementById('set-tem-prazo').checked;
+  document.getElementById('prazo-fields').style.display = temPrazo ? 'block' : 'none';
+  if (temPrazo) atualizarPreviewDataHora();
+}
+function atualizarPreviewDataHora() {
+  const el = document.getElementById('preview-data-hora');
+  if (!el) return;
+  const live = getActiveLive();
+  if (!live || !live.deadline || !live.deadline.date) {
+    el.textContent = '⚠️ Defina a data no topo do dashboard da live';
+    return;
+  }
+  const dt = new Date(live.deadline.date + 'T12:00:00');
+  const weekdays = ['domingo', 'segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado'];
+  const wd = weekdays[dt.getDay()];
+  const dtStr = dt.toLocaleDateString('pt-BR');
+  const tmStr = live.deadline.time || '18:00';
+  el.textContent = `as ${tmStr} da ${wd}, dia ${dtStr}`;
+}
+
 function openSettingsModal() {
   const s = appState.settings;
   document.getElementById('set-loja').value = s.loja || '';
@@ -1273,13 +861,14 @@ function openSettingsModal() {
   document.getElementById('set-nome').value = s.nome || '';
   document.getElementById('set-saudacao').value = s.saudacao || '';
   document.getElementById('set-elogio').value = s.elogio || '';
-  document.getElementById('set-prazo').value = s.prazo || '';
+  document.getElementById('set-tem-prazo').checked = (s.temPrazo !== false);
+  document.getElementById('set-texto-antes').value = s.textoAntes || '';
+  document.getElementById('set-texto-depois').value = s.textoDepois || '';
   document.getElementById('set-mensagem').value = s.mensagem || '';
+  togglePrazoFields();
   document.getElementById('modal-settings').style.display = 'flex';
 }
-
 function closeSettingsModal() { document.getElementById('modal-settings').style.display = 'none'; }
-
 function saveSettings() {
   appState.settings = {
     loja: document.getElementById('set-loja').value.trim(),
@@ -1290,40 +879,31 @@ function saveSettings() {
     nome: document.getElementById('set-nome').value.trim(),
     saudacao: document.getElementById('set-saudacao').value.trim() || 'Olá',
     elogio: document.getElementById('set-elogio').value.trim(),
-    prazo: document.getElementById('set-prazo').value.trim(),
+    temPrazo: document.getElementById('set-tem-prazo').checked,
+    textoAntes: document.getElementById('set-texto-antes').value.trim(),
+    textoDepois: document.getElementById('set-texto-depois').value.trim(),
     mensagem: document.getElementById('set-mensagem').value.trim()
   };
-  saveState();
-  renderPaymentSettings();
-  closeSettingsModal();
-
-  if (document.getElementById('view-home').classList.contains('active')) {
-    showView('view-home');
-  }
-
+  saveState(); renderPaymentSettings(); closeSettingsModal();
+  if (document.getElementById('view-home').classList.contains('active')) showView('view-home');
+  if (document.getElementById('view-dashboard').classList.contains('active')) renderDashboard();
   toast('⚙️ Configurações salvas!');
 }
 
-/* ---------- GERADOR DE TEXTO DO CARD ---------- */
 function gerarTextoCard(cliente, s, prazoInfo) {
   const { name, sales, gifts, total } = cliente;
   const linhas = [];
 
-  // 1. Saudação
   const saudacao = (s.saudacao && s.saudacao.trim()) || 'Olá';
   linhas.push(`${saudacao} *${name}*! Tudo bem? 🌸`);
 
-  // 2. Elogio
-  const elogio = (s.elogio && s.elogio.trim())
-    ? s.elogio.trim()
-    : COMPLIMENTS[Math.floor(Math.random() * COMPLIMENTS.length)];
+  const elogio = (s.elogio && s.elogio.trim()) ? s.elogio.trim() : COMPLIMENTS[Math.floor(Math.random() * COMPLIMENTS.length)];
   if (elogio) linhas.push(`${elogio} ✨`);
 
-  // 3. Intro
+  linhas.push('');
   linhas.push('Aqui está o resumo detalhado do seu pedido:');
   linhas.push('');
 
-  // 4. Peças
   if (sales.length > 0) {
     linhas.push('🛍️ *SUAS PEÇAS:*');
     sales.forEach(r => {
@@ -1335,35 +915,33 @@ function gerarTextoCard(cliente, s, prazoInfo) {
     linhas.push('');
   }
 
-  // 5. Brinde
   if (gifts.length > 0) {
     const brindes = gifts.map(g => genericType(g.tipoPeca)).join(', ');
     linhas.push(`🎁 *Brinde:* ${brindes} — vai junto no seu pedido!`);
     linhas.push('');
   }
 
-  // 6. Forma de pagamento
   const formas = (s.formas && s.formas.trim()) || 'a combinar';
   linhas.push(`💳 Pagamento via ${formas}.`);
   linhas.push('');
 
-  // 7. Prazo
-  const prazoTexto = (s.prazo && s.prazo.trim())
-    ? s.prazo.trim()
-        .replace(/\{hora\}/g, prazoInfo.hora)
-        .replace(/\{dia_semana\}/g, prazoInfo.diaSemana)
-        .replace(/\{data\}/g, prazoInfo.data)
-    : `O prazo de pagamento está liberado até as ${prazoInfo.hora} da ${prazoInfo.diaSemana}, dia ${prazoInfo.data}, após esse prazo as peças ficarão disponíveis novamente.`;
-  linhas.push(prazoTexto);
-  linhas.push('');
+  // BLOCO DE PRAZO (só se temPrazo = true E data definida)
+  const temPrazo = s.temPrazo !== false;
+  const dataDefinida = prazoInfo.data && prazoInfo.hora && prazoInfo.diaSemana;
 
-  // 8. Mensagem de encerramento
+  if (temPrazo && dataDefinida) {
+    const textoAntes = (s.textoAntes && s.textoAntes.trim()) || 'O prazo de pagamento está liberado até';
+    const textoDepois = (s.textoDepois && s.textoDepois.trim()) || 'Após esse prazo, as peças ficarão disponíveis novamente.';
+    linhas.push(`${textoAntes} as ${prazoInfo.hora} da ${prazoInfo.diaSemana}, dia ${prazoInfo.data}.`);
+    linhas.push(textoDepois);
+    linhas.push('');
+  }
+
   if (s.mensagem && s.mensagem.trim()) {
     linhas.push(s.mensagem.trim());
     linhas.push('');
   }
 
-  // 9. Dados bancários
   const hasPix = s.pix && s.pix.trim();
   const hasBanco = s.banco && s.banco.trim();
   const hasNome = s.nome && s.nome.trim();
@@ -1375,7 +953,6 @@ function gerarTextoCard(cliente, s, prazoInfo) {
     linhas.push('');
   }
 
-  // 10. Assinatura
   const assinatura = (s.assinatura && s.assinatura.trim()) || 'Com carinho,';
   const loja = (s.loja && s.loja.trim()) || '';
   linhas.push(assinatura);
@@ -1384,17 +961,24 @@ function gerarTextoCard(cliente, s, prazoInfo) {
   return linhas.join('\n');
 }
 
-/* ---------- ENCERRAR LIVE E GERAR CARDS ---------- */
 function handleEndLive() {
   const live = getActiveLive();
   if (!live || live.records.length === 0) { toast('Nenhum registro'); return; }
 
-  const deadline = live.deadline.date ? new Date(live.deadline.date + 'T12:00:00') : new Date();
-  const weekdays = ['domingo', 'segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado'];
-  const wd = weekdays[deadline.getDay()];
-  const dtStr = deadline.toLocaleDateString('pt-BR');
-  const tmStr = live.deadline.time || '18:00';
   const s = appState.settings;
+  const temPrazo = s.temPrazo !== false;
+
+  // Prepara prazoInfo (vazio se não tiver prazo)
+  let prazoInfo = { hora: '', diaSemana: '', data: '' };
+  if (temPrazo && live.deadline.date) {
+    const deadline = new Date(live.deadline.date + 'T12:00:00');
+    const weekdays = ['domingo', 'segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado'];
+    prazoInfo = {
+      hora: live.deadline.time || '18:00',
+      diaSemana: weekdays[deadline.getDay()],
+      data: deadline.toLocaleDateString('pt-BR')
+    };
+  }
 
   const byClient = {};
   live.records.forEach(r => {
@@ -1422,39 +1006,32 @@ function handleEndLive() {
 
   chartsHtml += '<div class="chart-container"><div class="chart-title">🏆 Ranking Completo de Clientes</div>';
   const maxVal = sortedClients.length > 0 ? sortedClients[0].total : 1;
-
   if (sortedClients.length === 0 || maxVal === 0) {
     chartsHtml += '<div style="text-align:center; color:var(--text-muted); font-size:0.8rem; padding:10px;">Sem vendas registradas.</div>';
   } else {
     chartsHtml += '<div class="chart-scroll">';
     sortedClients.forEach(c => {
       const pct = maxVal > 0 ? (c.total / maxVal) * 100 : 0;
-      chartsHtml += `
-        <div class="chart-row">
-          <div class="chart-label" title="${escapeHtml(c.name)}">${escapeHtml(c.name)}</div>
-          <div class="chart-bar-wrap"><div class="chart-bar" style="width: ${pct}%"></div></div>
-          <div class="chart-val">${formatCurrency(c.total)}</div>
-        </div>`;
+      chartsHtml += `<div class="chart-row"><div class="chart-label" title="${escapeHtml(c.name)}">${escapeHtml(c.name)}</div><div class="chart-bar-wrap"><div class="chart-bar" style="width: ${pct}%"></div></div><div class="chart-val">${formatCurrency(c.total)}</div></div>`;
     });
     chartsHtml += '</div>';
   }
   chartsHtml += '</div>';
-
   document.getElementById('charts-container').innerHTML = chartsHtml;
 
   // ===== CARDS =====
   const cards = sortedClients.map(c => {
-    const texto = gerarTextoCard(c, s, { hora: tmStr, diaSemana: wd, data: dtStr });
+    const texto = gerarTextoCard(c, s, prazoInfo);
     return { name: c.name, text: texto };
   });
 
   // ===== RESUMO GERAL =====
   const sLoja = (s.loja && s.loja.trim()) || 'LOJA';
-  let res = `📊 RESUMO GERAL — ${sLoja.toUpperCase()}\n📅 ${new Date().toLocaleDateString('pt-BR')}\n⏰ Prazo: ${wd}, ${dtStr} até ${tmStr}\n\n`;
-  res += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n👥 VENDAS POR CLIENTE\n`;
+  let res = `📊 RESUMO GERAL — ${sLoja.toUpperCase()}\n📅 ${new Date().toLocaleDateString('pt-BR')}`;
+  if (temPrazo && prazoInfo.data) res += `\n⏰ Prazo: ${prazoInfo.diaSemana}, ${prazoInfo.data} até ${prazoInfo.hora}`;
+  res += `\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n👥 VENDAS POR CLIENTE\n`;
   sortedClients.forEach(c => { res += `- ${c.name} ...... ${formatCurrency(c.total)}\n`; });
-  res += `\n💰 TOTAL VENDIDO: ${formatCurrency(totVend)}\n🎁 TOTAL BRINDES: ${totBrinde}\n\n`;
-  res += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n💳 DADOS PARA PAGAMENTO\n`;
+  res += `\n💰 TOTAL VENDIDO: ${formatCurrency(totVend)}\n🎁 TOTAL BRINDES: ${totBrinde}\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n💳 DADOS PARA PAGAMENTO\n`;
   if (s.pix && s.pix.trim()) res += `Pix: ${s.pix}\n`;
   if (s.banco && s.banco.trim()) res += `Banco: ${s.banco}\n`;
   if (s.nome && s.nome.trim()) res += `Nome: ${s.nome}\n`;
@@ -1468,22 +1045,10 @@ function handleEndLive() {
 
   let html = '<h3 style="color:var(--neon-cyan); margin-bottom:10px;">Cards dos Clientes</h3>';
   cards.forEach((c, i) => {
-    html += `<div style="background:#0f1420; padding:10px; border-radius:8px; margin-bottom:10px; border:1px solid var(--border);">
-      <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
-        <strong style="color:var(--neon-pink);">${escapeHtml(c.name)}</strong>
-        <button class="btn btn-secondary" onclick="copySingleCard(${i})">📋 Copiar</button>
-      </div>
-      <pre style="white-space:pre-wrap; font-size:0.75rem; color:var(--text-muted); font-family:inherit;">${escapeHtml(c.text)}</pre>
-    </div>`;
+    html += `<div style="background:#0f1420; padding:10px; border-radius:8px; margin-bottom:10px; border:1px solid var(--border);"><div style="display:flex; justify-content:space-between; margin-bottom:8px;"><strong style="color:var(--neon-pink);">${escapeHtml(c.name)}</strong><button class="btn btn-secondary" onclick="copySingleCard(${i})">📋 Copiar</button></div><pre style="white-space:pre-wrap; font-size:0.75rem; color:var(--text-muted); font-family:inherit;">${escapeHtml(c.text)}</pre></div>`;
   });
 
-  html += `<div style="background:#0f1420; padding:10px; border-radius:8px; border:1px solid var(--border); margin-top:15px;">
-    <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
-      <strong style="color:var(--neon-cyan);">📊 Resumo Geral</strong>
-      <button class="btn btn-secondary" onclick="copySummaryText()">📋 Copiar</button>
-    </div>
-    <pre style="white-space:pre-wrap; font-size:0.75rem; color:var(--text-muted); font-family:inherit;">${escapeHtml(res)}</pre>
-  </div>`;
+  html += `<div style="background:#0f1420; padding:10px; border-radius:8px; border:1px solid var(--border); margin-top:15px;"><div style="display:flex; justify-content:space-between; margin-bottom:8px;"><strong style="color:var(--neon-cyan);">📊 Resumo Geral</strong><button class="btn btn-secondary" onclick="copySummaryText()">📋 Copiar</button></div><pre style="white-space:pre-wrap; font-size:0.75rem; color:var(--text-muted); font-family:inherit;">${escapeHtml(res)}</pre></div>`;
 
   cont.innerHTML = html;
   sec.scrollIntoView({ behavior: 'smooth' });
@@ -1497,11 +1062,7 @@ function handleEndLive() {
   window.copySummary = window.copySummaryText;
 }
 
-/* ---------- INICIALIZAÇÃO ---------- */
-document.addEventListener('DOMContentLoaded', function() {
-  // A tela de login é gerenciada pelo Firebase (onAuthStateChanged).
-  // O appState será carregado após o login pelo onUserLoggedIn().
-});
+document.addEventListener('DOMContentLoaded', function() {});
 </script>
 </body>
 </html>
