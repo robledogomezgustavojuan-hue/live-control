@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Lilika Kids — Dashboard</title>
+<style>
+/* [O CSS permanece exatamente o mesmo da versão anterior] */
+:root {
+  --bg-body: #0b0f19; --bg-card: #151b2b; --bg-card-hover: #1e2638;
+  --border: #2a3449; --text-main: #f1f5f9; --text-muted: #8b9bb4;
+  --neon-pink: #ff2a85; --neon-cyan: #00e5ff; --neon-green: #00ff88; --neon-red: #ff3366;
+  --glow-pink: 0 0 10px rgba(255, 42, 133, 0.4); --glow-cyan: 0 0 10px rgba(0, 229, 255, 0.4);
+  --radius: 12px; --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg-body); color: var(--text-main); font-family: var(--font); font-size: 14px; line-height: 1.5; padding-bottom: 70px; -webkit-tap-highlight-color: transparent; }
+h1, h2, h3, h4 { font-weight: 600; }
+h1 { font-size: 1.5rem; color: var(--text-main); }
+h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+/* ===== LOGIN ===== */
+.login-screen { padding: 15px; min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; }
+.login-card { background: var(--bg-card); border-radius: var(--radius); padding: 25px; width: 100%; max-width: 380px; border: 1px solid var(--border); box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+.login-card .logo { font-size: 3rem; margin-bottom: 8px; }
+.login-card h2 { color: var(--neon-cyan); text-transform: none; font-size: 1.4rem; }
+.login-card .sub { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px; }
+.login-card form { text-align: left; }
+.login-card .form-group { margin-bottom: 12px; }
+.login-error { color: var(--neon-red); font-size: 0.8rem; text-align: center; margin-top: 12px; padding: 8px; border-radius: 6px; background: rgba(255,51,102,0.1); display: none; }
+.login-loading { color: var(--neon-cyan); font-size: 0.8rem; text-align: center; margin-top: 12px; }
+.auth-toggle { margin-top: 18px; text-align: center; font-size: 0.82rem; color: var(--text-muted); padding-top: 15px; border-top: 1px solid var(--border); }
+.auth-toggle a { color: var(--neon-cyan); text-decoration: none; font-weight: 600; cursor: pointer; }
+.auth-toggle a:hover { text-decoration: underline; }
+/* ===== LAYOUT ===== */
+.view-section { display: none; padding: 15px; max-width: 1200px; margin: 0 auto; }
+.view-section.active { display: block; animation: fadeIn 0.3s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+/* ===== HOME ===== */
+.home-container { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 80vh; text-align: center; }
+.home-logo { font-size: 3rem; margin-bottom: 10px; filter: drop-shadow(var(--glow-pink)); }
+.home-title { font-size: 2rem; background: linear-gradient(90deg, var(--neon-pink), var(--neon-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 30px; }
+.menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; width: 100%; max-width: 800px; }
+.menu-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 25px 20px; cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+.menu-card:hover { border-color: var(--neon-pink); box-shadow: var(--glow-pink); transform: translateY(-3px); }
+.menu-card .icon { font-size: 2rem; } .menu-card .label { font-size: 1.1rem; font-weight: 600; } .menu-card .sub { font-size: 0.8rem; color: var(--text-muted); }
+.menu-card.danger:hover { border-color: var(--neon-red); box-shadow: 0 0 10px rgba(255,51,102,0.4); }
+/* ===== HEADER ===== */
+.dash-header { display: flex; justify-content: space-between; align-items: center; background: var(--bg-card); padding: 10px 15px; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+.live-title { display: flex; flex-direction: column; } .live-title span { font-size: 0.75rem; color: var(--neon-cyan); text-transform: uppercase; font-weight: bold; } .live-title strong { font-size: 1.1rem; color: var(--text-main); }
+/* ===== CARDS ===== */
+.card { background: var(--bg-card); border-radius: var(--radius); padding: 15px; margin-bottom: 15px; border: 1px solid var(--border); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+/* ===== FORM ===== */
+.form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+.form-group { display: flex; flex-direction: column; gap: 4px; }
+.form-group label { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; }
+.form-group input, .form-group select, .form-group textarea { padding: 8px; background: #0f1420; border: 1px solid var(--border); border-radius: 8px; color: var(--text-main); font-size: 0.85rem; font-family: inherit; }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--neon-cyan); box-shadow: 0 0 5px rgba(0,229,255,0.3); }
+.form-group textarea { resize: vertical; min-height: 80px; font-family: monospace; font-size: 0.75rem; }
+/* ===== BOTÕES ===== */
+.btn { border: none; border-radius: 8px; padding: 8px 14px; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: inherit; display: inline-flex; align-items: center; justify-content: center; gap: 5px; }
+.btn:active { transform: scale(0.97); } .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.btn-primary { background: var(--neon-pink); color: white; box-shadow: 0 0 8px rgba(255,42,133,0.4); } .btn-primary:hover:not(:disabled) { background: #ff4d9a; }
+.btn-secondary { background: transparent; color: var(--text-main); border: 1px solid var(--border); } .btn-secondary:hover { background: var(--bg-card-hover); }
+.btn-danger { background: var(--neon-red); color: white; }
+.btn-block { width: 100%; margin-top: 10px; padding: 12px; font-size: 0.95rem; }
+.btn-icon { background: none; border: none; cursor: pointer; font-size: 0.9rem; padding: 4px; border-radius: 4px; color: var(--text-muted); } .btn-icon:hover { color: var(--text-main); background: var(--border); }
+/* ===== TABELAS ===== */
+.table { width: 100%; font-size: 0.8rem; }
+.table-header, .table-row { display: grid; align-items: center; padding: 8px 4px; border-bottom: 1px solid var(--border); gap: 5px; }
+.table-header { font-weight: 700; color: var(--text-muted); font-size: 0.7rem; text-transform: uppercase; border-bottom: 1px solid var(--border); }
+#flow-table .table-header, #flow-table .table-row { grid-template-columns: 35px 1fr 1fr 70px 65px; }
+#codes-table .table-header, #codes-table .table-row { grid-template-columns: 1fr 1fr 55px; }
+#gifts-table .table-header, #gifts-table .table-row { grid-template-columns: 55px 30px 1fr 1fr 1fr; }
+#queues-table .table-header, #queues-table .table-row { grid-template-columns: 1fr 1fr 1fr; }
+#summary-table .table-header, #summary-table .table-row { grid-template-columns: 1fr 50px 70px 50px; }
+.cell { display: flex; justify-content: space-between; align-items: center; min-width: 0; } .cell-content { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .cell-sym { font-size: 0.7rem; opacity: 0.8; }
+.row-cancelled { opacity: 0.5; } .row-cancelled .cell-content { text-decoration: line-through; } .row-gift { background: rgba(0, 255, 136, 0.05); }
+.subtotal-row { font-weight: 700; border-top: 2px solid var(--border); background: rgba(255,255,255,0.02); padding: 10px 4px; }
+/* ===== TOTAIS ===== */
+.totals { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }
+.total-box { background: #0f1420; border: 1px solid var(--border); border-radius: 8px; padding: 12px; text-align: center; }
+.total-box span { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 5px; }
+.total-box strong { font-size: 1.1rem; color: var(--neon-cyan); }
+/* ===== HISTÓRICO ===== */
+.history-list { display: flex; flex-direction: column; gap: 10px; }
+.history-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 15px; display: flex; justify-content: space-between; align-items: center; transition: border-color 0.2s; }
+.history-item:hover { border-color: var(--neon-cyan); } .history-info h3 { font-size: 1rem; margin-bottom: 5px; color: var(--text-main); } .history-info p { font-size: 0.75rem; color: var(--text-muted); }
+/* ===== MODAL ===== */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 15px; backdrop-filter: blur(3px); }
+.modal { background: var(--bg-card); border-radius: var(--radius); padding: 20px; width: 100%; max-width: 500px; border: 1px solid var(--border); box-shadow: var(--glow-pink); max-height: 90vh; overflow-y: auto; }
+.modal h3 { margin-bottom: 15px; color: var(--neon-pink); }
+.modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
+.modal-section { border-top: 1px solid var(--border); margin-top: 15px; padding-top: 15px; }
+.modal-section h4 { color: var(--neon-cyan); margin-bottom: 10px; font-size: 0.85rem; }
+/* ===== TOAST ===== */
+.toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--bg-card); border: 1px solid var(--neon-cyan); color: var(--text-main); padding: 10px 20px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; box-shadow: var(--glow-cyan); opacity: 0; transition: all 0.3s; z-index: 2000; pointer-events: none; }
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+/* ===== GRÁFICOS ===== */
+.chart-container { display: flex; flex-direction: column; gap: 12px; background: #0f1420; border: 1px solid var(--border); border-radius: var(--radius); padding: 15px; margin-bottom: 15px; }
+.chart-title { font-size: 0.85rem; color: var(--neon-cyan); font-weight: 600; text-transform: uppercase; margin-bottom: 5px; }
+.chart-row { display: flex; align-items: center; gap: 8px; font-size: 0.75rem; }
+.chart-label { width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text-muted); }
+.chart-bar-wrap { flex: 1; height: 12px; background: var(--border); border-radius: 6px; overflow: hidden; }
+.chart-bar { height: 100%; border-radius: 6px; transition: width 0.5s ease-out; background: linear-gradient(90deg, var(--neon-pink), var(--neon-cyan)); box-shadow: 0 0 8px rgba(255,42,133,0.6); }
+.chart-val { width: 90px; text-align: right; font-weight: 600; color: var(--text-main); }
+.chart-stats { display: flex; gap: 15px; justify-content: space-between; margin-bottom: 15px; flex-wrap: wrap; }
+.chart-stat-box { background: #0f1420; border: 1px solid var(--border); padding: 10px; border-radius: 8px; flex: 1; min-width: 100px; text-align: center; }
+.chart-stat-box .stat-label { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; }
+.chart-stat-box .stat-value { font-size: 1.1rem; color: var(--neon-green); font-weight: 700; }
+.chart-scroll { max-height: 400px; overflow-y: auto; padding-right: 5px; }
+.chart-scroll::-webkit-scrollbar { width: 6px; } .chart-scroll::-webkit-scrollbar-track { background: transparent; } .chart-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+@media (max-width: 400px) {
+  #flow-table .table-header, #flow-table .table-row { grid-template-columns: 30px 1fr 1fr 60px 55px; font-size: 0.75rem; }
+  #summary-table .table-header, #summary-table .table-row { grid-template-columns: 1fr 40px 60px 40px; font-size: 0.75rem; }
+  .chart-label { width: 70px; font-size: 0.7rem; } .chart-val { width: 75px; font-size: 0.7rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== LOGIN ==================== -->
+<section id="view-login" class="login-screen">
+  <div class="login-card">
+    <div class="logo">🌸</div>
+    <h2>Lilika Kids</h2>
+    <p class="sub" id="auth-subtitle">Acesse sua conta para gerenciar a live</p>
+    <form id="login-form" onsubmit="event.preventDefault(); realizarLogin();">
+      <div class="form-group"><label>E-mail</label><input type="email" id="login-email" placeholder="seu@email.com" autocomplete="email" required></div>
+      <div class="form-group"><label>Senha</label><input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password" required></div>
+      <button type="submit" class="btn btn-primary btn-block" id="login-btn">🔐 Entrar</button>
+      <div id="login-error" class="login-error"></div><div id="login-loading" class="login-loading" style="display:none;">⏳ Autenticando...</div>
+    </form>
+    <form id="signup-form" onsubmit="event.preventDefault(); realizarCadastro();" style="display:none;">
+      <div class="form-group"><label>E-mail</label><input type="email" id="signup-email" placeholder="seu@email.com" autocomplete="email" required></div>
+      <div class="form-group"><label>Senha (mínimo 6 caracteres)</label><input type="password" id="signup-password" placeholder="••••••••" autocomplete="new-password" required></div>
+      <div class="form-group"><label>Confirmar Senha</label><input type="password" id="signup-password-confirm" placeholder="••••••••" autocomplete="new-password" required></div>
+      <button type="submit" class="btn btn-primary btn-block" id="signup-btn">✨ Criar Conta</button>
+      <div id="signup-error" class="login-error"></div><div id="signup-loading" class="login-loading" style="display:none;">⏳ Criando conta...</div>
+    </form>
+    <div class="auth-toggle"><span id="toggle-text">Não tem conta?</span> <a id="toggle-link" onclick="event.preventDefault(); toggleAuthMode();">Criar conta</a></div>
+  </div>
+</section>
+
+<!-- ==================== APP PRINCIPAL ==================== -->
+<div id="app-main" style="display: none;">
+<!-- TELA 1: HOME -->
+<section id="view-home" class="view-section active">
+  <div class="home-container">
+    <div class="home-logo">🌸</div><h1 class="home-title">Lilika Kids</h1>
+    <p style="color: var(--text-muted); margin-bottom: 30px;">Live Sales Manager</p>
+    <div class="menu-grid">
+      <div class="menu-card" onclick="createNewLivePrompt()"><span class="icon">✨</span><span class="label">Iniciar Nova Live</span><span class="sub">Começar um novo registro</span></div>
+      <div class="menu-card" onclick="showView('view-history')"><span class="icon">📁</span><span class="label">Histórico de Lives</span><span class="sub">Acessar lives salvas</span></div>
+      <div class="menu-card" onclick="openSettingsModal()"><span class="icon">⚙️</span><span class="label">Configurações</span><span class="sub">Dados e Textos</span></div>
+      <div class="menu-card danger" onclick="realizarLogout()"><span class="icon">🚪</span><span class="label">Sair</span><span class="sub">Encerrar sessão</span></div>
+    </div>
+  </div>
+</section>
+<!-- TELA 2: HISTÓRICO -->
+<section id="view-history" class="view-section">
+  <div class="dash-header" style="position: relative; margin-bottom: 20px; border-radius: var(--radius); border: 1px solid var(--border);"><div class="live-title"><span>Gerenciamento</span><strong>Histórico de Lives</strong></div><button class="btn btn-secondary" onclick="showView('view-home')">← Voltar</button></div>
+  <div class="history-list" id="history-list"></div>
+</section>
+<!-- TELA 3: DASHBOARD -->
+<section id="view-dashboard" class="view-section">
+  <div class="dash-header"><div class="live-title"><span>Live Ativa</span><strong id="dash-live-name">Carregando...</strong></div><div style="display: flex; gap: 8px;"><button class="btn btn-secondary" onclick="showView('view-home')">🏠 Home</button><button class="btn btn-danger" onclick="handleEndLive()">🏁 Encerrar</button></div></div>
+  <div style="padding-top: 15px;">
+    <div class="card">
+      <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 10px;">
+        <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">⏰ Prazo Pgto:</span>
+        <input type="date" id="deadline-date" style="background: #0f1420; border: 1px solid var(--border); color: white; padding: 5px; border-radius: 6px;">
+        <input type="time" id="deadline-time" style="background: #0f1420; border: 1px solid var(--border); color: white; padding: 5px; border-radius: 6px;">
+        <button class="btn btn-secondary" onclick="saveDeadline()" style="padding: 5px 10px;">Salvar</button>
+      </div>
+      <div style="font-size: 0.75rem; color: var(--text-muted); border-top: 1px solid var(--border); padding-top: 8px; display: flex; justify-content: space-between; align-items: center;"><span id="dash-payment-info" style="flex: 1; line-height: 1.4;">💳 Carregando dados...</span><button class="btn btn-secondary" onclick="openSettingsModal()" style="padding: 2px 8px; font-size: 0.7rem; margin-left: 10px;">Editar</button></div>
+    </div>
+    <div class="card">
+      <h2>Registrar Peça</h2>
+      <form id="record-form" novalidate>
+        <div class="form-grid">
+          <div class="form-group"><label>Nº da peça</label><input type="number" id="f-numero" min="1"></div>
+          <div class="form-group"><label>Cliente (Compradora) *</label><input type="text" id="f-cliente" list="clientes-list" autocomplete="off" placeholder="Digite ou selecione..."><datalist id="clientes-list"></datalist></div>
+          <div class="form-group"><label>Tipo de peça *</label><input type="text" id="f-tipo" list="tipos-list" autocomplete="off" placeholder="Digite ou selecione..."><datalist id="tipos-list"></datalist></div>
+          <div class="form-group"><label>Código</label><input type="text" id="f-codigo"></div>
+          <div class="form-group"><label>Valor (R$)</label><input type="number" id="f-valor" min="0" step="0.01" placeholder="0,00"></div>
+          <div class="form-group"><label>Status</label><select id="f-status" onchange="toggleOrigemField()"><option value="venda">Venda</option><option value="cancelada">Cancelada</option><option value="brinde">Brinde</option></select></div>
+          <div class="form-group" id="origem-group" style="display:none"><label>Origem do Brinde</label><input type="text" id="f-origem" placeholder="Ex: Sorteio..."></div>
+          <div class="form-group"><label>Fila de Espera (Opcional)</label><input type="text" id="f-fila-1" placeholder="1º da fila" list="clientes-list" style="margin-bottom: 4px;"><input type="text" id="f-fila-2" placeholder="2º da fila" list="clientes-list" style="margin-bottom: 4px;"><input type="text" id="f-fila-3" placeholder="3º da fila" list="clientes-list"></div>
+        </div>
+        <button type="button" class="btn btn-primary btn-block" onclick="registrarVenda()">✅ Registrar</button>
+      </form>
+    </div>
+    <div class="card"><h2>1️⃣ Fluxo de Vendas</h2><div class="table" id="flow-table"><div class="table-header"><div>#</div><div>Cliente</div><div>Peça</div><div>Valor</div><div></div></div><div id="flow-body"></div></div></div>
+    <div class="card"><h2>2️⃣ Códigos</h2><div class="table" id="codes-table"><div class="table-header"><div>Código</div><div>Nº Peça</div><div></div></div><div id="codes-body"></div></div></div>
+    <div class="card"><h2>3️⃣ Brindes</h2><div class="table" id="gifts-table"><div class="table-header"><div>Brinde</div><div>#</div><div>Cliente</div><div>Item</div><div>Origem</div></div><div id="gifts-body"></div></div></div>
+    <div class="card"><h2>4️⃣ Filas</h2><div class="table" id="queues-table"><div class="table-header"><div>Peça</div><div>Confirmada</div><div>Fila</div></div><div id="queues-body"></div></div></div>
+    <div class="card"><h2>5️⃣ Resumo por Cliente (Maior p/ Menor)</h2><div class="table" id="summary-table"><div class="table-header"><div>Cliente</div><div>Peças</div><div>Total</div><div>Brindes</div></div><div id="summary-body"></div></div></div>
+    <div class="card"><h2>6️⃣ Totais</h2><div class="totals" id="totals-area"></div></div>
+    <div id="results-section" class="card" style="display:none;"><h2>🏁 Resultados</h2><div id="charts-container"></div><div style="display:flex; gap:10px; margin-bottom: 15px; flex-wrap: wrap; margin-top: 15px;"><button class="btn btn-primary" onclick="copyAllCards()">📋 Copiar Todos os Cards</button><button class="btn btn-secondary" onclick="copySummary()">📊 Copiar Resumo Geral</button></div><div id="results-content"></div></div>
+  </div>
+</section>
+<!-- MODAIS (EDIÇÃO, NOVA LIVE, CONFIGURAÇÕES) -->
+<div id="modal-overlay" class="modal-overlay" style="display:none"><div class="modal"><h3>✏️ Editar Peça</h3><form id="edit-form" novalidate><div class="form-grid" style="grid-template-columns: 1fr;"><div class="form-group"><label>Nº da peça</label><input type="number" id="e-numero"></div><div class="form-group"><label>Cliente (Compradora)</label><input type="text" id="e-cliente"></div><div class="form-group"><label>Tipo</label><input type="text" id="e-tipo" list="tipos-list"></div><div class="form-group"><label>Código</label><input type="text" id="e-codigo"></div><div class="form-group"><label>Valor</label><input type="number" id="e-valor" step="0.01"></div><div class="form-group"><label>Status</label><select id="e-status"><option value="venda">Venda</option><option value="cancelada">Cancelada</option><option value="brinde">Brinde</option></select></div><div class="form-group"><label>Origem (Se Brinde)</label><input type="text" id="e-origem"></div><div class="form-group"><label>Fila de Espera</label><input type="text" id="e-fila-1" placeholder="1º da fila" style="margin-bottom: 4px;"><input type="text" id="e-fila-2" placeholder="2º da fila" style="margin-bottom: 4px;"><input type="text" id="e-fila-3" placeholder="3º da fila"></div></div><div id="promote-section" style="margin-top: 10px; padding: 10px; background: rgba(255,42,133,0.1); border: 1px solid var(--neon-pink); border-radius: 8px; display: none;"><p style="font-size: 0.75rem; color: var(--neon-pink); margin-bottom: 8px; font-weight: 600;">⚠️ Cliente desistiu? Deixe a próxima da fila assumir.</p><button type="button" class="btn btn-primary" onclick="promoverFilaEdicao()" style="width: 100%; font-size: 0.75rem;">🔄 Passar para o Próximo da Fila</button></div><div class="modal-actions"><button type="button" class="btn btn-secondary" onclick="closeModal()">Cancelar</button><button type="button" class="btn btn-primary" onclick="salvarEdicao()">Salvar Alterações</button></div></form></div></div>
+<div id="modal-new-live" class="modal-overlay" style="display:none"><div class="modal"><h3>✨ Nova Live</h3><div class="form-group"><label>Dê um nome para esta live</label><input type="text" id="new-live-name" placeholder="Ex: Live Coleção Verão" style="margin-top: 5px;"></div><div class="modal-actions"><button type="button" class="btn btn-secondary" onclick="closeNewLiveModal()">Cancelar</button><button type="button" class="btn btn-primary" onclick="confirmNewLive()">Criar Live</button></div></div></div>
+<div id="modal-settings" class="modal-overlay" style="display:none"><div class="modal"><h3>⚙️ Configurações</h3><div class="modal-section" style="margin-top: 0; border: none; padding-top: 0;"><h4>💳 Dados Bancários e Pagamento</h4><div class="form-grid" style="grid-template-columns: 1fr;"><div class="form-group"><label>Chave Pix</label><input type="text" id="set-pix"></div><div class="form-group"><label>Banco</label><input type="text" id="set-banco"></div><div class="form-group"><label>Nome do Titular</label><input type="text" id="set-nome"></div><div class="form-group"><label>Formas de Pagamento (Texto)</label><input type="text" id="set-formas"></div></div></div><div class="modal-section"><h4>📝 Texto do Card (Modelo)</h4><p style="font-size: 0.7rem; color: var(--text-muted); margin-bottom: 8px;">Variáveis: <strong>{{NOME}}</strong>, <strong>{{ELOGIO}}</strong>, <strong>{{PECAS}}</strong>, <strong>{{TOTAL}}</strong>, <strong>{{BRINDE}}</strong>, <strong>{{FORMAS_PAGAMENTO}}</strong>, <strong>{{HORA}}</strong>, <strong>{{DIA_SEMANA}}</strong>, <strong>{{DATA}}</strong>, <strong>{{DADOS_PAGAMENTO}}</strong></p><div class="form-group"><textarea id="set-template" rows="12"></textarea></div></div><div class="modal-actions"><button type="button" class="btn btn-secondary" onclick="closeSettingsModal()">Cancelar</button><button type="button" class="btn btn-primary" onclick="saveSettings()">Salvar Configurações</button></div></div></div>
+<div id="toast" class="toast"></div>
+</div><!-- /#app-main -->
+
+<!-- ==================== FIREBASE + FIRESTORE ==================== -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCvKUG7wC1FqV96R5QYR2Dk25m0XEzKr6k",
+    authDomain: "lilika-app-468c8.firebaseapp.com",
+    projectId: "lilika-app-468c8",
+    storageBucket: "lilika-app-468c8.firebasestorage.app",
+    messagingSenderId: "1030998730741",
+    appId: "1:1030998730741:web:d8f068dc611ee16d3462bc"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  window.firebaseAuth = auth;
+  window.firebaseLogin = (email, senha) => signInWithEmailAndPassword(auth, email, senha);
+  window.firebaseSignup = (email, senha) => createUserWithEmailAndPassword(auth, email, senha);
+  window.firebaseLogout = () => signOut(auth);
+  window.firebaseReady = true;
+
+  // ===== FUNÇÕES DO FIRESTORE =====
+  window.salvarNoFirestore = async (uid, dados) => {
+    try {
+      await setDoc(doc(db, 'users', uid), dados, { merge: true });
+    } catch (e) {
+      console.error('Erro ao salvar no Firestore:', e);
+      // Não relança o erro para não quebrar o fluxo offline
+    }
+  };
+
+  window.ouvirFirestore = (uid, callback) => {
+    return onSnapshot(doc(db, 'users', uid), (snap) => {
+      if (snap.exists()) {
+        callback(snap.data());
+      }
+    }, (error) => {
+      console.error('Erro no listener do Firestore:', error);
+    });
+  };
+
+  window.currentUserUid = null;
+
+  onAuthStateChanged(auth, (user) => {
+    const loginScreen = document.getElementById('view-login');
+    const mainApp = document.getElementById('app-main');
+    const loginBtn = document.getElementById('login-btn');
+    const signupBtn = document.getElementById('signup-btn');
+    const loginLoading = document.getElementById('login-loading');
+    const signupLoading = document.getElementById('signup-loading');
+    const loginError = document.getElementById('login-error');
+    const signupError = document.getElementById('signup-error');
+
+    if (user) {
+      window.currentUserUid = user.uid;
+      if (loginScreen) loginScreen.style.display = 'none';
+      if (mainApp) mainApp.style.display = 'block';
+      if (loginError) loginError.style.display = 'none';
+      if (signupError) signupError.style.display = 'none';
+      if (loginLoading) loginLoading.style.display = 'none';
+      if (signupLoading) signupLoading.style.display = 'none';
+      if (loginBtn) loginBtn.disabled = false;
+      if (signupBtn) signupBtn.disabled = false;
+      resetAuthMode();
+      // Chama função global de login definida no outro script
+      if (typeof onUserLoggedIn === 'function') onUserLoggedIn(user.uid);
+    } else {
+      window.currentUserUid = null;
+      if (loginScreen) loginScreen.style.display = 'flex';
+      if (mainApp) mainApp.style.display = 'none';
+      if (loginLoading) loginLoading.style.display = 'none';
+      if (signupLoading) signupLoading.style.display = 'none';
+      if (loginBtn) loginBtn.disabled = false;
+      if (signupBtn) signupBtn.disabled = false;
+      resetAuthMode();
+      // Remove listener do Firestore se existir
+      if (window._unsubscribeFirestore) {
+        window._unsubscribeFirestore();
+        window._unsubscribeFirestore = null;
+      }
+    }
+  });
+</script>
+
+<!-- ==================== APP SCRIPT ==================== -->
+<script>
+const STORAGE_KEY = 'lilika_kids_multi_v7';
+const ALIASES = { 'dany': 'Dani Souza', 'mary': 'Mari', 'renata': 'Renata Alves' };
+const COMPLIMENTS = ['Que escolha linda', 'Você tem um gosto maravilhoso', 'Suas peças ficaram perfeitas', 'Adorei cada escolha sua', 'Que pedido mais fofo', 'Você arrasou nas escolhas'];
+
+const DEFAULT_CARD_TEMPLATE = `Olá *{{NOME}}*! Tudo bem? 🌸
+{{ELOGIO}} ✨
+Aqui está o resumo detalhado do seu pedido:
+
+🛍️ *SUAS PEÇAS:*
+{{PECAS}}
+
+💰 *Total da Compra: {{TOTAL}}*
+
+{{BRINDE}}
+
+💳 Pagamento via {{FORMAS_PAGAMENTO}}.
+
+O prazo de pagamento está liberado até as {{HORA}} da {{DIA_SEMANA}}, dia {{DATA}}, após esse prazo, não tendo a confirmação do pagamento, as peças ficarão disponíveis novamente para venda.
+Fico no aguardo para separarmos o seu pedido com muito carinho! ✨
+
+Dados para pagamento:
+{{DADOS_PAGAMENTO}}
+
+Com carinho,
+*Lilika Kids* 💕`;
+
+let appState = {
+  lives: [],
+  activeLiveId: null,
+  settings: {
+    pix: 'karianelemosjulia@gmail.com',
+    banco: 'Nubanck',
+    nome: 'Kariane Lemos',
+    formas: 'Pix ou link de pagamento (solicite no WhatsApp)',
+    cardTemplate: DEFAULT_CARD_TEMPLATE
+  }
+};
+let filterText = '';
+let editingNumber = null;
+let firestoreInitialized = false; // evita loop de atualizações
+
+/* ---------- UTILS ---------- */
+function formatCurrency(v) { return 'R$ ' + (Number(v)||0).toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
+function escapeHtml(str) { return String(str||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]); }
+function applyAlias(name) { const t = String(name||'').trim(); return ALIASES[t.toLowerCase()] || t; }
+function genericType(tipo) { if (!tipo) return ''; const first = tipo.trim().split(/\s+/)[0]; return first.charAt(0).toUpperCase() + first.slice(1).toLowerCase(); }
+function toast(msg) { const el = document.getElementById('toast'); if (!el) return; el.textContent = msg; el.classList.add('show'); clearTimeout(toast._t); toast._t = setTimeout(() => el.classList.remove('show'), 2500); }
+function copyText(text) { if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(text).then(() => true).catch(() => fallbackCopy(text)); return Promise.resolve(fallbackCopy(text)); }
+function fallbackCopy(text) { try { const ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.left = '-9999px'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); return true; } catch(e) { return false; } }
+
+/* ---------- AUTH: TOGGLE ---------- */
+function toggleAuthMode() {
+  const loginForm = document.getElementById('login-form');
+  const signupForm = document.getElementById('signup-form');
+  const toggleText = document.getElementById('toggle-text');
+  const toggleLink = document.getElementById('toggle-link');
+  const subtitle = document.getElementById('auth-subtitle');
+  if (loginForm.style.display === 'none') {
+    loginForm.style.display = 'block'; signupForm.style.display = 'none';
+    toggleText.textContent = 'Não tem conta?'; toggleLink.textContent = 'Criar conta';
+    subtitle.textContent = 'Acesse sua conta para gerenciar a live';
+  } else {
+    loginForm.style.display = 'none'; signupForm.style.display = 'block';
+    toggleText.textContent = 'Já tem conta?'; toggleLink.textContent = 'Fazer login';
+    subtitle.textContent = 'Crie sua conta para começar';
+  }
+}
+function resetAuthMode() {
+  const loginForm = document.getElementById('login-form'); const signupForm = document.getElementById('signup-form');
+  const toggleText = document.getElementById('toggle-text'); const toggleLink = document.getElementById('toggle-link');
+  const subtitle = document.getElementById('auth-subtitle');
+  if (loginForm) loginForm.style.display = 'block'; if (signupForm) signupForm.style.display = 'none';
+  if (toggleText) toggleText.textContent = 'Não tem conta?'; if (toggleLink) toggleLink.textContent = 'Criar conta';
+  if (subtitle) subtitle.textContent = 'Acesse sua conta para gerenciar a live';
+}
+
+/* ---------- AUTH: LOGIN / CADASTRO / LOGOUT ---------- */
+function realizarLogin() {
+  const email = document.getElementById('login-email').value.trim();
+  const senha = document.getElementById('login-password').value;
+  const errorEl = document.getElementById('login-error'); const loadingEl = document.getElementById('login-loading'); const btn = document.getElementById('login-btn');
+  errorEl.style.display = 'none';
+  if (!window.firebaseLogin) { errorEl.textContent = '⚠️ Firebase não carregado.'; errorEl.style.display = 'block'; return; }
+  loadingEl.style.display = 'block'; btn.disabled = true;
+  window.firebaseLogin(email, senha).then(() => { loadingEl.style.display = 'none'; btn.disabled = false; document.getElementById('login-password').value = ''; })
+    .catch((error) => {
+      loadingEl.style.display = 'none'; btn.disabled = false;
+      let msg = 'Erro ao fazer login.';
+      if (error.code === 'auth/user-not-found') msg = '❌ Usuário não encontrado.';
+      else if (error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') msg = '❌ Senha incorreta.';
+      else if (error.code === 'auth/invalid-email') msg = '❌ E-mail inválido.';
+      else if (error.code === 'auth/too-many-requests') msg = '❌ Muitas tentativas. Tente mais tarde.';
+      else if (error.code === 'auth/network-request-failed') msg = '❌ Erro de rede.';
+      else if (error.code === 'auth/operation-not-allowed') msg = '❌ Login por e-mail não está ativado no Firebase.';
+      errorEl.textContent = msg; errorEl.style.display = 'block';
+    });
+}
+function realizarCadastro() {
+  const email = document.getElementById('signup-email').value.trim();
+  const senha = document.getElementById('signup-password').value;
+  const confirm = document.getElementById('signup-password-confirm').value;
+  const errorEl = document.getElementById('signup-error'); const loadingEl = document.getElementById('signup-loading'); const btn = document.getElementById('signup-btn');
+  errorEl.style.display = 'none';
+  if (!window.firebaseSignup) { errorEl.textContent = '⚠️ Firebase não carregado.'; errorEl.style.display = 'block'; return; }
+  if (senha.length < 6) { errorEl.textContent = '❌ A senha deve ter no mínimo 6 caracteres.'; errorEl.style.display = 'block'; return; }
+  if (senha !== confirm) { errorEl.textContent = '❌ As senhas não coincidem.'; errorEl.style.display = 'block'; return; }
+  loadingEl.style.display = 'block'; btn.disabled = true;
+  window.firebaseSignup(email, senha).then(() => {
+    loadingEl.style.display = 'none'; btn.disabled = false;
+    document.getElementById('signup-password').value = ''; document.getElementById('signup-password-confirm').value = ''; document.getElementById('signup-email').value = '';
+    toast('✅ Conta criada com sucesso!');
+  }).catch((error) => {
+    loadingEl.style.display = 'none'; btn.disabled = false;
+    let msg = 'Erro ao criar conta.';
+    if (error.code === 'auth/email-already-in-use') msg = '❌ Este e-mail já está cadastrado. Faça login.';
+    else if (error.code === 'auth/invalid-email') msg = '❌ E-mail inválido.';
+    else if (error.code === 'auth/weak-password') msg = '❌ Senha muito fraca.';
+    else if (error.code === 'auth/network-request-failed') msg = '❌ Erro de rede.';
+    else if (error.code === 'auth/operation-not-allowed') msg = '❌ Cadastro desativado. Ative "E-mail/senha" no Console do Firebase.';
+    else if (error.code === 'auth/unauthorized-domain') msg = '❌ Domínio não autorizado. Adicione seu domínio no Firebase Authentication → Settings → Authorized domains.';
+    errorEl.textContent = msg; errorEl.style.display = 'block';
+  });
+}
+function realizarLogout() {
+  if (!window.firebaseLogout) return;
+  if (!confirm('Deseja sair da conta?')) return;
+  window.firebaseLogout().then(() => toast('👋 Você saiu da conta')).catch(() => toast('❌ Erro ao sair'));
+}
+
+/* ---------- PERSISTÊNCIA (FIRESTORE + LOCALSTORAGE) ---------- */
+async function saveState() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(appState)); } catch (e) {}
+  if (window.currentUserUid && window.salvarNoFirestore) {
+    try {
+      await window.salvarNoFirestore(window.currentUserUid, {
+        lives: appState.lives,
+        activeLiveId: appState.activeLiveId,
+        settings: appState.settings,
+        updatedAt: new Date().toISOString()
+      });
+    } catch (e) { console.warn('Erro ao salvar no Firestore:', e); }
+  }
+}
+
+function loadLocalState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (parsed && Array.isArray(parsed.lives)) {
+        appState = parsed;
+        if (!appState.settings) appState.settings = { pix: '', banco: '', nome: '', formas: '', cardTemplate: DEFAULT_CARD_TEMPLATE };
+        if (!appState.settings.cardTemplate) appState.settings.cardTemplate = DEFAULT_CARD_TEMPLATE;
+      }
+    }
+  } catch(e) {}
+}
+
+/* ---------- LOGIN: INICIALIZAÇÃO APÓS AUTENTICAÇÃO ---------- */
+function onUserLoggedIn(uid) {
+  // 1. Carrega dados locais imediatamente (offline-first)
+  loadLocalState();
+  // 2. Ativa listener do Firestore para sincronização em tempo real
+  if (window.ouvirFirestore && !firestoreInitialized) {
+    firestoreInitialized = true;
+    window._unsubscribeFirestore = window.ouvirFirestore(uid, (dados) => {
+      if (dados && Array.isArray(dados.lives)) {
+        appState.lives = dados.lives || [];
+        appState.activeLiveId = dados.activeLiveId || null;
+        if (dados.settings) appState.settings = dados.settings;
+        // Atualiza cache local
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(appState)); } catch (e) {}
+        // Re-renderiza a tela atual sem perder o contexto
+        if (!appState.activeLiveId || !getActiveLive()) {
+          showView('view-home');
+        } else if (document.getElementById('view-dashboard').classList.contains('active')) {
+          renderDashboard();
+        } else if (document.getElementById('view-history').classList.contains('active')) {
+          renderHistory();
+        }
+      }
+    });
+  }
+  // 3. Se o Firestore ainda não enviou dados, garante que a UI seja renderizada com o cache local
+  if (!appState.activeLiveId || !getActiveLive()) {
+    showView('view-home');
+  } else {
+    showView('view-dashboard');
+  }
+  toast('☁️ Sincronização ativa!');
+}
+
+/* ---------- NAVEGAÇÃO / LIVES / HISTÓRICO / DASHBOARD / TABELAS ---------- */
+function showView(viewId) {
+  document.querySelectorAll('#app-main .view-section').forEach(el => el.classList.remove('active'));
+  const target = document.getElementById(viewId); if (target) target.classList.add('active');
+  if (viewId === 'view-history') renderHistory();
+  if (viewId === 'view-dashboard') renderDashboard();
+}
+function getActiveLive() { return appState.lives.find(l => l.id === appState.activeLiveId); }
+function createNewLivePrompt() { document.getElementById('new-live-name').value = ''; document.getElementById('modal-new-live').style.display = 'flex'; }
+function closeNewLiveModal() { document.getElementById('modal-new-live').style.display = 'none'; }
+function confirmNewLive() {
+  try {
+    const name = document.getElementById('new-live-name').value.trim() || 'Live sem nome';
+    const newLive = { id: 'live_' + Date.now(), name, date: new Date().toISOString(), deadline: { date: '', time: '18:00' }, records: [], nextNumber: 1 };
+    appState.lives.push(newLive); appState.activeLiveId = newLive.id;
+    saveState(); closeNewLiveModal(); showView('view-dashboard'); toast('✨ Live iniciada!');
+  } catch (e) { toast('❌ Erro: ' + e.message); }
+}
+function loadLive(id) { appState.activeLiveId = id; saveState(); showView('view-dashboard'); }
+function deleteLive(id, event) {
+  if (event) event.stopPropagation();
+  if (!confirm('Apagar esta live permanentemente?')) return;
+  appState.lives = appState.lives.filter(l => l.id !== id);
+  if (appState.activeLiveId === id) appState.activeLiveId = null;
+  saveState(); renderHistory(); toast('🗑️ Apagada');
+}
+function renderHistory() {
+  const container = document.getElementById('history-list'); if (!container) return;
+  if (appState.lives.length === 0) { container.innerHTML = '<div style="text-align:center; color:var(--text-muted); padding:30px;">Nenhuma live salva.</div>'; return; }
+  container.innerHTML = '';
+  const sorted = [...appState.lives].sort((a,b) => new Date(b.date) - new Date(a.date));
+  sorted.forEach(live => {
+    const total = live.records.filter(r => r.status === 'venda').reduce((s, r) => s + r.valor, 0);
+    const div = document.createElement('div');
+    div.className = 'history-item';
+    div.innerHTML = `<div class="history-info" onclick="loadLive('${live.id}')" style="flex:1; cursor:pointer;"><h3>${escapeHtml(live.name)}</h3><p>📅 ${new Date(live.date).toLocaleDateString('pt-BR')} | 💰 ${formatCurrency(total)}</p></div><div style="display:flex; gap:5px;"><button class="btn btn-secondary" onclick="loadLive('${live.id}')">Abrir</button><button class="btn-icon" onclick="deleteLive('${live.id}', event)" style="color:var(--neon-red); font-size:1.2rem;">🗑️</button></div>`;
+    container.appendChild(div);
+  });
+}
+function renderDashboard() {
+  const live = getActiveLive(); if (!live) { showView('view-home'); return; }
+  if (!live.deadline) live.deadline = { date: '', time: '18:00' };
+  document.getElementById('dash-live-name').textContent = live.name;
+  document.getElementById('deadline-date').value = live.deadline.date;
+  document.getElementById('deadline-time').value = live.deadline.time;
+  renderPaymentSettings(); renderTables(); updateFormNumber(); updateDatalists();
+  document.getElementById('results-section').style.display = 'none';
+}
+function renderPaymentSettings() {
+  const s = appState.settings; const el = document.getElementById('dash-payment-info');
+  if (el) el.innerHTML = `💳 <strong>Pix:</strong> ${escapeHtml(s.pix)} | <strong>Banco:</strong> ${escapeHtml(s.banco)} | <strong>Nome:</strong> ${escapeHtml(s.nome)}`;
+}
+function saveDeadline() {
+  const live = getActiveLive(); if (!live) return;
+  live.deadline.date = document.getElementById('deadline-date').value;
+  live.deadline.time = document.getElementById('deadline-time').value;
+  saveState(); toast('⏰ Prazo atualizado');
+}
+function getFilteredRecords() {
+  const live = getActiveLive(); if (!live) return [];
+  return live.records.filter(r => !filterText || r.cliente.toLowerCase().includes(filterText.toLowerCase())).sort((a,b) => a.numero - b.numero);
+}
+function renderTables() {
+  const live = getActiveLive(); if (!live) return;
+  const records = getFilteredRecords();
+  const flowBody = document.getElementById('flow-body');
+  if (flowBody) {
+    flowBody.innerHTML = records.length === 0 ? '<div style="padding:10px; color:var(--text-muted); text-align:center;">Sem registros</div>' : '';
+    records.forEach(r => {
+      const sym = r.status === 'venda' ? '●' : r.status === 'cancelada' ? '🔻' : '🎁';
+      const rowClass = r.status === 'cancelada' ? 'row-cancelled' : r.status === 'brinde' ? 'row-gift' : '';
+      let valor = r.status === 'brinde' ? formatCurrency(0) : (r.valor > 0 ? formatCurrency(r.valor) : 'Sem valor');
+      const row = document.createElement('div');
+      row.className = 'table-row ' + rowClass;
+      row.innerHTML = `<div class="cell"><span class="cell-content">${r.numero}</span><span class="cell-sym">${sym}</span></div><div class="cell"><span class="cell-content">${escapeHtml(r.cliente)}</span><span class="cell-sym">${sym}</span></div><div class="cell"><span class="cell-content">${escapeHtml(r.tipoPeca)}</span><span class="cell-sym">${sym}</span></div><div class="cell"><span class="cell-content">${valor}</span></div><div class="actions" style="display:flex; justify-content:flex-end;"><button class="btn-icon" onclick="openEdit(${r.numero})">✏️</button><button class="btn-icon" onclick="deleteRecord(${r.numero})">🗑️</button></div>`;
+      flowBody.appendChild(row);
+    });
+    const totalVendas = records.filter(r => r.status === 'venda').reduce((s,r) => s + r.valor, 0);
+    flowBody.innerHTML += `<div class="table-row subtotal-row"><div class="cell"><span class="cell-content">SBTL</span></div><div class="cell"><span class="cell-content">💶</span></div><div class="cell"><span class="cell-content">💶</span></div><div class="cell"><span class="cell-content" style="color:var(--neon-cyan)">${formatCurrency(totalVendas)} 💶</span></div><div></div></div>`;
+  }
+  const codesBody = document.getElementById('codes-body');
+  if (codesBody) { codesBody.innerHTML = records.map(r => { const sym = r.status === 'venda' ? '●' : r.status === 'cancelada' ? '🔻' : '🎁'; const code = r.status === 'brinde' ? 'brinde' : (r.codigo || '—'); return `<div class="table-row ${r.status==='cancelada'?'row-cancelled':''}"><div class="cell"><span class="cell-content">${escapeHtml(code)}</span><span class="cell-sym">${sym}</span></div><div class="cell"><span class="cell-content">${r.numero}</span><span class="cell-sym">${sym}</span></div><div></div></div>`; }).join('') || '<div style="padding:10px; color:var(--text-muted); text-align:center;">Sem registros</div>'; }
+  const giftsBody = document.getElementById('gifts-body');
+  if (giftsBody) { const gifts = records.filter(r => r.status === 'brinde'); giftsBody.innerHTML = gifts.map((g, i) => `<div class="table-row"><div class="cell"><span class="cell-content">Brinde #${i+1}</span></div><div class="cell"><span class="cell-content">${g.numero}</span></div><div class="cell"><span class="cell-content">${escapeHtml(g.cliente)}</span></div><div class="cell"><span class="cell-content">${escapeHtml(g.tipoPeca)}</span></div><div class="cell"><span class="cell-content">${escapeHtml(g.origemBrinde||'')}</span></div></div>`).join('') || '<div style="padding:10px; color:var(--text-muted); text-align:center;">Sem brindes</div>'; }
+  const queuesBody = document.getElementById('queues-body');
+  if (queuesBody) { const queues = records.filter(r => r.fila && r.fila.length > 0); queuesBody.innerHTML = queues.map(q => `<div class="table-row"><div class="cell"><span class="cell-content">${escapeHtml(q.tipoPeca)}</span></div><div class="cell"><span class="cell-content">${escapeHtml(q.cliente)}</span></div><div class="cell"><span class="cell-content">${escapeHtml(q.fila.join(' | '))}</span></div></div>`).join('') || '<div style="padding:10px; color:var(--text-muted); text-align:center;">Sem filas</div>'; }
+  const summaryBody = document.getElementById('summary-body');
+  if (summaryBody) {
+    const sumMap = {};
+    records.forEach(r => { if (r.status === 'cancelada') return; if (!sumMap[r.cliente]) sumMap[r.cliente] = { c: 0, t: 0, g: 0 }; if (r.status === 'venda') { sumMap[r.cliente].c++; sumMap[r.cliente].t += r.valor; } if (r.status === 'brinde') sumMap[r.cliente].g++; });
+    const sumArr = Object.keys(sumMap).map(k => ({ n: k, ...sumMap[k] })).sort((a,b) => b.t - a.t);
+    summaryBody.innerHTML = sumArr.map(s => `<div class="table-row"><div class="cell"><span class="cell-content">${escapeHtml(s.n)}</span></div><div class="cell"><span class="cell-content">${s.c}</span></div><div class="cell"><span class="cell-content">${formatCurrency(s.t)}</span></div><div class="cell"><span class="cell-content">${s.g}</span></div></div>`).join('') || '<div style="padding:10px; color:var(--text-muted); text-align:center;">Sem clientes</div>';
+  }
+  const totalsArea = document.getElementById('totals-area');
+  if (totalsArea) {
+    const vendido = records.filter(r => r.status === 'venda').reduce((s,r) => s+r.valor, 0);
+    const comVal = records.filter(r => r.status === 'venda' && r.valor > 0).length;
+    const canc = records.filter(r => r.status === 'cancelada').length;
+    const bri = records.filter(r => r.status === 'brinde').length;
+    const fil = records.filter(r => r.fila && r.fila.length > 0).length;
+    totalsArea.innerHTML = `<div class="total-box"><span>Vendido</span><strong>${formatCurrency(vendido)}</strong></div><div class="total-box"><span>Reg. c/ Valor</span><strong>${comVal}</strong></div><div class="total-box"><span>Canceladas</span><strong>${canc}</strong></div><div class="total-box"><span>Brindes</span><strong>${bri}</strong></div><div class="total-box"><span>Filas</span><strong>${fil}</strong></div>`;
+  }
+}
+function toggleOrigemField() {
+  const status = document.getElementById('f-status').value;
+  document.getElementById('origem-group').style.display = status === 'brinde' ? 'flex' : 'none';
+  const valInput = document.getElementById('f-valor');
+  if (status === 'brinde') { valInput.disabled = true; valInput.value = ''; } else { valInput.disabled = false; }
+}
+function updateFormNumber() {
+  const live = getActiveLive(); if (!live) return;
+  const maxNum = live.records.reduce((m,r) => Math.max(m, r.numero), 0);
+  document.getElementById('f-numero').value = maxNum + 1;
+}
+function updateDatalists() {
+  const clientes = new Set(); const tipos = new Set();
+  appState.lives.forEach(live => { live.records.forEach(r => { if (r.cliente) clientes.add(r.cliente); if (r.tipoPeca) tipos.add(r.tipoPeca); }); });
+  document.getElementById('clientes-list').innerHTML = [...clientes].sort().map(n => `<option value="${escapeHtml(n)}">`).join('');
+  document.getElementById('tipos-list').innerHTML = [...tipos].sort().map(n => `<option value="${escapeHtml(n)}">`).join('');
+}
+function registrarVenda() {
+  try {
+    const live = getActiveLive(); if (!live) { toast('Nenhuma live ativa'); return; }
+    const num = parseInt(document.getElementById('f-numero').value, 10);
+    let cli = applyAlias(document.getElementById('f-cliente').value);
+    const tipo = document.getElementById('f-tipo').value.trim();
+    const cod = document.getElementById('f-codigo').value.trim();
+    const status = document.getElementById('f-status').value;
+    let val = parseFloat(document.getElementById('f-valor').value) || 0;
+    let orig = document.getElementById('f-origem').value.trim() || null;
+    const fila1 = applyAlias(document.getElementById('f-fila-1').value); const fila2 = applyAlias(document.getElementById('f-fila-2').value); const fila3 = applyAlias(document.getElementById('f-fila-3').value);
+    let fila = [fila1, fila2, fila3].filter(Boolean);
+    if (!num || num < 1) { toast('Número inválido'); return; }
+    if (!cli) { toast('Cliente obrigatório'); return; }
+    if (!tipo) { toast('Tipo obrigatório'); return; }
+    if (live.records.some(r => r.numero === num)) { toast('Nº já existe'); return; }
+    if (status === 'brinde') { val = 0; if (!orig) orig = 'Brinde'; } else { orig = null; }
+    live.records.push({ numero: num, cliente: cli, tipoPeca: tipo, codigo: cod, valor: val, status, origemBrinde: orig, fila });
+    saveState(); renderTables(); updateFormNumber(); updateDatalists();
+    document.getElementById('f-cliente').value = ''; document.getElementById('f-tipo').value = ''; document.getElementById('f-codigo').value = ''; document.getElementById('f-valor').value = ''; document.getElementById('f-fila-1').value = ''; document.getElementById('f-fila-2').value = ''; document.getElementById('f-fila-3').value = ''; document.getElementById('f-origem').value = ''; document.getElementById('f-status').value = 'venda'; toggleOrigemField(); document.getElementById('f-cliente').focus();
+    toast('✅ Peça #' + num + ' registrada!');
+  } catch (e) { toast('❌ Erro: ' + e.message); }
+}
+function openEdit(num) {
+  const live = getActiveLive(); if (!live) return; const r = live.records.find(x => x.numero === num); if (!r) return;
+  editingNumber = num;
+  document.getElementById('e-numero').value = r.numero; document.getElementById('e-cliente').value = r.cliente; document.getElementById('e-tipo').value = r.tipoPeca; document.getElementById('e-codigo').value = r.codigo; document.getElementById('e-valor').value = r.valor; document.getElementById('e-status').value = r.status; document.getElementById('e-origem').value = r.origemBrinde || '';
+  document.getElementById('e-fila-1').value = r.fila[0] || ''; document.getElementById('e-fila-2').value = r.fila[1] || ''; document.getElementById('e-fila-3').value = r.fila[2] || '';
+  document.getElementById('promote-section').style.display = (r.fila && r.fila.length > 0) ? 'block' : 'none';
+  document.getElementById('modal-overlay').style.display = 'flex';
+}
+function promoverFilaEdicao() {
+  const fila1 = document.getElementById('e-fila-1').value.trim(); const fila2 = document.getElementById('e-fila-2').value.trim(); const fila3 = document.getElementById('e-fila-3').value.trim();
+  const fila = [fila1, fila2, fila3].filter(Boolean);
+  if (fila.length === 0) { toast('Sem fila para promover'); document.getElementById('promote-section').style.display = 'none'; return; }
+  document.getElementById('e-cliente').value = fila[0]; document.getElementById('e-fila-1').value = fila[1] || ''; document.getElementById('e-fila-2').value = fila[2] || ''; document.getElementById('e-fila-3').value = '';
+  if (fila.length <= 1) document.getElementById('promote-section').style.display = 'none';
+  toast('🔄 Campos atualizados! Salve para confirmar.');
+}
+function closeModal() { document.getElementById('modal-overlay').style.display = 'none'; editingNumber = null; }
+function salvarEdicao() {
+  try {
+    const live = getActiveLive(); if (!live) return; const r = live.records.find(x => x.numero === editingNumber); if (!r) return;
+    const newNum = parseInt(document.getElementById('e-numero').value, 10);
+    if (!newNum || newNum < 1) { toast('Número inválido'); return; }
+    if (newNum !== editingNumber && live.records.some(x => x.numero === newNum)) { toast('Nº já existe'); return; }
+    let cli = applyAlias(document.getElementById('e-cliente').value); if (!cli) { toast('Cliente obrigatório'); return; }
+    const fila1 = applyAlias(document.getElementById('e-fila-1').value); const fila2 = applyAlias(document.getElementById('e-fila-2').value); const fila3 = applyAlias(document.getElementById('e-fila-3').value);
+    let fila = [fila1, fila2, fila3].filter(Boolean);
+    const status = document.getElementById('e-status').value;
+    r.numero = newNum; r.cliente = cli; r.tipoPeca = document.getElementById('e-tipo').value.trim(); r.codigo = document.getElementById('e-codigo').value.trim(); r.valor = status === 'brinde' ? 0 : (parseFloat(document.getElementById('e-valor').value)||0); r.status = status; r.origemBrinde = status === 'brinde' ? (document.getElementById('e-origem').value.trim() || 'Brinde') : null; r.fila = fila;
+    saveState(); renderTables(); updateFormNumber(); updateDatalists(); closeModal(); toast('✅ Atualizado! Resumos recalculados.');
+  } catch (e) { toast('❌ Erro: ' + e.message); }
+}
+function deleteRecord(num) {
+  const live = getActiveLive(); if (!live) return; if (!confirm('Excluir peça #' + num + '?')) return;
+  live.records = live.records.filter(r => r.numero !== num); saveState(); renderTables(); updateFormNumber(); toast('🗑️ Excluída');
+}
+function openSettingsModal() {
+  const s = appState.settings;
+  document.getElementById('set-pix').value = s.pix; document.getElementById('set-banco').value = s.banco; document.getElementById('set-nome').value = s.nome; document.getElementById('set-formas').value = s.formas; document.getElementById('set-template').value = s.cardTemplate || DEFAULT_CARD_TEMPLATE;
+  document.getElementById('modal-settings').style.display = 'flex';
+}
+function closeSettingsModal() { document.getElementById('modal-settings').style.display = 'none'; }
+function saveSettings() {
+  appState.settings = { pix: document.getElementById('set-pix').value.trim() || 'Não informado', banco: document.getElementById('set-banco').value.trim() || 'Não informado', nome: document.getElementById('set-nome').value.trim() || 'Não informado', formas: document.getElementById('set-formas').value.trim() || 'Pix', cardTemplate: document.getElementById('set-template').value || DEFAULT_CARD_TEMPLATE };
+  saveState(); renderPaymentSettings(); closeSettingsModal(); toast('⚙️ Configurações salvas!');
+}
+function handleEndLive() {
+  const live = getActiveLive(); if (!live || live.records.length === 0) { toast('Nenhum registro'); return; }
+  const deadline = live.deadline.date ? new Date(live.deadline.date + 'T12:00:00') : new Date();
+  const weekdays = ['domingo', 'segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado'];
+  const wd = weekdays[deadline.getDay()]; const dtStr = deadline.toLocaleDateString('pt-BR'); const tmStr = live.deadline.time || '18:00'; const s = appState.settings;
+  const byClient = {};
+  live.records.forEach(r => { if (r.status === 'cancelada') return; if (!byClient[r.cliente]) byClient[r.cliente] = { sales: [], gifts: [], total: 0 }; if (r.status === 'venda') { byClient[r.cliente].sales.push(r); byClient[r.cliente].total += r.valor; } else if (r.status === 'brinde') byClient[r.cliente].gifts.push(r); });
+  const sortedClients = Object.keys(byClient).map(k => ({ name: k, ...byClient[k] })).filter(c => c.sales.length > 0 || c.gifts.length > 0).sort((a,b) => b.total - a.total);
+  let chartsHtml = '<h3 style="color:var(--neon-cyan); margin-bottom:10px; font-size:0.9rem;">📊 Estatísticas da Live</h3>';
+  const totVend = sortedClients.reduce((s,c) => s+c.total, 0); const totPecas = live.records.filter(r => r.status === 'venda').length; const totBrinde = live.records.filter(r => r.status === 'brinde').length;
+  chartsHtml += `<div class="chart-stats"><div class="chart-stat-box"><div class="stat-label">Total Vendido</div><div class="stat-value">${formatCurrency(totVend)}</div></div><div class="chart-stat-box"><div class="stat-label">Peças Vendidas</div><div class="stat-value">${totPecas}</div></div><div class="chart-stat-box"><div class="stat-label">Brindes</div><div class="stat-value">${totBrinde}</div></div></div>`;
+  chartsHtml += '<div class="chart-container"><div class="chart-title">🏆 Ranking Completo de Clientes</div>';
+  const maxVal = sortedClients.length > 0 ? sortedClients[0].total : 1;
+  if (sortedClients.length === 0 || maxVal === 0) { chartsHtml += '<div style="text-align:center; color:var(--text-muted); font-size:0.8rem; padding:10px;">Sem vendas registradas.</div>'; } else { chartsHtml += '<div class="chart-scroll">'; sortedClients.forEach(c => { const pct = maxVal > 0 ? (c.total / maxVal) * 100 : 0; chartsHtml += `<div class="chart-row"><div class="chart-label" title="${escapeHtml(c.name)}">${escapeHtml(c.name)}</div><div class="chart-bar-wrap"><div class="chart-bar" style="width: ${pct}%"></div></div><div class="chart-val">${formatCurrency(c.total)}</div></div>`; }); chartsHtml += '</div>'; } chartsHtml += '</div>';
+  document.getElementById('charts-container').innerHTML = chartsHtml;
+  const cards = sortedClients.map(c => {
+    const elogio = COMPLIMENTS[Math.floor(Math.random() * COMPLIMENTS.length)];
+    let pecasStr = c.sales.map(r => `- ${genericType(r.tipoPeca)} ...... ${r.valor > 0 ? 'Valor: '+formatCurrency(r.valor) : 'Sem valor'}`).join('\n');
+    let brindeStr = c.gifts.length > 0 ? `🎁 *Brinde:* ${c.gifts.map(g=>genericType(g.tipoPeca)).join(', ')} — vai junto no seu pedido!\n` : '';
+    let dadosPagamentoStr = `Chave Pix: ${s.pix}\nBanco: ${s.banco}\nNome: ${s.nome}`;
+    let tpl = s.cardTemplate || DEFAULT_CARD_TEMPLATE;
+    tpl = tpl.replace(/{{NOME}}/g, c.name).replace(/{{ELOGIO}}/g, elogio).replace(/{{PECAS}}/g, pecasStr).replace(/{{TOTAL}}/g, formatCurrency(c.total)).replace(/{{BRINDE}}/g, brindeStr).replace(/{{FORMAS_PAGAMENTO}}/g, s.formas).replace(/{{HORA}}/g, tmStr).replace(/{{DIA_SEMANA}}/g, wd).replace(/{{DATA}}/g, dtStr).replace(/{{DADOS_PAGAMENTO}}/g, dadosPagamentoStr);
+    return { name: c.name, text: tpl };
+  });
+  let res = `📊 RESUMO GERAL — LILIKA KIDS\n📅 ${new Date().toLocaleDateString('pt-BR')}\n⏰ Prazo: ${wd}, ${dtStr} até ${tmStr}\n\n`;
+  res += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n👥 VENDAS POR CLIENTE\n`; sortedClients.forEach(c => { res += `- ${c.name} ...... ${formatCurrency(c.total)}\n`; });
+  res += `\n💰 TOTAL VENDIDO: ${formatCurrency(totVend)}\n🎁 TOTAL BRINDES: ${totBrinde}\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n💳 DADOS PARA PAGAMENTO\nPix: ${s.pix}\nBanco: ${s.banco}\nNome: ${s.nome}\n\n💕 Lilika Kids`;
+  const sec = document.getElementById('results-section'); const cont = document.getElementById('results-content');
+  if (!sec || !cont) return; sec.style.display = 'block';
+  let html = '<h3 style="color:var(--neon-cyan); margin-bottom:10px;">Cards dos Clientes</h3>';
+  cards.forEach((c, i) => { html += `<div style="background:#0f1420; padding:10px; border-radius:8px; margin-bottom:10px; border:1px solid var(--border);"><div style="display:flex; justify-content:space-between; margin-bottom:8px;"><strong style="color:var(--neon-pink);">${escapeHtml(c.name)}</strong><button class="btn btn-secondary" onclick="copySingleCard(${i})">📋 Copiar</button></div><pre style="white-space:pre-wrap; font-size:0.75rem; color:var(--text-muted); font-family:inherit;">${escapeHtml(c.text)}</pre></div>`; });
+  html += `<div style="background:#0f1420; padding:10px; border-radius:8px; border:1px solid var(--border); margin-top:15px;"><div style="display:flex; justify-content:space-between; margin-bottom:8px;"><strong style="color:var(--neon-cyan);">📊 Resumo Geral</strong><button class="btn btn-secondary" onclick="copySummaryText()">📋 Copiar</button></div><pre style="white-space:pre-wrap; font-size:0.75rem; color:var(--text-muted); font-family:inherit;">${escapeHtml(res)}</pre></div>`;
+  cont.innerHTML = html; sec.scrollIntoView({ behavior: 'smooth' });
+  window.copySingleCard = (i) => copyText(cards[i].text).then(ok => toast(ok ? '✅ Copiado!' : '❌ Erro'));
+  window.copySummaryText = () => copyText(res).then(ok => toast(ok ? '✅ Copiado!' : '❌ Erro'));
+  window.copyAllCards = () => { const all = cards.map(c => c.text).join('\n\n════════════\n\n'); copyText(all).then(ok => toast(ok ? '✅ Todos copiados!' : '❌ Erro')); };
+  window.copySummary = window.copySummaryText;
+}
+
+/* ---------- INICIALIZAÇÃO ---------- */
+document.addEventListener('DOMContentLoaded', function() {
+  // A tela de login é gerenciada pelo Firebase (onAuthStateChanged).
+  // O appState será carregado após o login pelo onUserLoggedIn().
+  // Se já houver sessão ativa, o Firebase chamará onUserLoggedIn automaticamente.
+});
+</script>
+</body>
+</html>
