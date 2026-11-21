@@ -89,7 +89,6 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
 .table-header, .table-row { display: grid; align-items: center; padding: 8px 4px; border-bottom: 1px solid var(--border); gap: 5px; }
 .table-header { font-weight: 700; color: var(--text-muted); font-size: 0.7rem; text-transform: uppercase; border-bottom: 1px solid var(--border); }
 
-/* NOVO FLUXO: # | Cliente | Peça | Código | Valor | Ações */
 #flow-table .table-header, #flow-table .table-row { grid-template-columns: 30px 1fr 1fr 65px 65px 55px; }
 #gifts-table .table-header, #gifts-table .table-row { grid-template-columns: 55px 30px 1fr 1fr 1fr; }
 #queues-table .table-header, #queues-table .table-row { grid-template-columns: 1fr 1fr 1fr; }
@@ -103,7 +102,7 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
 .row-gift { background: rgba(0, 255, 136, 0.05); }
 .subtotal-row { font-weight: 700; border-top: 2px solid var(--border); background: rgba(255,255,255,0.02); padding: 10px 4px; }
 
-/* ===== TOTAIS COM NEON PULSANTE ===== */
+/* ===== TOTAIS PULSANTES ===== */
 .totals { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }
 .total-box { border-radius: 8px; padding: 12px; text-align: center; border: 1px solid var(--border); background: #0f1420; transition: all 0.3s; }
 .total-box span { font-size: 0.7rem; text-transform: uppercase; display: block; margin-bottom: 5px; font-weight: 600; }
@@ -116,7 +115,6 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
   0%, 100% { box-shadow: 0 0 8px rgba(0,255,136,0.4), inset 0 0 8px rgba(0,255,136,0.1); border-color: rgba(0,255,136,0.5); background: rgba(0,255,136,0.05); }
   50% { box-shadow: 0 0 22px rgba(0,255,136,0.9), inset 0 0 18px rgba(0,255,136,0.25); border-color: #00ff88; background: rgba(0,255,136,0.15); }
 }
-
 .total-box.total-reg { animation: pulseWhite 2s infinite ease-in-out; }
 .total-box.total-reg span { color: rgba(255,255,255,0.9); }
 .total-box.total-reg strong { color: #ffffff; text-shadow: 0 0 10px #ffffff; }
@@ -124,7 +122,6 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
   0%, 100% { box-shadow: 0 0 8px rgba(255,255,255,0.4), inset 0 0 8px rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.03); }
   50% { box-shadow: 0 0 22px rgba(255,255,255,0.9), inset 0 0 18px rgba(255,255,255,0.25); border-color: #ffffff; background: rgba(255,255,255,0.1); }
 }
-
 .total-box.total-canc { animation: pulseRed 2s infinite ease-in-out; }
 .total-box.total-canc span { color: rgba(255,51,102,0.9); }
 .total-box.total-canc strong { color: #ff3366; text-shadow: 0 0 10px #ff3366; }
@@ -132,7 +129,6 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
   0%, 100% { box-shadow: 0 0 8px rgba(255,51,102,0.4), inset 0 0 8px rgba(255,51,102,0.1); border-color: rgba(255,51,102,0.5); background: rgba(255,51,102,0.05); }
   50% { box-shadow: 0 0 22px rgba(255,51,102,0.9), inset 0 0 18px rgba(255,51,102,0.25); border-color: #ff3366; background: rgba(255,51,102,0.15); }
 }
-
 .total-box.total-brinde { animation: pulseOrange 2s infinite ease-in-out; }
 .total-box.total-brinde span { color: rgba(255,140,0,0.9); }
 .total-box.total-brinde strong { color: #ff8c00; text-shadow: 0 0 10px #ff8c00; }
@@ -140,7 +136,6 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
   0%, 100% { box-shadow: 0 0 8px rgba(255,140,0,0.4), inset 0 0 8px rgba(255,140,0,0.1); border-color: rgba(255,140,0,0.5); background: rgba(255,140,0,0.05); }
   50% { box-shadow: 0 0 22px rgba(255,140,0,0.9), inset 0 0 18px rgba(255,140,0,0.25); border-color: #ff8c00; background: rgba(255,140,0,0.15); }
 }
-
 .total-box.total-fila { animation: pulseGold 2s infinite ease-in-out; }
 .total-box.total-fila span { color: rgba(255,215,0,0.9); }
 .total-box.total-fila strong { color: #ffd700; text-shadow: 0 0 10px #ffd700; }
@@ -158,20 +153,13 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
 
 /* ===== MODAL ===== */
 .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 15px; backdrop-filter: blur(3px); }
-.modal { background: var(--bg-card); border-radius: var(--radius); padding: 20px; width: 100%; max-width: 520px; border: 1px solid var(--border); box-shadow: var(--glow-pink); max-height: 90vh; overflow-y: auto; }
+.modal { background: var(--bg-card); border-radius: var(--radius); padding: 20px; width: 100%; max-width: 850px; border: 1px solid var(--border); box-shadow: var(--glow-pink); max-height: 92vh; overflow-y: auto; }
 .modal h3 { margin-bottom: 15px; color: var(--neon-pink); }
 .modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
 
 /* ===== ABAS DE CONFIGURAÇÕES ===== */
-.settings-tabs {
-  display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 15px;
-  border-bottom: 1px solid var(--border); padding-bottom: 10px;
-}
-.settings-tab {
-  background: transparent; border: 1px solid var(--border); color: var(--text-muted);
-  padding: 6px 10px; border-radius: 6px; font-size: 0.75rem; cursor: pointer;
-  font-weight: 600; font-family: inherit; transition: all 0.2s;
-}
+.settings-tabs { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+.settings-tab { background: transparent; border: 1px solid var(--border); color: var(--text-muted); padding: 6px 10px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; font-weight: 600; font-family: inherit; transition: all 0.2s; }
 .settings-tab:hover { color: var(--text-main); border-color: var(--neon-cyan); }
 .settings-tab.active { background: var(--neon-pink); color: white; border-color: var(--neon-pink); box-shadow: 0 0 8px rgba(255,42,133,0.4); }
 .settings-panel { display: none; }
@@ -182,6 +170,32 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
 .client-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; background: #0f1420; border: 1px solid var(--border); border-radius: 6px; margin-bottom: 6px; }
 .client-item span { font-size: 0.85rem; }
 .client-item button { padding: 4px 8px; font-size: 0.7rem; }
+
+/* ===== EDITOR EM BLOCOS ===== */
+.editor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.editor-column { min-width: 0; }
+
+.card-block { background: #0f1420; border: 1px solid var(--border); border-radius: 8px; padding: 10px; margin-bottom: 8px; transition: all 0.2s; }
+.card-block:has(input[type="checkbox"]:checked) { border-color: var(--neon-cyan); box-shadow: 0 0 6px rgba(0,229,255,0.2); }
+.card-block input[type="text"], .card-block textarea { width: 100%; padding: 7px; background: #0a0e17; border: 1px solid var(--border); border-radius: 6px; color: var(--text-main); font-size: 0.8rem; font-family: inherit; }
+.card-block input[type="text"]:focus, .card-block textarea:focus { outline: none; border-color: var(--neon-cyan); }
+.card-block textarea { resize: vertical; min-height: 50px; }
+
+.block-toggle { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.82rem; font-weight: 600; color: var(--text-main); margin-bottom: 8px; }
+.block-toggle input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--neon-cyan); cursor: pointer; }
+
+.prazo-display { padding: 8px; background: #0a0e17; border: 1px dashed var(--border); border-radius: 6px; font-size: 0.75rem; color: var(--neon-cyan); text-align: center; margin: 6px 0; }
+
+.preview-column { position: sticky; top: 10px; align-self: start; }
+.preview-header { background: var(--neon-cyan); color: #0b0f19; padding: 8px 12px; border-radius: 8px 8px 0 0; font-size: 0.72rem; font-weight: 700; letter-spacing: 1px; display: flex; justify-content: space-between; align-items: center; }
+.preview-content { background: #0a0e17; border: 1px solid var(--neon-cyan); border-top: none; border-radius: 0 0 8px 8px; padding: 12px; white-space: pre-wrap; font-size: 0.72rem; color: var(--text-main); font-family: inherit; line-height: 1.5; max-height: 65vh; overflow-y: auto; margin: 0; }
+.preview-content::-webkit-scrollbar { width: 6px; }
+.preview-content::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+@media (max-width: 700px) {
+  .editor-grid { grid-template-columns: 1fr; }
+  .preview-column { position: static; }
+}
 
 /* ===== TOAST ===== */
 .toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--bg-card); border: 1px solid var(--neon-cyan); color: var(--text-main); padding: 10px 20px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; box-shadow: var(--glow-cyan); opacity: 0; transition: all 0.3s; z-index: 2000; pointer-events: none; }
@@ -379,7 +393,7 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
 
 <!-- MODAL NOVA LIVE -->
 <div id="modal-new-live" class="modal-overlay" style="display:none">
-  <div class="modal">
+  <div class="modal" style="max-width: 480px;">
     <h3>✨ Nova Live</h3>
     <div class="form-group"><label>Dê um nome para esta live</label><input type="text" id="new-live-name" placeholder="Ex: Live Coleção Verão" style="margin-top: 5px;"></div>
     <div class="modal-actions">
@@ -389,7 +403,7 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
   </div>
 </div>
 
-<!-- MODAL CONFIGURAÇÕES (ABAS) -->
+<!-- MODAL CONFIGURAÇÕES -->
 <div id="modal-settings" class="modal-overlay" style="display:none">
   <div class="modal">
     <h3>⚙️ Configurações</h3>
@@ -397,7 +411,6 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
     <div class="settings-tabs">
       <button type="button" class="settings-tab active" data-tab="loja" onclick="showSettingsTab('loja')">🏪 Loja</button>
       <button type="button" class="settings-tab" data-tab="bancarios" onclick="showSettingsTab('bancarios')">💳 Bancários</button>
-      <button type="button" class="settings-tab" data-tab="prazo" onclick="showSettingsTab('prazo')">📅 Prazo</button>
       <button type="button" class="settings-tab" data-tab="textos" onclick="showSettingsTab('textos')">📝 Textos</button>
       <button type="button" class="settings-tab" data-tab="clientes" onclick="showSettingsTab('clientes')">👥 Clientes</button>
     </div>
@@ -418,41 +431,71 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
       <div class="form-group"><label>Nome do Titular</label><input type="text" id="set-nome" placeholder="Ex: Maria Silva"></div>
     </div>
 
-    <!-- PAINEL PRAZO -->
-    <div class="settings-panel" id="settings-panel-prazo">
-      <h4>📅 Prazo de Pagamento</h4>
-      <div class="form-group">
-        <label style="display:flex; align-items:center; gap:8px; cursor:pointer; padding:10px; background:#0a0e17; border-radius:8px;">
-          <input type="checkbox" id="set-tem-prazo" onchange="togglePrazoFields()">
-          <span style="font-size:0.8rem; color:var(--text-main); font-weight:600;">Minha loja usa prazo de pagamento nas lives</span>
-        </label>
-      </div>
-      <div id="prazo-fields" style="display:none;">
-        <div class="form-group">
-          <label>Texto ANTES da data e hora</label>
-          <input type="text" id="set-texto-antes" placeholder="Ex: O prazo de pagamento está liberado até">
-        </div>
-        <div class="form-group">
-          <label>📅 Data e hora (definidas na live — não editáveis aqui)</label>
-          <div style="padding:10px; background:#0a0e17; border-radius:8px; border:1px dashed var(--border); font-size:0.8rem; color:var(--neon-cyan); text-align:center;">
-            <span id="preview-data-hora">⚠️ Defina a data no topo do dashboard da live</span>
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Texto DEPOIS da data e hora</label>
-          <textarea id="set-texto-depois" rows="2" placeholder="Ex: Após esse prazo, as peças ficarão disponíveis novamente."></textarea>
-        </div>
-      </div>
-    </div>
-
-    <!-- PAINEL TEXTOS -->
+    <!-- PAINEL TEXTOS (EDITOR EM BLOCOS) -->
     <div class="settings-panel" id="settings-panel-textos">
-      <h4>📝 Textos dos Cards</h4>
-      <div class="form-group"><label>Saudação inicial</label><input type="text" id="set-saudacao" placeholder="Ex: Olá"></div>
-      <div class="form-group"><label>Elogio (se vazio, usa elogios aleatórios)</label><input type="text" id="set-elogio" placeholder="Ex: Que escolha linda"></div>
-      <div class="form-group">
-        <label>Mensagem de Encerramento</label>
-        <textarea id="set-mensagem" rows="3" placeholder="Ex: Fico no aguardo para separarmos o seu pedido com muito carinho! ✨"></textarea>
+      <h4>📝 Editor de Textos dos Cards</h4>
+      <p style="font-size:0.7rem; color:var(--text-muted); margin-bottom:12px;">
+        Ative/desative os blocos abaixo. A prévia ao lado atualiza em tempo real.
+      </p>
+
+      <div class="editor-grid">
+        <!-- COLUNA 1: EDITOR -->
+        <div class="editor-column">
+
+          <!-- Bloco: Saudação -->
+          <div class="card-block">
+            <label class="block-toggle">
+              <input type="checkbox" id="blk-saudacao" onchange="toggleBlock('saudacao')">
+              <span>1️⃣ Saudação inicial</span>
+            </label>
+            <input type="text" id="set-saudacao" placeholder="Ex: Olá" oninput="atualizarPreviewCard()">
+          </div>
+
+          <!-- Bloco: Elogio -->
+          <div class="card-block">
+            <label class="block-toggle">
+              <input type="checkbox" id="blk-elogio" onchange="toggleBlock('elogio')">
+              <span>2️⃣ Elogio</span>
+            </label>
+            <input type="text" id="set-elogio" placeholder="Vazio = elogio aleatório" oninput="atualizarPreviewCard()">
+          </div>
+
+          <!-- Bloco: Prazo -->
+          <div class="card-block">
+            <label class="block-toggle">
+              <input type="checkbox" id="blk-prazo" onchange="toggleBlock('prazo')">
+              <span>3️⃣ Prazo de pagamento</span>
+            </label>
+            <div id="blk-prazo-content">
+              <input type="text" id="set-texto-antes" placeholder="O prazo está liberado até" oninput="atualizarPreviewCard()">
+              <div class="prazo-display">
+                <span id="preview-data-hora">⚠️ Defina a data no dashboard</span>
+              </div>
+              <textarea id="set-texto-depois" rows="2" placeholder="Após esse prazo, as peças ficarão disponíveis novamente." oninput="atualizarPreviewCard()"></textarea>
+            </div>
+          </div>
+
+          <!-- Bloco: Mensagem final -->
+          <div class="card-block">
+            <label class="block-toggle">
+              <input type="checkbox" id="blk-mensagem" onchange="toggleBlock('mensagem')">
+              <span>4️⃣ Mensagem de encerramento</span>
+            </label>
+            <textarea id="set-mensagem" rows="2" placeholder="Fico no aguardo para separarmos o seu pedido com muito carinho! ✨" oninput="atualizarPreviewCard()"></textarea>
+          </div>
+
+          <p style="font-size:0.68rem; color:var(--text-muted); margin-top:8px; font-style:italic;">
+            💡 Dados bancários e assinatura são preenchidos nas abas 💳 Bancários e 🏪 Loja.
+          </p>
+        </div>
+
+        <!-- COLUNA 2: PRÉVIA -->
+        <div class="editor-column preview-column">
+          <div class="preview-header">
+            <span>👁️ PRÉVIA EM TEMPO REAL</span>
+          </div>
+          <pre id="preview-card-completo" class="preview-content">Preencha os campos ao lado...</pre>
+        </div>
       </div>
     </div>
 
@@ -555,14 +598,16 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
 <!-- ==================== APP SCRIPT ==================== -->
 <script>
 let currentStorageKey = null;
-function getStorageKey(uid) { return 'lives_control_v10_' + (uid || 'anon'); }
+function getStorageKey(uid) { return 'lives_control_v11_' + (uid || 'anon'); }
 
 const ALIASES = { 'dany': 'Dani Souza', 'mary': 'Mari', 'renata': 'Renata Alves' };
 const COMPLIMENTS = ['Que escolha linda', 'Você tem um gosto maravilhoso', 'Suas peças ficaram perfeitas', 'Adorei cada escolha sua', 'Que pedido mais fofo', 'Você arrasou nas escolhas'];
 
 const DEFAULT_SETTINGS = {
   loja: '', assinatura: '', formas: '', pix: '', banco: '', nome: '',
-  saudacao: 'Olá', elogio: '', temPrazo: true, textoAntes: '', textoDepois: '', mensagem: ''
+  saudacao: 'Olá', elogio: '',
+  temPrazo: false, textoAntes: '', textoDepois: '', mensagem: '',
+  mostrarSaudacao: true, mostrarElogio: true, mostrarMensagem: true
 };
 
 let appState = { lives: [], activeLiveId: null, settings: { ...DEFAULT_SETTINGS } };
@@ -783,7 +828,7 @@ function renderDashboard() {
   document.getElementById('dash-live-name').textContent = live.name;
   document.getElementById('deadline-date').value = live.deadline.date;
   document.getElementById('deadline-time').value = live.deadline.time;
-  const temPrazo = appState.settings.temPrazo !== false;
+  const temPrazo = appState.settings.temPrazo === true;
   document.getElementById('deadline-row').style.display = temPrazo ? 'flex' : 'none';
   renderPaymentSettings(); renderTables(); updateFormNumber(); updateDatalists();
   document.getElementById('results-section').style.display = 'none';
@@ -815,12 +860,11 @@ function getFilteredRecords() {
   const live = getActiveLive(); if (!live) return [];
   return live.records.filter(r => !filterText || r.cliente.toLowerCase().includes(filterText.toLowerCase())).sort((a,b) => a.numero - b.numero);
 }
-
 function renderTables() {
   const live = getActiveLive(); if (!live) return;
   const records = getFilteredRecords();
 
-  /* === 1. FLUXO (com Código integrado) === */
+  /* 1. FLUXO */
   const flowBody = document.getElementById('flow-body');
   if (flowBody) {
     flowBody.innerHTML = records.length === 0 ? '<div style="padding:10px; color:var(--text-muted); text-align:center;">Sem registros</div>' : '';
@@ -853,7 +897,7 @@ function renderTables() {
       <div></div></div>`;
   }
 
-  /* === 2. BRINDES === */
+  /* 2. BRINDES */
   const giftsBody = document.getElementById('gifts-body');
   if (giftsBody) {
     const gifts = records.filter(r => r.status === 'brinde');
@@ -867,7 +911,7 @@ function renderTables() {
       </div>`).join('') || '<div style="padding:10px; color:var(--text-muted); text-align:center;">Sem brindes</div>';
   }
 
-  /* === 3. FILAS === */
+  /* 3. FILAS */
   const queuesBody = document.getElementById('queues-body');
   if (queuesBody) {
     const queues = records.filter(r => r.fila && r.fila.length > 0);
@@ -879,7 +923,7 @@ function renderTables() {
       </div>`).join('') || '<div style="padding:10px; color:var(--text-muted); text-align:center;">Sem filas</div>';
   }
 
-  /* === 4. RESUMO === */
+  /* 4. RESUMO */
   const summaryBody = document.getElementById('summary-body');
   if (summaryBody) {
     const sumMap = {};
@@ -899,7 +943,7 @@ function renderTables() {
       </div>`).join('') || '<div style="padding:10px; color:var(--text-muted); text-align:center;">Sem clientes</div>';
   }
 
-  /* === 5. TOTAIS (com classes neon pulsantes) === */
+  /* 5. TOTAIS */
   const totalsArea = document.getElementById('totals-area');
   if (totalsArea) {
     const vendido = records.filter(r => r.status === 'venda').reduce((s,r) => s+r.valor, 0);
@@ -929,10 +973,7 @@ function updateFormNumber() {
   document.getElementById('f-numero').value = maxNum + 1;
 }
 function updateDatalists() {
-  const clientes = new Set();
-  const tipos = new Set();
-  const codigos = new Set();
-  const valores = new Set();
+  const clientes = new Set(); const tipos = new Set(); const codigos = new Set(); const valores = new Set();
   appState.lives.forEach(live => {
     live.records.forEach(r => {
       if (r.cliente) clientes.add(r.cliente);
@@ -944,10 +985,8 @@ function updateDatalists() {
   document.getElementById('clientes-list').innerHTML = [...clientes].sort().map(n => `<option value="${escapeHtml(n)}">`).join('');
   document.getElementById('tipos-list').innerHTML = [...tipos].sort().map(n => `<option value="${escapeHtml(n)}">`).join('');
   document.getElementById('codigos-list').innerHTML = [...codigos].sort().map(n => `<option value="${escapeHtml(n)}">`).join('');
-  const valoresArr = [...valores].sort((a,b) => a-b);
-  document.getElementById('valores-list').innerHTML = valoresArr.map(v => `<option value="${v}">`).join('');
+  document.getElementById('valores-list').innerHTML = [...valores].sort((a,b) => a-b).map(v => `<option value="${v}">`).join('');
 }
-
 function registrarVenda() {
   try {
     const live = getActiveLive(); if (!live) { toast('Nenhuma live ativa'); return; }
@@ -962,16 +1001,13 @@ function registrarVenda() {
     const fila2 = applyAlias(document.getElementById('f-fila-2').value);
     const fila3 = applyAlias(document.getElementById('f-fila-3').value);
     let fila = [fila1, fila2, fila3].filter(Boolean);
-
     if (!num || num < 1) { toast('Número inválido'); return; }
     if (!cli) { toast('Cliente obrigatório'); return; }
     if (!tipo) { toast('Tipo obrigatório'); return; }
     if (live.records.some(r => r.numero === num)) { toast('Nº já existe'); return; }
     if (status === 'brinde') { val = 0; if (!orig) orig = 'Brinde'; } else { orig = null; }
-
     live.records.push({ numero: num, cliente: cli, tipoPeca: tipo, codigo: cod, valor: val, status, origemBrinde: orig, fila });
     saveState(); renderTables(); updateFormNumber(); updateDatalists();
-
     document.getElementById('f-cliente').value = '';
     document.getElementById('f-tipo').value = '';
     document.getElementById('f-codigo').value = '';
@@ -983,7 +1019,6 @@ function registrarVenda() {
     document.getElementById('f-status').value = 'venda';
     toggleOrigemField();
     document.getElementById('f-cliente').focus();
-
     toast('✅ Peça #' + num + ' registrada!');
   } catch (e) { toast('❌ Erro: ' + e.message); }
 }
@@ -1075,20 +1110,14 @@ function editarClientePorIndex(i) {
   if (novo === null) return;
   const newName = novo.trim();
   if (!newName || newName === oldName) return;
-
   let updatedCount = 0;
   appState.lives.forEach(live => {
     live.records.forEach(r => {
       if (r.cliente === oldName) { r.cliente = newName; updatedCount++; }
-      if (Array.isArray(r.fila)) {
-        r.fila = r.fila.map(f => f === oldName ? newName : f);
-      }
+      if (Array.isArray(r.fila)) { r.fila = r.fila.map(f => f === oldName ? newName : f); }
     });
   });
-
-  saveState();
-  renderClientesList();
-  updateDatalists();
+  saveState(); renderClientesList(); updateDatalists();
   if (document.getElementById('view-dashboard').classList.contains('active')) renderTables();
   toast(`✅ ${updatedCount} registro(s) atualizado(s)`);
 }
@@ -1101,20 +1130,23 @@ function showSettingsTab(tab) {
   if (panel) panel.classList.add('active');
   const btn = document.querySelector('.settings-tab[data-tab="' + tab + '"]');
   if (btn) btn.classList.add('active');
-  if (tab === 'prazo') { togglePrazoFields(); atualizarPreviewDataHora(); }
+  if (tab === 'textos') { atualizarPreviewDataHora(); atualizarPreviewCard(); }
   if (tab === 'clientes') renderClientesList();
 }
-function togglePrazoFields() {
-  const temPrazo = document.getElementById('set-tem-prazo').checked;
-  document.getElementById('prazo-fields').style.display = temPrazo ? 'block' : 'none';
-  if (temPrazo) atualizarPreviewDataHora();
+
+function toggleBlock(block) {
+  const toggle = document.getElementById('blk-' + block);
+  const content = document.getElementById('blk-' + block + '-content');
+  if (content) content.style.display = toggle.checked ? 'block' : 'none';
+  atualizarPreviewCard();
 }
+
 function atualizarPreviewDataHora() {
   const el = document.getElementById('preview-data-hora');
   if (!el) return;
   const live = getActiveLive();
   if (!live || !live.deadline || !live.deadline.date) {
-    el.textContent = '⚠️ Defina a data no topo do dashboard da live';
+    el.textContent = '⚠️ Defina a data no dashboard da live';
     return;
   }
   const dt = new Date(live.deadline.date + 'T12:00:00');
@@ -1124,6 +1156,50 @@ function atualizarPreviewDataHora() {
   const tmStr = live.deadline.time || '18:00';
   el.textContent = `as ${tmStr} da ${wd}, dia ${dtStr}`;
 }
+
+function atualizarPreviewCard() {
+  const el = document.getElementById('preview-card-completo');
+  if (!el) return;
+
+  const s = {
+    loja: (document.getElementById('set-loja')?.value || '').trim(),
+    assinatura: (document.getElementById('set-assinatura')?.value || '').trim(),
+    formas: (document.getElementById('set-formas')?.value || '').trim(),
+    pix: (document.getElementById('set-pix')?.value || '').trim(),
+    banco: (document.getElementById('set-banco')?.value || '').trim(),
+    nome: (document.getElementById('set-nome')?.value || '').trim(),
+    saudacao: (document.getElementById('set-saudacao')?.value || '').trim() || 'Olá',
+    elogio: (document.getElementById('set-elogio')?.value || '').trim(),
+    temPrazo: document.getElementById('blk-prazo')?.checked || false,
+    textoAntes: (document.getElementById('set-texto-antes')?.value || '').trim(),
+    textoDepois: (document.getElementById('set-texto-depois')?.value || '').trim(),
+    mensagem: (document.getElementById('set-mensagem')?.value || '').trim(),
+    mostrarSaudacao: document.getElementById('blk-saudacao')?.checked !== false,
+    mostrarElogio: document.getElementById('blk-elogio')?.checked !== false,
+    mostrarMensagem: document.getElementById('blk-mensagem')?.checked !== false
+  };
+
+  const clienteExemplo = {
+    name: 'Maria Silva',
+    sales: [
+      { numero: 1, tipoPeca: 'Vestido Floral', valor: 89.90 },
+      { numero: 2, tipoPeca: 'Saia Jeans', valor: 59.90 }
+    ],
+    gifts: [{ tipoPeca: 'Laço de Cabelo' }],
+    total: 149.80
+  };
+
+  let prazoInfo = { hora: '18:00', diaSemana: 'segunda-feira', data: '16/11/2026' };
+  const live = getActiveLive();
+  if (live && live.deadline && live.deadline.date) {
+    const dt = new Date(live.deadline.date + 'T12:00:00');
+    const wd = ['domingo','segunda-feira','terça-feira','quarta-feira','quinta-feira','sexta-feira','sábado'][dt.getDay()];
+    prazoInfo = { hora: live.deadline.time || '18:00', diaSemana: wd, data: dt.toLocaleDateString('pt-BR') };
+  }
+
+  el.textContent = gerarTextoCard(clienteExemplo, s, prazoInfo);
+}
+
 function openSettingsModal() {
   const s = appState.settings;
   document.getElementById('set-loja').value = s.loja || '';
@@ -1134,10 +1210,23 @@ function openSettingsModal() {
   document.getElementById('set-nome').value = s.nome || '';
   document.getElementById('set-saudacao').value = s.saudacao || '';
   document.getElementById('set-elogio').value = s.elogio || '';
-  document.getElementById('set-tem-prazo').checked = (s.temPrazo !== false);
   document.getElementById('set-texto-antes').value = s.textoAntes || '';
   document.getElementById('set-texto-depois').value = s.textoDepois || '';
   document.getElementById('set-mensagem').value = s.mensagem || '';
+
+  document.getElementById('blk-saudacao').checked = s.mostrarSaudacao !== false;
+  document.getElementById('blk-elogio').checked = s.mostrarElogio !== false;
+  document.getElementById('blk-prazo').checked = s.temPrazo === true;
+  document.getElementById('blk-mensagem').checked = s.mostrarMensagem !== false;
+
+  ['saudacao', 'elogio', 'prazo', 'mensagem'].forEach(function (b) {
+    const t = document.getElementById('blk-' + b);
+    const c = document.getElementById('blk-' + b + '-content');
+    if (c) c.style.display = t.checked ? 'block' : 'none';
+  });
+
+  atualizarPreviewDataHora();
+  atualizarPreviewCard();
   showSettingsTab('loja');
   document.getElementById('modal-settings').style.display = 'flex';
 }
@@ -1152,12 +1241,17 @@ function saveSettings() {
     nome: document.getElementById('set-nome').value.trim(),
     saudacao: document.getElementById('set-saudacao').value.trim() || 'Olá',
     elogio: document.getElementById('set-elogio').value.trim(),
-    temPrazo: document.getElementById('set-tem-prazo').checked,
+    temPrazo: document.getElementById('blk-prazo').checked,
     textoAntes: document.getElementById('set-texto-antes').value.trim(),
     textoDepois: document.getElementById('set-texto-depois').value.trim(),
-    mensagem: document.getElementById('set-mensagem').value.trim()
+    mensagem: document.getElementById('set-mensagem').value.trim(),
+    mostrarSaudacao: document.getElementById('blk-saudacao').checked,
+    mostrarElogio: document.getElementById('blk-elogio').checked,
+    mostrarMensagem: document.getElementById('blk-mensagem').checked
   };
-  saveState(); renderPaymentSettings(); closeSettingsModal();
+  saveState();
+  renderPaymentSettings();
+  closeSettingsModal();
   if (document.getElementById('view-home').classList.contains('active')) showView('view-home');
   if (document.getElementById('view-dashboard').classList.contains('active')) renderDashboard();
   toast('⚙️ Configurações salvas!');
@@ -1167,13 +1261,22 @@ function saveSettings() {
 function gerarTextoCard(cliente, s, prazoInfo) {
   const { name, sales, gifts, total } = cliente;
   const linhas = [];
-  const saudacao = (s.saudacao && s.saudacao.trim()) || 'Olá';
-  linhas.push(`${saudacao} *${name}*! Tudo bem? 🌸`);
 
-  const elogio = (s.elogio && s.elogio.trim()) ? s.elogio.trim() : COMPLIMENTS[Math.floor(Math.random() * COMPLIMENTS.length)];
-  if (elogio) linhas.push(`${elogio} ✨`);
+  if (s.mostrarSaudacao !== false) {
+    const saudacao = (s.saudacao && s.saudacao.trim()) || 'Olá';
+    linhas.push(`${saudacao} *${name}*! Tudo bem? 🌸`);
+  }
 
-  linhas.push(''); linhas.push('Aqui está o resumo detalhado do seu pedido:'); linhas.push('');
+  if (s.mostrarElogio !== false) {
+    const elogio = (s.elogio && s.elogio.trim())
+      ? s.elogio.trim()
+      : COMPLIMENTS[Math.floor(Math.random() * COMPLIMENTS.length)];
+    if (elogio) linhas.push(`${elogio} ✨`);
+  }
+
+  linhas.push('');
+  linhas.push('Aqui está o resumo detalhado do seu pedido:');
+  linhas.push('');
 
   if (sales.length > 0) {
     linhas.push('🛍️ *SUAS PEÇAS:*');
@@ -1181,20 +1284,23 @@ function gerarTextoCard(cliente, s, prazoInfo) {
       const valorTxt = r.valor > 0 ? `Valor: ${formatCurrency(r.valor)}` : 'Sem valor';
       linhas.push(`- ${genericType(r.tipoPeca)} ...... ${valorTxt}`);
     });
-    linhas.push(''); linhas.push(`💰 *Total da Compra: ${formatCurrency(total)}*`); linhas.push('');
+    linhas.push('');
+    linhas.push(`💰 *Total da Compra: ${formatCurrency(total)}*`);
+    linhas.push('');
   }
+
   if (gifts.length > 0) {
     const brindes = gifts.map(g => genericType(g.tipoPeca)).join(', ');
     linhas.push(`🎁 *Brinde:* ${brindes} — vai junto no seu pedido!`);
     linhas.push('');
   }
+
   const formas = (s.formas && s.formas.trim()) || 'a combinar';
   linhas.push(`💳 Pagamento via ${formas}.`);
   linhas.push('');
 
-  const temPrazo = s.temPrazo !== false;
+  const temPrazo = s.temPrazo === true;
   const dataDefinida = prazoInfo.data && prazoInfo.hora && prazoInfo.diaSemana;
-
   if (temPrazo && dataDefinida) {
     const textoAntes = (s.textoAntes && s.textoAntes.trim()) || 'O prazo de pagamento está liberado até';
     const textoDepois = (s.textoDepois && s.textoDepois.trim()) || 'Após esse prazo, as peças ficarão disponíveis novamente.';
@@ -1203,7 +1309,10 @@ function gerarTextoCard(cliente, s, prazoInfo) {
     linhas.push('');
   }
 
-  if (s.mensagem && s.mensagem.trim()) { linhas.push(s.mensagem.trim()); linhas.push(''); }
+  if (s.mostrarMensagem !== false && s.mensagem && s.mensagem.trim()) {
+    linhas.push(s.mensagem.trim());
+    linhas.push('');
+  }
 
   const hasPix = s.pix && s.pix.trim();
   const hasBanco = s.banco && s.banco.trim();
@@ -1220,6 +1329,7 @@ function gerarTextoCard(cliente, s, prazoInfo) {
   const loja = (s.loja && s.loja.trim()) || '';
   linhas.push(assinatura);
   if (loja) linhas.push(`*${loja}* 💕`);
+
   return linhas.join('\n');
 }
 
@@ -1228,7 +1338,7 @@ function handleEndLive() {
   const live = getActiveLive();
   if (!live || live.records.length === 0) { toast('Nenhum registro'); return; }
   const s = appState.settings;
-  const temPrazo = s.temPrazo !== false;
+  const temPrazo = s.temPrazo === true;
 
   let prazoInfo = { hora: '', diaSemana: '', data: '' };
   if (temPrazo && live.deadline.date) {
