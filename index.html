@@ -210,7 +210,6 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
 </head>
 <body>
 
-<!-- ==================== LOGIN ==================== -->
 <section id="view-login" class="login-screen">
   <div class="login-card">
     <h2 style="margin-top: 10px;">Lives Control</h2>
@@ -234,7 +233,6 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
   </div>
 </section>
 
-<!-- ==================== APP ==================== -->
 <div id="app-main" style="display: none;">
 
 <section id="view-home" class="view-section active">
@@ -472,9 +470,8 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
 
 <div id="toast" class="toast"></div>
 
-</div><!-- /#app-main -->
+</div>
 
-<!-- ==================== FIREBASE ==================== -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
@@ -550,10 +547,9 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
   });
 </script>
 
-<!-- ==================== APP SCRIPT ==================== -->
 <script>
 let currentStorageKey = null;
-function getStorageKey(uid) { return 'lives_control_v12_' + (uid || 'anon'); }
+function getStorageKey(uid) { return 'lives_control_v13_' + (uid || 'anon'); }
 
 const ALIASES = { 'dany': 'Dani Souza', 'mary': 'Mari', 'renata': 'Renata Alves' };
 const COMPLIMENTS = ['Que escolha linda', 'Você tem um gosto maravilhoso', 'Suas peças ficaram perfeitas', 'Adorei cada escolha sua', 'Que pedido mais fofo', 'Você arrasou nas escolhas'];
@@ -711,13 +707,11 @@ function onUserLoggedIn(uid) {
         appState.activeLiveId = dados.activeLiveId || null;
         if (dados.settings) appState.settings = Object.assign({ ...DEFAULT_SETTINGS }, dados.settings);
         try { localStorage.setItem(currentStorageKey, JSON.stringify(appState)); } catch(e) {}
-        // Só redesenha a tela atual, sem trocar de view
         if (document.getElementById('view-dashboard').classList.contains('active')) renderDashboard();
         else if (document.getElementById('view-history').classList.contains('active')) renderHistory();
       }
     });
   }
-  // SEMPRE abre na Home após login
   showView('view-home');
   toast('☁️ Sincronização ativa!');
 }
@@ -816,7 +810,6 @@ function renderTables() {
   const live = getActiveLive(); if (!live) return;
   const records = getFilteredRecords();
 
-  /* 1. FLUXO */
   const flowBody = document.getElementById('flow-body');
   if (flowBody) {
     flowBody.innerHTML = records.length === 0 ? '<div style="padding:10px; color:var(--text-muted); text-align:center;">Sem registros</div>' : '';
@@ -849,7 +842,6 @@ function renderTables() {
       <div></div></div>`;
   }
 
-  /* 2. BRINDES */
   const giftsBody = document.getElementById('gifts-body');
   if (giftsBody) {
     const gifts = records.filter(r => r.status === 'brinde');
@@ -863,7 +855,6 @@ function renderTables() {
       </div>`).join('') || '<div style="padding:10px; color:var(--text-muted); text-align:center;">Sem brindes</div>';
   }
 
-  /* 3. FILAS (com # e botão promover) */
   const queuesBody = document.getElementById('queues-body');
   if (queuesBody) {
     const queues = records.filter(r => r.fila && r.fila.length > 0);
@@ -879,7 +870,6 @@ function renderTables() {
       </div>`).join('') || '<div style="padding:10px; color:var(--text-muted); text-align:center;">Sem filas</div>';
   }
 
-  /* 4. RESUMO */
   const summaryBody = document.getElementById('summary-body');
   if (summaryBody) {
     const sumMap = {};
@@ -899,7 +889,7 @@ function renderTables() {
       </div>`).join('') || '<div style="padding:10px; color:var(--text-muted); text-align:center;">Sem clientes</div>';
   }
 
-  /* 5. PEÇAS POR CLIENTE (SEPARAÇÃO) */
+  /* 5. PEÇAS POR CLIENTE - Ordenado por quantidade (maior → menor), números separados por " - " */
   const pecasClienteBody = document.getElementById('pecas-cliente-body');
   if (pecasClienteBody) {
     const map = {};
@@ -908,9 +898,10 @@ function renderTables() {
       if (!map[r.cliente]) map[r.cliente] = [];
       map[r.cliente].push(r);
     });
-    const arr = Object.keys(map).map(k => ({ nome: k, pecas: map[k] })).sort((a,b) => a.nome.localeCompare(b.nome));
+    const arr = Object.keys(map).map(k => ({ nome: k, pecas: map[k] }))
+      .sort((a,b) => b.pecas.length - a.pecas.length || a.nome.localeCompare(b.nome));
     pecasClienteBody.innerHTML = arr.map(item => {
-      const numeros = item.pecas.sort((a,b) => a.numero - b.numero).map(p => '#' + p.numero).join(', ');
+      const numeros = item.pecas.sort((a,b) => a.numero - b.numero).map(p => p.numero).join(' - ');
       return `<div class="table-row">
         <div class="cell"><span class="cell-content">${escapeHtml(item.nome)}</span></div>
         <div class="cell"><span class="cell-content" title="${escapeHtml(numeros)}">${escapeHtml(numeros)}</span></div>
@@ -919,7 +910,6 @@ function renderTables() {
     }).join('') || '<div style="padding:10px; color:var(--text-muted); text-align:center;">Sem peças</div>';
   }
 
-  /* 6. TOTAIS */
   const totalsArea = document.getElementById('totals-area');
   if (totalsArea) {
     const vendido = records.filter(r => r.status === 'venda').reduce((s,r) => s+r.valor, 0);
@@ -936,7 +926,6 @@ function renderTables() {
   }
 }
 
-/* ---------- PROMOVER FILA DIRETO DA TABELA ---------- */
 function promoverFila(numero) {
   const live = getActiveLive();
   if (!live) return;
@@ -957,7 +946,6 @@ function promoverFila(numero) {
   toast(`🔄 Peça #${numero} passada para ${novoCliente}!`);
 }
 
-/* ---------- FORMULÁRIO ---------- */
 function toggleOrigemField() {
   const status = document.getElementById('f-status').value;
   document.getElementById('origem-group').style.display = status === 'brinde' ? 'flex' : 'none';
@@ -1082,7 +1070,6 @@ function deleteRecord(num) {
   live.records = live.records.filter(r => r.numero !== num); saveState(); renderTables(); renderResults(); updateFormNumber(); toast('🗑️ Excluída');
 }
 
-/* ---------- CLIENTES ---------- */
 function renderClientesList() {
   const container = document.getElementById('clientes-list-settings');
   if (!container) return;
@@ -1111,7 +1098,6 @@ function editarClientePorIndex(i) {
   toast(`✅ ${updatedCount} registro(s) atualizado(s)`);
 }
 
-/* ---------- CONFIGURAÇÕES ---------- */
 function showSettingsTab(tab) {
   document.querySelectorAll('.settings-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.settings-tab').forEach(t => t.classList.remove('active'));
@@ -1219,7 +1205,6 @@ function saveSettings() {
   toast('⚙️ Configurações salvas!');
 }
 
-/* ---------- GERADOR DE TEXTO ---------- */
 function gerarTextoCard(cliente, s, prazoInfo) {
   const { name, sales, gifts, total } = cliente;
   const linhas = [];
@@ -1282,7 +1267,6 @@ function gerarTextoCard(cliente, s, prazoInfo) {
   return linhas.join('\n');
 }
 
-/* ---------- RESULTADOS EM TEMPO REAL ---------- */
 let _lastCardsCache = [];
 
 function renderResults() {
@@ -1323,6 +1307,7 @@ function renderResults() {
     `<div class="chart-stat-box"><div class="stat-label">Brindes</div><div class="stat-value">${totBrinde}</div></div>` +
   '</div>';
 
+  // 1. Ranking de clientes
   chartsHtml += '<div class="chart-container"><div class="chart-title">🏆 Ranking Completo de Clientes</div>';
   const maxVal = sortedClients.length > 0 ? sortedClients[0].total : 1;
   if (sortedClients.length === 0 || maxVal === 0) {
@@ -1336,6 +1321,72 @@ function renderResults() {
     chartsHtml += '</div>';
   }
   chartsHtml += '</div>';
+
+  // 2. Status das Peças (DONUT)
+  const statusVend = live.records.filter(r => r.status === 'venda').length;
+  const statusCanc = live.records.filter(r => r.status === 'cancelada').length;
+  const statusBri = live.records.filter(r => r.status === 'brinde').length;
+  const statusTotal = statusVend + statusCanc + statusBri;
+  if (statusTotal > 0) {
+    const pctV = (statusVend / statusTotal * 100).toFixed(1);
+    const pctC = (statusCanc / statusTotal * 100).toFixed(1);
+    const pctB = (statusBri / statusTotal * 100).toFixed(1);
+    const endV = statusVend / statusTotal * 100;
+    const endC = endV + statusCanc / statusTotal * 100;
+
+    chartsHtml += '<div class="chart-container"><div class="chart-title">🍇 Status das Peças</div>';
+    chartsHtml += `<div style="display:flex; gap:20px; align-items:center; flex-wrap:wrap; padding:10px 0;">
+      <div style="width:130px; height:130px; border-radius:50%; flex-shrink:0;
+        background:conic-gradient(#00ff88 0% ${endV}%, #ff3366 ${endV}% ${endC}%, #ff8c00 ${endC}% 100%);
+        box-shadow: 0 0 20px rgba(0,255,136,0.3), inset 0 0 20px rgba(0,0,0,0.5);
+        position:relative;">
+        <div style="position:absolute; inset:22%; border-radius:50%; background:#0f1420; display:flex; align-items:center; justify-content:center; flex-direction:column;">
+          <span style="font-size:1.4rem; font-weight:700; color:#fff;">${statusTotal}</span>
+          <span style="font-size:0.6rem; color:var(--text-muted);">TOTAL</span>
+        </div>
+      </div>
+      <div style="flex:1; min-width:150px; display:flex; flex-direction:column; gap:8px; font-size:0.78rem;">
+        <div style="display:flex; justify-content:space-between; padding-bottom:4px; border-bottom:1px solid var(--border);">
+          <span><span style="color:#00ff88;">●</span> Vendidas</span>
+          <strong style="color:#00ff88; text-shadow: 0 0 6px rgba(0,255,136,0.5);">${statusVend} (${pctV}%)</strong>
+        </div>
+        <div style="display:flex; justify-content:space-between; padding-bottom:4px; border-bottom:1px solid var(--border);">
+          <span><span style="color:#ff3366;">●</span> Canceladas</span>
+          <strong style="color:#ff3366; text-shadow: 0 0 6px rgba(255,51,102,0.5);">${statusCanc} (${pctC}%)</strong>
+        </div>
+        <div style="display:flex; justify-content:space-between;">
+          <span><span style="color:#ff8c00;">●</span> Brindes</span>
+          <strong style="color:#ff8c00; text-shadow: 0 0 6px rgba(255,140,0,0.5);">${statusBri} (${pctB}%)</strong>
+        </div>
+      </div>
+    </div></div>`;
+  }
+
+  // 3. Top 5 Tipos Mais Vendidos (barras roxo/magenta)
+  const tiposMap = {};
+  live.records.forEach(r => {
+    if (r.status !== 'venda') return;
+    const t = genericType(r.tipoPeca);
+    if (!t) return;
+    tiposMap[t] = (tiposMap[t] || 0) + 1;
+  });
+  const tiposArr = Object.keys(tiposMap).map(k => ({ nome: k, qtd: tiposMap[k] })).sort((a,b) => b.qtd - a.qtd).slice(0, 5);
+  if (tiposArr.length > 0) {
+    const maxTip = tiposArr[0].qtd;
+    chartsHtml += '<div class="chart-container"><div class="chart-title">👗 Top 5 Tipos Mais Vendidos</div>';
+    chartsHtml += '<div class="chart-scroll">';
+    tiposArr.forEach((t, idx) => {
+      const pct = (t.qtd / maxTip) * 100;
+      const hue = 280 + idx * 20;
+      chartsHtml += `<div class="chart-row">
+        <div class="chart-label" title="${escapeHtml(t.nome)}">${escapeHtml(t.nome)}</div>
+        <div class="chart-bar-wrap"><div class="chart-bar" style="width:${pct}%; background: linear-gradient(90deg, hsl(${hue},100%,60%), hsl(${hue+30},100%,55%)); box-shadow: 0 0 8px hsl(${hue},100%,60%);"></div></div>
+        <div class="chart-val">${t.qtd} peça${t.qtd>1?'s':''}</div>
+      </div>`;
+    });
+    chartsHtml += '</div></div>';
+  }
+
   document.getElementById('charts-container').innerHTML = chartsHtml;
 
   const cards = sortedClients.map(c => ({ name: c.name, text: gerarTextoCard(c, s, prazoInfo) }));
