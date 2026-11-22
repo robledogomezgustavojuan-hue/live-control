@@ -18,7 +18,6 @@ h1, h2, h3, h4 { font-weight: 600; }
 h1 { font-size: 1.5rem; color: var(--text-main); }
 h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
 
-/* ===== LOGIN ===== */
 .login-screen { padding: 15px; min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; }
 .login-card { background: var(--bg-card); border-radius: var(--radius); padding: 25px; width: 100%; max-width: 380px; border: 1px solid var(--border); box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
 .login-card h2 { color: var(--neon-cyan); text-transform: none; font-size: 1.6rem; margin-bottom: 8px; }
@@ -31,12 +30,10 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
 .auth-toggle a { color: var(--neon-cyan); text-decoration: none; font-weight: 600; cursor: pointer; }
 .auth-toggle a:hover { text-decoration: underline; }
 
-/* ===== LAYOUT ===== */
 .view-section { display: none; padding: 15px; max-width: 1200px; margin: 0 auto; }
 .view-section.active { display: block; animation: fadeIn 0.3s ease; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-/* ===== HOME ===== */
 .home-container { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 80vh; text-align: center; }
 .home-logo { font-size: 3rem; margin-bottom: 10px; animation: pulseGlow 3s infinite ease-in-out; }
 @keyframes pulseGlow {
@@ -53,16 +50,13 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
 .menu-card .sub { font-size: 0.8rem; color: var(--text-muted); }
 .menu-card.danger:hover { border-color: var(--neon-red); box-shadow: 0 0 10px rgba(255,51,102,0.4); }
 
-/* ===== HEADER ===== */
 .dash-header { display: flex; justify-content: space-between; align-items: center; background: var(--bg-card); padding: 10px 15px; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
 .live-title { display: flex; flex-direction: column; }
 .live-title span { font-size: 0.75rem; color: var(--neon-cyan); text-transform: uppercase; font-weight: bold; }
 .live-title strong { font-size: 1.1rem; color: var(--text-main); }
 
-/* ===== CARDS ===== */
 .card { background: var(--bg-card); border-radius: var(--radius); padding: 15px; margin-bottom: 15px; border: 1px solid var(--border); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
 
-/* ===== FORM ===== */
 .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
 .form-group { display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px; }
 .form-group label { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; }
@@ -71,7 +65,6 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
 .form-group input:not([type="checkbox"]):focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--neon-cyan); box-shadow: 0 0 5px rgba(0,229,255,0.3); }
 .form-group textarea { resize: vertical; min-height: 60px; font-family: inherit; }
 
-/* ===== BOTÕES ===== */
 .btn { border: none; border-radius: 8px; padding: 8px 14px; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: inherit; display: inline-flex; align-items: center; justify-content: center; gap: 5px; }
 .btn:active { transform: scale(0.97); }
 .btn:disabled { opacity: 0.6; cursor: not-allowed; }
@@ -84,15 +77,15 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
 .btn-icon { background: none; border: none; cursor: pointer; font-size: 0.9rem; padding: 4px; border-radius: 4px; color: var(--text-muted); }
 .btn-icon:hover { color: var(--text-main); background: var(--border); }
 
-/* ===== TABELAS ===== */
 .table { width: 100%; font-size: 0.8rem; }
 .table-header, .table-row { display: grid; align-items: center; padding: 8px 4px; border-bottom: 1px solid var(--border); gap: 5px; }
 .table-header { font-weight: 700; color: var(--text-muted); font-size: 0.7rem; text-transform: uppercase; border-bottom: 1px solid var(--border); }
 
 #flow-table .table-header, #flow-table .table-row { grid-template-columns: 30px 1fr 1fr 65px 65px 55px; }
 #gifts-table .table-header, #gifts-table .table-row { grid-template-columns: 55px 30px 1fr 1fr 1fr; }
-#queues-table .table-header, #queues-table .table-row { grid-template-columns: 1fr 1fr 1fr; }
+#queues-table .table-header, #queues-table .table-row { grid-template-columns: 40px 1fr 1fr 1fr 50px; }
 #summary-table .table-header, #summary-table .table-row { grid-template-columns: 1fr 50px 70px 50px; }
+#pecas-cliente-table .table-header, #pecas-cliente-table .table-row { grid-template-columns: 1fr 2fr 60px; }
 
 .cell { display: flex; justify-content: space-between; align-items: center; min-width: 0; }
 .cell-content { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -102,7 +95,6 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
 .row-gift { background: rgba(0, 255, 136, 0.05); }
 .subtotal-row { font-weight: 700; border-top: 2px solid var(--border); background: rgba(255,255,255,0.02); padding: 10px 4px; }
 
-/* ===== TOTAIS PULSANTES ===== */
 .totals { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }
 .total-box { border-radius: 8px; padding: 12px; text-align: center; border: 1px solid var(--border); background: #0f1420; transition: all 0.3s; }
 .total-box span { font-size: 0.7rem; text-transform: uppercase; display: block; margin-bottom: 5px; font-weight: 600; }
@@ -144,20 +136,17 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
   50% { box-shadow: 0 0 22px rgba(255,215,0,0.9), inset 0 0 18px rgba(255,215,0,0.25); border-color: #ffd700; background: rgba(255,215,0,0.15); }
 }
 
-/* ===== HISTÓRICO ===== */
 .history-list { display: flex; flex-direction: column; gap: 10px; }
 .history-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 15px; display: flex; justify-content: space-between; align-items: center; transition: border-color 0.2s; }
 .history-item:hover { border-color: var(--neon-cyan); }
 .history-info h3 { font-size: 1rem; margin-bottom: 5px; color: var(--text-main); }
 .history-info p { font-size: 0.75rem; color: var(--text-muted); }
 
-/* ===== MODAL ===== */
 .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 15px; backdrop-filter: blur(3px); }
 .modal { background: var(--bg-card); border-radius: var(--radius); padding: 20px; width: 100%; max-width: 850px; border: 1px solid var(--border); box-shadow: var(--glow-pink); max-height: 92vh; overflow-y: auto; }
 .modal h3 { margin-bottom: 15px; color: var(--neon-pink); }
 .modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
 
-/* ===== ABAS DE CONFIGURAÇÕES ===== */
 .settings-tabs { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
 .settings-tab { background: transparent; border: 1px solid var(--border); color: var(--text-muted); padding: 6px 10px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; font-weight: 600; font-family: inherit; transition: all 0.2s; }
 .settings-tab:hover { color: var(--text-main); border-color: var(--neon-cyan); }
@@ -166,42 +155,33 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
 .settings-panel.active { display: block; animation: fadeIn 0.2s ease; }
 .settings-panel h4 { color: var(--neon-cyan); margin-bottom: 10px; font-size: 0.85rem; }
 
-/* ===== LISTA DE CLIENTES ===== */
 .client-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; background: #0f1420; border: 1px solid var(--border); border-radius: 6px; margin-bottom: 6px; }
 .client-item span { font-size: 0.85rem; }
 .client-item button { padding: 4px 8px; font-size: 0.7rem; }
 
-/* ===== EDITOR EM BLOCOS ===== */
 .editor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .editor-column { min-width: 0; }
-
 .card-block { background: #0f1420; border: 1px solid var(--border); border-radius: 8px; padding: 10px; margin-bottom: 8px; transition: all 0.2s; }
 .card-block:has(input[type="checkbox"]:checked) { border-color: var(--neon-cyan); box-shadow: 0 0 6px rgba(0,229,255,0.2); }
 .card-block input[type="text"], .card-block textarea { width: 100%; padding: 7px; background: #0a0e17; border: 1px solid var(--border); border-radius: 6px; color: var(--text-main); font-size: 0.8rem; font-family: inherit; }
 .card-block input[type="text"]:focus, .card-block textarea:focus { outline: none; border-color: var(--neon-cyan); }
 .card-block textarea { resize: vertical; min-height: 50px; }
-
 .block-toggle { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.82rem; font-weight: 600; color: var(--text-main); margin-bottom: 8px; }
 .block-toggle input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--neon-cyan); cursor: pointer; }
-
 .prazo-display { padding: 8px; background: #0a0e17; border: 1px dashed var(--border); border-radius: 6px; font-size: 0.75rem; color: var(--neon-cyan); text-align: center; margin: 6px 0; }
-
 .preview-column { position: sticky; top: 10px; align-self: start; }
 .preview-header { background: var(--neon-cyan); color: #0b0f19; padding: 8px 12px; border-radius: 8px 8px 0 0; font-size: 0.72rem; font-weight: 700; letter-spacing: 1px; display: flex; justify-content: space-between; align-items: center; }
 .preview-content { background: #0a0e17; border: 1px solid var(--neon-cyan); border-top: none; border-radius: 0 0 8px 8px; padding: 12px; white-space: pre-wrap; font-size: 0.72rem; color: var(--text-main); font-family: inherit; line-height: 1.5; max-height: 65vh; overflow-y: auto; margin: 0; }
 .preview-content::-webkit-scrollbar { width: 6px; }
 .preview-content::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-
 @media (max-width: 700px) {
   .editor-grid { grid-template-columns: 1fr; }
   .preview-column { position: static; }
 }
 
-/* ===== TOAST ===== */
 .toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--bg-card); border: 1px solid var(--neon-cyan); color: var(--text-main); padding: 10px 20px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; box-shadow: var(--glow-cyan); opacity: 0; transition: all 0.3s; z-index: 2000; pointer-events: none; }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-/* ===== GRÁFICOS ===== */
 .chart-container { display: flex; flex-direction: column; gap: 12px; background: #0f1420; border: 1px solid var(--border); border-radius: var(--radius); padding: 15px; margin-bottom: 15px; }
 .chart-title { font-size: 0.85rem; color: var(--neon-cyan); font-weight: 600; text-transform: uppercase; margin-bottom: 5px; }
 .chart-row { display: flex; align-items: center; gap: 8px; font-size: 0.75rem; }
@@ -221,6 +201,8 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
 @media (max-width: 500px) {
   #flow-table .table-header, #flow-table .table-row { grid-template-columns: 25px 1fr 0.9fr 50px 55px 50px; font-size: 0.7rem; }
   #summary-table .table-header, #summary-table .table-row { grid-template-columns: 1fr 40px 60px 40px; font-size: 0.75rem; }
+  #queues-table .table-header, #queues-table .table-row { grid-template-columns: 35px 1fr 1fr 1fr 45px; font-size: 0.7rem; }
+  #pecas-cliente-table .table-header, #pecas-cliente-table .table-row { grid-template-columns: 1fr 1.5fr 50px; font-size: 0.7rem; }
   .chart-label { width: 70px; font-size: 0.7rem; }
   .chart-val { width: 75px; font-size: 0.7rem; }
 }
@@ -255,7 +237,6 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
 <!-- ==================== APP ==================== -->
 <div id="app-main" style="display: none;">
 
-<!-- HOME -->
 <section id="view-home" class="view-section active">
   <div class="home-container">
     <div class="home-logo">🌸</div>
@@ -270,7 +251,6 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
   </div>
 </section>
 
-<!-- HISTÓRICO -->
 <section id="view-history" class="view-section">
   <div class="dash-header" style="position: relative; margin-bottom: 20px; border-radius: var(--radius); border: 1px solid var(--border);">
     <div class="live-title"><span>Gerenciamento</span><strong>Histórico de Lives</strong></div>
@@ -279,13 +259,12 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
   <div class="history-list" id="history-list"></div>
 </section>
 
-<!-- DASHBOARD -->
 <section id="view-dashboard" class="view-section">
   <div class="dash-header">
     <div class="live-title"><span>Live Ativa</span><strong id="dash-live-name">Carregando...</strong></div>
     <div style="display: flex; gap: 8px;">
       <button class="btn btn-secondary" onclick="showView('view-home')">🏠 Home</button>
-      <button class="btn btn-danger" onclick="handleEndLive()">🏁 Encerrar</button>
+      <button class="btn btn-danger" onclick="scrollToResults()">🏁 Ver Resultados</button>
     </div>
   </div>
   <div style="padding-top: 15px;">
@@ -307,10 +286,16 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
       <form id="record-form" novalidate>
         <div class="form-grid">
           <div class="form-group"><label>Nº da peça</label><input type="number" id="f-numero" min="1"></div>
-          <div class="form-group"><label>Cliente *</label><input type="text" id="f-cliente" list="clientes-list" autocomplete="off" placeholder="Digite ou selecione..."><datalist id="clientes-list"></datalist></div>
-          <div class="form-group"><label>Tipo de peça *</label><input type="text" id="f-tipo" list="tipos-list" autocomplete="off" placeholder="Digite ou selecione..."><datalist id="tipos-list"></datalist></div>
           <div class="form-group"><label>Código</label><input type="text" id="f-codigo" list="codigos-list" autocomplete="off" placeholder="Digite ou selecione..."><datalist id="codigos-list"></datalist></div>
+          <div class="form-group"><label>Cliente *</label><input type="text" id="f-cliente" list="clientes-list" autocomplete="off" placeholder="Digite ou selecione..."><datalist id="clientes-list"></datalist></div>
+          <div class="form-group">
+            <label>Fila de Espera (Opcional)</label>
+            <input type="text" id="f-fila-1" placeholder="1º da fila" list="clientes-list" style="margin-bottom: 4px;">
+            <input type="text" id="f-fila-2" placeholder="2º da fila" list="clientes-list" style="margin-bottom: 4px;">
+            <input type="text" id="f-fila-3" placeholder="3º da fila" list="clientes-list">
+          </div>
           <div class="form-group"><label>Valor (R$)</label><input type="number" id="f-valor" min="0" step="0.01" placeholder="0,00" list="valores-list"><datalist id="valores-list"></datalist></div>
+          <div class="form-group"><label>Tipo de peça *</label><input type="text" id="f-tipo" list="tipos-list" autocomplete="off" placeholder="Digite ou selecione..."><datalist id="tipos-list"></datalist></div>
           <div class="form-group"><label>Status</label>
             <select id="f-status" onchange="toggleOrigemField()">
               <option value="venda">Venda</option>
@@ -319,12 +304,6 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
             </select>
           </div>
           <div class="form-group" id="origem-group" style="display:none"><label>Origem do Brinde</label><input type="text" id="f-origem" placeholder="Ex: Sorteio..."></div>
-          <div class="form-group">
-            <label>Fila de Espera (Opcional)</label>
-            <input type="text" id="f-fila-1" placeholder="1º da fila" list="clientes-list" style="margin-bottom: 4px;">
-            <input type="text" id="f-fila-2" placeholder="2º da fila" list="clientes-list" style="margin-bottom: 4px;">
-            <input type="text" id="f-fila-3" placeholder="3º da fila" list="clientes-list">
-          </div>
         </div>
         <button type="button" class="btn btn-primary btn-block" onclick="registrarVenda()">✅ Registrar</button>
       </form>
@@ -341,12 +320,13 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
     </div>
 
     <div class="card"><h2>2️⃣ Brindes</h2><div class="table" id="gifts-table"><div class="table-header"><div>Brinde</div><div>#</div><div>Cliente</div><div>Item</div><div>Origem</div></div><div id="gifts-body"></div></div></div>
-    <div class="card"><h2>3️⃣ Filas</h2><div class="table" id="queues-table"><div class="table-header"><div>Peça</div><div>Confirmada</div><div>Fila</div></div><div id="queues-body"></div></div></div>
+    <div class="card"><h2>3️⃣ Filas</h2><div class="table" id="queues-table"><div class="table-header"><div>#</div><div>Peça</div><div>Confirmada</div><div>Fila</div><div></div></div><div id="queues-body"></div></div></div>
     <div class="card"><h2>4️⃣ Resumo por Cliente (Maior p/ Menor)</h2><div class="table" id="summary-table"><div class="table-header"><div>Cliente</div><div>Peças</div><div>Total</div><div>Brindes</div></div><div id="summary-body"></div></div></div>
-    <div class="card"><h2>5️⃣ Totais</h2><div class="totals" id="totals-area"></div></div>
+    <div class="card"><h2>5️⃣ Peças por Cliente (Separação)</h2><div class="table" id="pecas-cliente-table"><div class="table-header"><div>Cliente</div><div>Números das peças</div><div>Qtd</div></div><div id="pecas-cliente-body"></div></div></div>
+    <div class="card"><h2>6️⃣ Totais</h2><div class="totals" id="totals-area"></div></div>
 
     <div id="results-section" class="card" style="display:none;">
-      <h2>🏁 Resultados</h2>
+      <h2>📊 Estatísticas e Cards em Tempo Real</h2>
       <div id="charts-container"></div>
       <div style="display:flex; gap:10px; margin-bottom: 15px; flex-wrap: wrap; margin-top: 15px;">
         <button class="btn btn-primary" onclick="copyAllCards()">📋 Copiar Todos os Cards</button>
@@ -357,27 +337,26 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
   </div>
 </section>
 
-<!-- MODAL EDIÇÃO -->
 <div id="modal-overlay" class="modal-overlay" style="display:none">
   <div class="modal">
     <h3>✏️ Editar Peça</h3>
     <form id="edit-form" novalidate>
       <div class="form-grid" style="grid-template-columns: 1fr;">
         <div class="form-group"><label>Nº da peça</label><input type="number" id="e-numero"></div>
-        <div class="form-group"><label>Cliente</label><input type="text" id="e-cliente" list="clientes-list"></div>
-        <div class="form-group"><label>Tipo</label><input type="text" id="e-tipo" list="tipos-list"></div>
         <div class="form-group"><label>Código</label><input type="text" id="e-codigo" list="codigos-list"></div>
-        <div class="form-group"><label>Valor</label><input type="number" id="e-valor" step="0.01" list="valores-list"></div>
-        <div class="form-group"><label>Status</label>
-          <select id="e-status"><option value="venda">Venda</option><option value="cancelada">Cancelada</option><option value="brinde">Brinde</option></select>
-        </div>
-        <div class="form-group"><label>Origem (Se Brinde)</label><input type="text" id="e-origem"></div>
+        <div class="form-group"><label>Cliente</label><input type="text" id="e-cliente" list="clientes-list"></div>
         <div class="form-group">
           <label>Fila de Espera</label>
           <input type="text" id="e-fila-1" placeholder="1º da fila" list="clientes-list" style="margin-bottom: 4px;">
           <input type="text" id="e-fila-2" placeholder="2º da fila" list="clientes-list" style="margin-bottom: 4px;">
           <input type="text" id="e-fila-3" placeholder="3º da fila" list="clientes-list">
         </div>
+        <div class="form-group"><label>Valor</label><input type="number" id="e-valor" step="0.01" list="valores-list"></div>
+        <div class="form-group"><label>Tipo</label><input type="text" id="e-tipo" list="tipos-list"></div>
+        <div class="form-group"><label>Status</label>
+          <select id="e-status"><option value="venda">Venda</option><option value="cancelada">Cancelada</option><option value="brinde">Brinde</option></select>
+        </div>
+        <div class="form-group"><label>Origem (Se Brinde)</label><input type="text" id="e-origem"></div>
       </div>
       <div id="promote-section" style="margin-top: 10px; padding: 10px; background: rgba(255,42,133,0.1); border: 1px solid var(--neon-pink); border-radius: 8px; display: none;">
         <p style="font-size: 0.75rem; color: var(--neon-pink); margin-bottom: 8px; font-weight: 600;">⚠️ Cliente desistiu? Deixe a próxima da fila assumir.</p>
@@ -391,7 +370,6 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
   </div>
 </div>
 
-<!-- MODAL NOVA LIVE -->
 <div id="modal-new-live" class="modal-overlay" style="display:none">
   <div class="modal" style="max-width: 480px;">
     <h3>✨ Nova Live</h3>
@@ -403,11 +381,9 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
   </div>
 </div>
 
-<!-- MODAL CONFIGURAÇÕES -->
 <div id="modal-settings" class="modal-overlay" style="display:none">
   <div class="modal">
     <h3>⚙️ Configurações</h3>
-
     <div class="settings-tabs">
       <button type="button" class="settings-tab active" data-tab="loja" onclick="showSettingsTab('loja')">🏪 Loja</button>
       <button type="button" class="settings-tab" data-tab="bancarios" onclick="showSettingsTab('bancarios')">💳 Bancários</button>
@@ -415,14 +391,12 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
       <button type="button" class="settings-tab" data-tab="clientes" onclick="showSettingsTab('clientes')">👥 Clientes</button>
     </div>
 
-    <!-- PAINEL LOJA -->
     <div class="settings-panel active" id="settings-panel-loja">
       <h4>🏪 Informações da Loja</h4>
       <div class="form-group"><label>Nome da Loja</label><input type="text" id="set-loja" placeholder="Ex: Lilika Kids"></div>
       <div class="form-group"><label>Assinatura final</label><input type="text" id="set-assinatura" placeholder="Ex: Com carinho, 💕"></div>
     </div>
 
-    <!-- PAINEL BANCÁRIOS -->
     <div class="settings-panel" id="settings-panel-bancarios">
       <h4>💳 Dados Bancários</h4>
       <div class="form-group"><label>Formas de Pagamento</label><input type="text" id="set-formas" placeholder="Ex: Pix ou link (WhatsApp)"></div>
@@ -431,18 +405,13 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
       <div class="form-group"><label>Nome do Titular</label><input type="text" id="set-nome" placeholder="Ex: Maria Silva"></div>
     </div>
 
-    <!-- PAINEL TEXTOS (EDITOR EM BLOCOS) -->
     <div class="settings-panel" id="settings-panel-textos">
       <h4>📝 Editor de Textos dos Cards</h4>
       <p style="font-size:0.7rem; color:var(--text-muted); margin-bottom:12px;">
         Ative/desative os blocos abaixo. A prévia ao lado atualiza em tempo real.
       </p>
-
       <div class="editor-grid">
-        <!-- COLUNA 1: EDITOR -->
         <div class="editor-column">
-
-          <!-- Bloco: Saudação -->
           <div class="card-block">
             <label class="block-toggle">
               <input type="checkbox" id="blk-saudacao" onchange="toggleBlock('saudacao')">
@@ -450,8 +419,6 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
             </label>
             <input type="text" id="set-saudacao" placeholder="Ex: Olá" oninput="atualizarPreviewCard()">
           </div>
-
-          <!-- Bloco: Elogio -->
           <div class="card-block">
             <label class="block-toggle">
               <input type="checkbox" id="blk-elogio" onchange="toggleBlock('elogio')">
@@ -459,8 +426,6 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
             </label>
             <input type="text" id="set-elogio" placeholder="Vazio = elogio aleatório" oninput="atualizarPreviewCard()">
           </div>
-
-          <!-- Bloco: Prazo -->
           <div class="card-block">
             <label class="block-toggle">
               <input type="checkbox" id="blk-prazo" onchange="toggleBlock('prazo')">
@@ -468,14 +433,10 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
             </label>
             <div id="blk-prazo-content">
               <input type="text" id="set-texto-antes" placeholder="O prazo está liberado até" oninput="atualizarPreviewCard()">
-              <div class="prazo-display">
-                <span id="preview-data-hora">⚠️ Defina a data no dashboard</span>
-              </div>
+              <div class="prazo-display"><span id="preview-data-hora">⚠️ Defina a data no dashboard</span></div>
               <textarea id="set-texto-depois" rows="2" placeholder="Após esse prazo, as peças ficarão disponíveis novamente." oninput="atualizarPreviewCard()"></textarea>
             </div>
           </div>
-
-          <!-- Bloco: Mensagem final -->
           <div class="card-block">
             <label class="block-toggle">
               <input type="checkbox" id="blk-mensagem" onchange="toggleBlock('mensagem')">
@@ -483,23 +444,17 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
             </label>
             <textarea id="set-mensagem" rows="2" placeholder="Fico no aguardo para separarmos o seu pedido com muito carinho! ✨" oninput="atualizarPreviewCard()"></textarea>
           </div>
-
           <p style="font-size:0.68rem; color:var(--text-muted); margin-top:8px; font-style:italic;">
             💡 Dados bancários e assinatura são preenchidos nas abas 💳 Bancários e 🏪 Loja.
           </p>
         </div>
-
-        <!-- COLUNA 2: PRÉVIA -->
         <div class="editor-column preview-column">
-          <div class="preview-header">
-            <span>👁️ PRÉVIA EM TEMPO REAL</span>
-          </div>
+          <div class="preview-header"><span>👁️ PRÉVIA EM TEMPO REAL</span></div>
           <pre id="preview-card-completo" class="preview-content">Preencha os campos ao lado...</pre>
         </div>
       </div>
     </div>
 
-    <!-- PAINEL CLIENTES -->
     <div class="settings-panel" id="settings-panel-clientes">
       <h4>👥 Clientes Cadastrados</h4>
       <p style="font-size:0.7rem; color:var(--text-muted); margin-bottom:10px;">Edite um nome para corrigir em todas as lives automaticamente.</p>
@@ -598,7 +553,7 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
 <!-- ==================== APP SCRIPT ==================== -->
 <script>
 let currentStorageKey = null;
-function getStorageKey(uid) { return 'lives_control_v11_' + (uid || 'anon'); }
+function getStorageKey(uid) { return 'lives_control_v12_' + (uid || 'anon'); }
 
 const ALIASES = { 'dany': 'Dani Souza', 'mary': 'Mari', 'renata': 'Renata Alves' };
 const COMPLIMENTS = ['Que escolha linda', 'Você tem um gosto maravilhoso', 'Suas peças ficaram perfeitas', 'Adorei cada escolha sua', 'Que pedido mais fofo', 'Você arrasou nas escolhas'];
@@ -615,7 +570,6 @@ let filterText = '';
 let editingNumber = null;
 let firestoreInitialized = false;
 
-/* ---------- UTILS ---------- */
 function formatCurrency(v) { return 'R$ ' + (Number(v)||0).toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
 function escapeHtml(str) { return String(str||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]); }
 function applyAlias(name) { const t = String(name||'').trim(); return ALIASES[t.toLowerCase()] || t; }
@@ -629,7 +583,6 @@ function fallbackCopy(text) {
   try { const ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.left = '-9999px'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); return true; } catch(e) { return false; }
 }
 
-/* ---------- AUTH ---------- */
 function toggleAuthMode() {
   const loginForm = document.getElementById('login-form');
   const signupForm = document.getElementById('signup-form');
@@ -718,7 +671,6 @@ function realizarLogout() {
   window.firebaseLogout().then(() => toast('👋 Você saiu da conta')).catch(() => toast('❌ Erro ao sair'));
 }
 
-/* ---------- PERSISTÊNCIA ---------- */
 async function saveState() {
   const key = currentStorageKey || getStorageKey(window.currentUserUid);
   try { localStorage.setItem(key, JSON.stringify(appState)); } catch (e) {}
@@ -759,18 +711,17 @@ function onUserLoggedIn(uid) {
         appState.activeLiveId = dados.activeLiveId || null;
         if (dados.settings) appState.settings = Object.assign({ ...DEFAULT_SETTINGS }, dados.settings);
         try { localStorage.setItem(currentStorageKey, JSON.stringify(appState)); } catch(e) {}
-        if (!appState.activeLiveId || !getActiveLive()) showView('view-home');
-        else if (document.getElementById('view-dashboard').classList.contains('active')) renderDashboard();
+        // Só redesenha a tela atual, sem trocar de view
+        if (document.getElementById('view-dashboard').classList.contains('active')) renderDashboard();
         else if (document.getElementById('view-history').classList.contains('active')) renderHistory();
       }
     });
   }
-  if (!appState.activeLiveId || !getActiveLive()) showView('view-home');
-  else showView('view-dashboard');
+  // SEMPRE abre na Home após login
+  showView('view-home');
   toast('☁️ Sincronização ativa!');
 }
 
-/* ---------- NAVEGAÇÃO ---------- */
 function showView(viewId) {
   document.querySelectorAll('#app-main .view-section').forEach(el => el.classList.remove('active'));
   const target = document.getElementById(viewId); if (target) target.classList.add('active');
@@ -785,7 +736,6 @@ function showView(viewId) {
   }
 }
 
-/* ---------- LIVES ---------- */
 function getActiveLive() { return appState.lives.find(l => l.id === appState.activeLiveId); }
 function createNewLivePrompt() { document.getElementById('new-live-name').value = ''; document.getElementById('modal-new-live').style.display = 'flex'; }
 function closeNewLiveModal() { document.getElementById('modal-new-live').style.display = 'none'; }
@@ -820,7 +770,6 @@ function renderHistory() {
   });
 }
 
-/* ---------- DASHBOARD ---------- */
 function renderDashboard() {
   const live = getActiveLive();
   if (!live) { showView('view-home'); return; }
@@ -830,8 +779,11 @@ function renderDashboard() {
   document.getElementById('deadline-time').value = live.deadline.time;
   const temPrazo = appState.settings.temPrazo === true;
   document.getElementById('deadline-row').style.display = temPrazo ? 'flex' : 'none';
-  renderPaymentSettings(); renderTables(); updateFormNumber(); updateDatalists();
-  document.getElementById('results-section').style.display = 'none';
+  renderPaymentSettings();
+  renderTables();
+  renderResults();
+  updateFormNumber();
+  updateDatalists();
 }
 function renderPaymentSettings() {
   const s = appState.settings;
@@ -852,14 +804,14 @@ function saveDeadline() {
   const live = getActiveLive(); if (!live) return;
   live.deadline.date = document.getElementById('deadline-date').value;
   live.deadline.time = document.getElementById('deadline-time').value;
-  saveState(); toast('⏰ Prazo atualizado');
+  saveState(); renderResults(); toast('⏰ Prazo atualizado');
 }
 
-/* ---------- TABELAS ---------- */
 function getFilteredRecords() {
   const live = getActiveLive(); if (!live) return [];
   return live.records.filter(r => !filterText || r.cliente.toLowerCase().includes(filterText.toLowerCase())).sort((a,b) => a.numero - b.numero);
 }
+
 function renderTables() {
   const live = getActiveLive(); if (!live) return;
   const records = getFilteredRecords();
@@ -911,15 +863,19 @@ function renderTables() {
       </div>`).join('') || '<div style="padding:10px; color:var(--text-muted); text-align:center;">Sem brindes</div>';
   }
 
-  /* 3. FILAS */
+  /* 3. FILAS (com # e botão promover) */
   const queuesBody = document.getElementById('queues-body');
   if (queuesBody) {
     const queues = records.filter(r => r.fila && r.fila.length > 0);
     queuesBody.innerHTML = queues.map(q => `
       <div class="table-row">
+        <div class="cell"><span class="cell-content">${q.numero}</span></div>
         <div class="cell"><span class="cell-content">${escapeHtml(q.tipoPeca)}</span></div>
         <div class="cell"><span class="cell-content">${escapeHtml(q.cliente)}</span></div>
         <div class="cell"><span class="cell-content">${escapeHtml(q.fila.join(' | '))}</span></div>
+        <div class="actions" style="display:flex; justify-content:flex-end;">
+          <button class="btn-icon" onclick="promoverFila(${q.numero})" title="Passar para o próximo">🔄</button>
+        </div>
       </div>`).join('') || '<div style="padding:10px; color:var(--text-muted); text-align:center;">Sem filas</div>';
   }
 
@@ -943,7 +899,27 @@ function renderTables() {
       </div>`).join('') || '<div style="padding:10px; color:var(--text-muted); text-align:center;">Sem clientes</div>';
   }
 
-  /* 5. TOTAIS */
+  /* 5. PEÇAS POR CLIENTE (SEPARAÇÃO) */
+  const pecasClienteBody = document.getElementById('pecas-cliente-body');
+  if (pecasClienteBody) {
+    const map = {};
+    records.forEach(r => {
+      if (r.status === 'cancelada') return;
+      if (!map[r.cliente]) map[r.cliente] = [];
+      map[r.cliente].push(r);
+    });
+    const arr = Object.keys(map).map(k => ({ nome: k, pecas: map[k] })).sort((a,b) => a.nome.localeCompare(b.nome));
+    pecasClienteBody.innerHTML = arr.map(item => {
+      const numeros = item.pecas.sort((a,b) => a.numero - b.numero).map(p => '#' + p.numero).join(', ');
+      return `<div class="table-row">
+        <div class="cell"><span class="cell-content">${escapeHtml(item.nome)}</span></div>
+        <div class="cell"><span class="cell-content" title="${escapeHtml(numeros)}">${escapeHtml(numeros)}</span></div>
+        <div class="cell"><span class="cell-content">${item.pecas.length}</span></div>
+      </div>`;
+    }).join('') || '<div style="padding:10px; color:var(--text-muted); text-align:center;">Sem peças</div>';
+  }
+
+  /* 6. TOTAIS */
   const totalsArea = document.getElementById('totals-area');
   if (totalsArea) {
     const vendido = records.filter(r => r.status === 'venda').reduce((s,r) => s+r.valor, 0);
@@ -958,6 +934,27 @@ function renderTables() {
       <div class="total-box total-brinde"><span>Brindes</span><strong>${bri}</strong></div>
       <div class="total-box total-fila"><span>Filas</span><strong>${fil}</strong></div>`;
   }
+}
+
+/* ---------- PROMOVER FILA DIRETO DA TABELA ---------- */
+function promoverFila(numero) {
+  const live = getActiveLive();
+  if (!live) return;
+  const record = live.records.find(r => r.numero === numero);
+  if (!record) return;
+  if (!record.fila || record.fila.length === 0) { toast('Sem fila'); return; }
+  const desistente = record.cliente;
+  const novoCliente = record.fila[0];
+  const filaRestante = record.fila.slice(1);
+  const msg = `A cliente *${desistente}* desistiu da peça #${numero}?\n\nPassar para: *${novoCliente}*.\nFila restante: ${filaRestante.length > 0 ? filaRestante.join(', ') : 'Ninguém'}`;
+  if (!confirm(msg)) return;
+  record.cliente = novoCliente;
+  record.fila = filaRestante;
+  saveState();
+  renderTables();
+  renderResults();
+  updateDatalists();
+  toast(`🔄 Peça #${numero} passada para ${novoCliente}!`);
 }
 
 /* ---------- FORMULÁRIO ---------- */
@@ -1007,7 +1004,11 @@ function registrarVenda() {
     if (live.records.some(r => r.numero === num)) { toast('Nº já existe'); return; }
     if (status === 'brinde') { val = 0; if (!orig) orig = 'Brinde'; } else { orig = null; }
     live.records.push({ numero: num, cliente: cli, tipoPeca: tipo, codigo: cod, valor: val, status, origemBrinde: orig, fila });
-    saveState(); renderTables(); updateFormNumber(); updateDatalists();
+    saveState();
+    renderTables();
+    renderResults();
+    updateFormNumber();
+    updateDatalists();
     document.getElementById('f-cliente').value = '';
     document.getElementById('f-tipo').value = '';
     document.getElementById('f-codigo').value = '';
@@ -1023,20 +1024,19 @@ function registrarVenda() {
   } catch (e) { toast('❌ Erro: ' + e.message); }
 }
 
-/* ---------- EDIÇÃO ---------- */
 function openEdit(num) {
   const live = getActiveLive(); if (!live) return; const r = live.records.find(x => x.numero === num); if (!r) return;
   editingNumber = num;
   document.getElementById('e-numero').value = r.numero;
-  document.getElementById('e-cliente').value = r.cliente;
-  document.getElementById('e-tipo').value = r.tipoPeca;
   document.getElementById('e-codigo').value = r.codigo;
-  document.getElementById('e-valor').value = r.valor;
-  document.getElementById('e-status').value = r.status;
-  document.getElementById('e-origem').value = r.origemBrinde || '';
+  document.getElementById('e-cliente').value = r.cliente;
   document.getElementById('e-fila-1').value = r.fila[0] || '';
   document.getElementById('e-fila-2').value = r.fila[1] || '';
   document.getElementById('e-fila-3').value = r.fila[2] || '';
+  document.getElementById('e-valor').value = r.valor;
+  document.getElementById('e-tipo').value = r.tipoPeca;
+  document.getElementById('e-status').value = r.status;
+  document.getElementById('e-origem').value = r.origemBrinde || '';
   document.getElementById('promote-section').style.display = (r.fila && r.fila.length > 0) ? 'block' : 'none';
   document.getElementById('modal-overlay').style.display = 'flex';
 }
@@ -1067,19 +1067,19 @@ function salvarEdicao() {
     let fila = [fila1, fila2, fila3].filter(Boolean);
     const status = document.getElementById('e-status').value;
     r.numero = newNum; r.cliente = cli;
-    r.tipoPeca = document.getElementById('e-tipo').value.trim();
     r.codigo = document.getElementById('e-codigo').value.trim();
+    r.tipoPeca = document.getElementById('e-tipo').value.trim();
     r.valor = status === 'brinde' ? 0 : (parseFloat(document.getElementById('e-valor').value)||0);
     r.status = status;
     r.origemBrinde = status === 'brinde' ? (document.getElementById('e-origem').value.trim() || 'Brinde') : null;
     r.fila = fila;
-    saveState(); renderTables(); updateFormNumber(); updateDatalists(); closeModal();
+    saveState(); renderTables(); renderResults(); updateFormNumber(); updateDatalists(); closeModal();
     toast('✅ Atualizado! Resumos recalculados.');
   } catch (e) { toast('❌ Erro: ' + e.message); }
 }
 function deleteRecord(num) {
   const live = getActiveLive(); if (!live) return; if (!confirm('Excluir peça #' + num + '?')) return;
-  live.records = live.records.filter(r => r.numero !== num); saveState(); renderTables(); updateFormNumber(); toast('🗑️ Excluída');
+  live.records = live.records.filter(r => r.numero !== num); saveState(); renderTables(); renderResults(); updateFormNumber(); toast('🗑️ Excluída');
 }
 
 /* ---------- CLIENTES ---------- */
@@ -1087,25 +1087,14 @@ function renderClientesList() {
   const container = document.getElementById('clientes-list-settings');
   if (!container) return;
   const names = new Set();
-  appState.lives.forEach(live => {
-    live.records.forEach(r => { if (r.cliente) names.add(r.cliente); });
-  });
+  appState.lives.forEach(live => { live.records.forEach(r => { if (r.cliente) names.add(r.cliente); }); });
   const arr = [...names].sort();
   window._clientesListCache = arr;
-  if (arr.length === 0) {
-    container.innerHTML = '<div style="text-align:center; color:var(--text-muted); padding:20px; font-size:0.8rem;">Nenhum cliente cadastrado ainda.<br>Os clientes aparecem aqui quando você registra vendas.</div>';
-    return;
-  }
-  container.innerHTML = arr.map((n, i) => `
-    <div class="client-item">
-      <span>${escapeHtml(n)}</span>
-      <button type="button" class="btn btn-secondary" onclick="editarClientePorIndex(${i})">✏️ Editar</button>
-    </div>
-  `).join('');
+  if (arr.length === 0) { container.innerHTML = '<div style="text-align:center; color:var(--text-muted); padding:20px; font-size:0.8rem;">Nenhum cliente cadastrado ainda.<br>Os clientes aparecem aqui quando você registra vendas.</div>'; return; }
+  container.innerHTML = arr.map((n, i) => `<div class="client-item"><span>${escapeHtml(n)}</span><button type="button" class="btn btn-secondary" onclick="editarClientePorIndex(${i})">✏️ Editar</button></div>`).join('');
 }
 function editarClientePorIndex(i) {
-  const oldName = window._clientesListCache[i];
-  if (!oldName) return;
+  const oldName = window._clientesListCache[i]; if (!oldName) return;
   const novo = prompt('Editar nome do cliente:\n(nome atual: ' + oldName + ')', oldName);
   if (novo === null) return;
   const newName = novo.trim();
@@ -1118,7 +1107,7 @@ function editarClientePorIndex(i) {
     });
   });
   saveState(); renderClientesList(); updateDatalists();
-  if (document.getElementById('view-dashboard').classList.contains('active')) renderTables();
+  if (document.getElementById('view-dashboard').classList.contains('active')) { renderTables(); renderResults(); }
   toast(`✅ ${updatedCount} registro(s) atualizado(s)`);
 }
 
@@ -1133,34 +1122,22 @@ function showSettingsTab(tab) {
   if (tab === 'textos') { atualizarPreviewDataHora(); atualizarPreviewCard(); }
   if (tab === 'clientes') renderClientesList();
 }
-
 function toggleBlock(block) {
   const toggle = document.getElementById('blk-' + block);
   const content = document.getElementById('blk-' + block + '-content');
   if (content) content.style.display = toggle.checked ? 'block' : 'none';
   atualizarPreviewCard();
 }
-
 function atualizarPreviewDataHora() {
-  const el = document.getElementById('preview-data-hora');
-  if (!el) return;
+  const el = document.getElementById('preview-data-hora'); if (!el) return;
   const live = getActiveLive();
-  if (!live || !live.deadline || !live.deadline.date) {
-    el.textContent = '⚠️ Defina a data no dashboard da live';
-    return;
-  }
+  if (!live || !live.deadline || !live.deadline.date) { el.textContent = '⚠️ Defina a data no dashboard da live'; return; }
   const dt = new Date(live.deadline.date + 'T12:00:00');
   const weekdays = ['domingo', 'segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado'];
-  const wd = weekdays[dt.getDay()];
-  const dtStr = dt.toLocaleDateString('pt-BR');
-  const tmStr = live.deadline.time || '18:00';
-  el.textContent = `as ${tmStr} da ${wd}, dia ${dtStr}`;
+  el.textContent = `as ${live.deadline.time || '18:00'} da ${weekdays[dt.getDay()]}, dia ${dt.toLocaleDateString('pt-BR')}`;
 }
-
 function atualizarPreviewCard() {
-  const el = document.getElementById('preview-card-completo');
-  if (!el) return;
-
+  const el = document.getElementById('preview-card-completo'); if (!el) return;
   const s = {
     loja: (document.getElementById('set-loja')?.value || '').trim(),
     assinatura: (document.getElementById('set-assinatura')?.value || '').trim(),
@@ -1178,17 +1155,7 @@ function atualizarPreviewCard() {
     mostrarElogio: document.getElementById('blk-elogio')?.checked !== false,
     mostrarMensagem: document.getElementById('blk-mensagem')?.checked !== false
   };
-
-  const clienteExemplo = {
-    name: 'Maria Silva',
-    sales: [
-      { numero: 1, tipoPeca: 'Vestido Floral', valor: 89.90 },
-      { numero: 2, tipoPeca: 'Saia Jeans', valor: 59.90 }
-    ],
-    gifts: [{ tipoPeca: 'Laço de Cabelo' }],
-    total: 149.80
-  };
-
+  const clienteExemplo = { name: 'Maria Silva', sales: [{ numero: 1, tipoPeca: 'Vestido Floral', valor: 89.90 }, { numero: 2, tipoPeca: 'Saia Jeans', valor: 59.90 }], gifts: [{ tipoPeca: 'Laço de Cabelo' }], total: 149.80 };
   let prazoInfo = { hora: '18:00', diaSemana: 'segunda-feira', data: '16/11/2026' };
   const live = getActiveLive();
   if (live && live.deadline && live.deadline.date) {
@@ -1196,10 +1163,8 @@ function atualizarPreviewCard() {
     const wd = ['domingo','segunda-feira','terça-feira','quarta-feira','quinta-feira','sexta-feira','sábado'][dt.getDay()];
     prazoInfo = { hora: live.deadline.time || '18:00', diaSemana: wd, data: dt.toLocaleDateString('pt-BR') };
   }
-
   el.textContent = gerarTextoCard(clienteExemplo, s, prazoInfo);
 }
-
 function openSettingsModal() {
   const s = appState.settings;
   document.getElementById('set-loja').value = s.loja || '';
@@ -1213,18 +1178,15 @@ function openSettingsModal() {
   document.getElementById('set-texto-antes').value = s.textoAntes || '';
   document.getElementById('set-texto-depois').value = s.textoDepois || '';
   document.getElementById('set-mensagem').value = s.mensagem || '';
-
   document.getElementById('blk-saudacao').checked = s.mostrarSaudacao !== false;
   document.getElementById('blk-elogio').checked = s.mostrarElogio !== false;
   document.getElementById('blk-prazo').checked = s.temPrazo === true;
   document.getElementById('blk-mensagem').checked = s.mostrarMensagem !== false;
-
   ['saudacao', 'elogio', 'prazo', 'mensagem'].forEach(function (b) {
     const t = document.getElementById('blk-' + b);
     const c = document.getElementById('blk-' + b + '-content');
     if (c) c.style.display = t.checked ? 'block' : 'none';
   });
-
   atualizarPreviewDataHora();
   atualizarPreviewCard();
   showSettingsTab('loja');
@@ -1253,7 +1215,7 @@ function saveSettings() {
   renderPaymentSettings();
   closeSettingsModal();
   if (document.getElementById('view-home').classList.contains('active')) showView('view-home');
-  if (document.getElementById('view-dashboard').classList.contains('active')) renderDashboard();
+  if (document.getElementById('view-dashboard').classList.contains('active')) { renderDashboard(); }
   toast('⚙️ Configurações salvas!');
 }
 
@@ -1261,23 +1223,17 @@ function saveSettings() {
 function gerarTextoCard(cliente, s, prazoInfo) {
   const { name, sales, gifts, total } = cliente;
   const linhas = [];
-
   if (s.mostrarSaudacao !== false) {
     const saudacao = (s.saudacao && s.saudacao.trim()) || 'Olá';
     linhas.push(`${saudacao} *${name}*! Tudo bem? 🌸`);
   }
-
   if (s.mostrarElogio !== false) {
-    const elogio = (s.elogio && s.elogio.trim())
-      ? s.elogio.trim()
-      : COMPLIMENTS[Math.floor(Math.random() * COMPLIMENTS.length)];
+    const elogio = (s.elogio && s.elogio.trim()) ? s.elogio.trim() : COMPLIMENTS[Math.floor(Math.random() * COMPLIMENTS.length)];
     if (elogio) linhas.push(`${elogio} ✨`);
   }
-
   linhas.push('');
   linhas.push('Aqui está o resumo detalhado do seu pedido:');
   linhas.push('');
-
   if (sales.length > 0) {
     linhas.push('🛍️ *SUAS PEÇAS:*');
     sales.forEach(r => {
@@ -1288,17 +1244,14 @@ function gerarTextoCard(cliente, s, prazoInfo) {
     linhas.push(`💰 *Total da Compra: ${formatCurrency(total)}*`);
     linhas.push('');
   }
-
   if (gifts.length > 0) {
     const brindes = gifts.map(g => genericType(g.tipoPeca)).join(', ');
     linhas.push(`🎁 *Brinde:* ${brindes} — vai junto no seu pedido!`);
     linhas.push('');
   }
-
   const formas = (s.formas && s.formas.trim()) || 'a combinar';
   linhas.push(`💳 Pagamento via ${formas}.`);
   linhas.push('');
-
   const temPrazo = s.temPrazo === true;
   const dataDefinida = prazoInfo.data && prazoInfo.hora && prazoInfo.diaSemana;
   if (temPrazo && dataDefinida) {
@@ -1308,12 +1261,10 @@ function gerarTextoCard(cliente, s, prazoInfo) {
     linhas.push(textoDepois);
     linhas.push('');
   }
-
   if (s.mostrarMensagem !== false && s.mensagem && s.mensagem.trim()) {
     linhas.push(s.mensagem.trim());
     linhas.push('');
   }
-
   const hasPix = s.pix && s.pix.trim();
   const hasBanco = s.banco && s.banco.trim();
   const hasNome = s.nome && s.nome.trim();
@@ -1324,31 +1275,30 @@ function gerarTextoCard(cliente, s, prazoInfo) {
     if (hasNome) linhas.push(`Nome: ${s.nome}`);
     linhas.push('');
   }
-
   const assinatura = (s.assinatura && s.assinatura.trim()) || 'Com carinho,';
   const loja = (s.loja && s.loja.trim()) || '';
   linhas.push(assinatura);
   if (loja) linhas.push(`*${loja}* 💕`);
-
   return linhas.join('\n');
 }
 
-/* ---------- ENCERRAR LIVE ---------- */
-function handleEndLive() {
+/* ---------- RESULTADOS EM TEMPO REAL ---------- */
+let _lastCardsCache = [];
+
+function renderResults() {
   const live = getActiveLive();
-  if (!live || live.records.length === 0) { toast('Nenhum registro'); return; }
+  const sec = document.getElementById('results-section');
+  if (!sec) return;
+  if (!live || live.records.length === 0) { sec.style.display = 'none'; _lastCardsCache = []; return; }
+  sec.style.display = 'block';
+
   const s = appState.settings;
   const temPrazo = s.temPrazo === true;
-
   let prazoInfo = { hora: '', diaSemana: '', data: '' };
   if (temPrazo && live.deadline.date) {
     const deadline = new Date(live.deadline.date + 'T12:00:00');
     const weekdays = ['domingo', 'segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado'];
-    prazoInfo = {
-      hora: live.deadline.time || '18:00',
-      diaSemana: weekdays[deadline.getDay()],
-      data: deadline.toLocaleDateString('pt-BR')
-    };
+    prazoInfo = { hora: live.deadline.time || '18:00', diaSemana: weekdays[deadline.getDay()], data: deadline.toLocaleDateString('pt-BR') };
   }
 
   const byClient = {};
@@ -1363,16 +1313,15 @@ function handleEndLive() {
     .filter(c => c.sales.length > 0 || c.gifts.length > 0)
     .sort((a,b) => b.total - a.total);
 
-  let chartsHtml = '<h3 style="color:var(--neon-cyan); margin-bottom:10px; font-size:0.9rem;">📊 Estatísticas da Live</h3>';
   const totVend = sortedClients.reduce((s,c) => s+c.total, 0);
   const totPecas = live.records.filter(r => r.status === 'venda').length;
   const totBrinde = live.records.filter(r => r.status === 'brinde').length;
 
-  chartsHtml += `<div class="chart-stats">
-    <div class="chart-stat-box"><div class="stat-label">Total Vendido</div><div class="stat-value">${formatCurrency(totVend)}</div></div>
-    <div class="chart-stat-box"><div class="stat-label">Peças Vendidas</div><div class="stat-value">${totPecas}</div></div>
-    <div class="chart-stat-box"><div class="stat-label">Brindes</div><div class="stat-value">${totBrinde}</div></div>
-  </div>`;
+  let chartsHtml = '<div class="chart-stats">' +
+    `<div class="chart-stat-box"><div class="stat-label">Total Vendido</div><div class="stat-value">${formatCurrency(totVend)}</div></div>` +
+    `<div class="chart-stat-box"><div class="stat-label">Peças Vendidas</div><div class="stat-value">${totPecas}</div></div>` +
+    `<div class="chart-stat-box"><div class="stat-label">Brindes</div><div class="stat-value">${totBrinde}</div></div>` +
+  '</div>';
 
   chartsHtml += '<div class="chart-container"><div class="chart-title">🏆 Ranking Completo de Clientes</div>';
   const maxVal = sortedClients.length > 0 ? sortedClients[0].total : 1;
@@ -1390,6 +1339,7 @@ function handleEndLive() {
   document.getElementById('charts-container').innerHTML = chartsHtml;
 
   const cards = sortedClients.map(c => ({ name: c.name, text: gerarTextoCard(c, s, prazoInfo) }));
+  _lastCardsCache = cards;
 
   const sLoja = (s.loja && s.loja.trim()) || 'LOJA';
   let res = `📊 RESUMO GERAL — ${sLoja.toUpperCase()}\n📅 ${new Date().toLocaleDateString('pt-BR')}`;
@@ -1402,28 +1352,40 @@ function handleEndLive() {
   if (s.nome && s.nome.trim()) res += `Nome: ${s.nome}\n`;
   if (!s.pix && !s.banco && !s.nome) res += `⚠️ Não configurado\n`;
   res += `\n💕 ${s.assinatura || 'Obrigado!'}`;
+  window._lastSummaryCache = res;
 
-  const sec = document.getElementById('results-section');
   const cont = document.getElementById('results-content');
-  if (!sec || !cont) return;
-  sec.style.display = 'block';
-
-  let html = '<h3 style="color:var(--neon-cyan); margin-bottom:10px;">Cards dos Clientes</h3>';
+  if (!cont) return;
+  let html = '<h3 style="color:var(--neon-cyan); margin-bottom:10px;">Cards dos Clientes (atualizando em tempo real)</h3>';
   cards.forEach((c, i) => {
     html += `<div style="background:#0f1420; padding:10px; border-radius:8px; margin-bottom:10px; border:1px solid var(--border);"><div style="display:flex; justify-content:space-between; margin-bottom:8px;"><strong style="color:var(--neon-pink);">${escapeHtml(c.name)}</strong><button class="btn btn-secondary" onclick="copySingleCard(${i})">📋 Copiar</button></div><pre style="white-space:pre-wrap; font-size:0.75rem; color:var(--text-muted); font-family:inherit;">${escapeHtml(c.text)}</pre></div>`;
   });
   html += `<div style="background:#0f1420; padding:10px; border-radius:8px; border:1px solid var(--border); margin-top:15px;"><div style="display:flex; justify-content:space-between; margin-bottom:8px;"><strong style="color:var(--neon-cyan);">📊 Resumo Geral</strong><button class="btn btn-secondary" onclick="copySummaryText()">📋 Copiar</button></div><pre style="white-space:pre-wrap; font-size:0.75rem; color:var(--text-muted); font-family:inherit;">${escapeHtml(res)}</pre></div>`;
-
   cont.innerHTML = html;
-  sec.scrollIntoView({ behavior: 'smooth' });
+}
 
-  window.copySingleCard = (i) => copyText(cards[i].text).then(ok => toast(ok ? '✅ Copiado!' : '❌ Erro'));
-  window.copySummaryText = () => copyText(res).then(ok => toast(ok ? '✅ Copiado!' : '❌ Erro'));
-  window.copyAllCards = () => {
-    const all = cards.map(c => c.text).join('\n\n════════════\n\n');
-    copyText(all).then(ok => toast(ok ? '✅ Todos copiados!' : '❌ Erro'));
-  };
-  window.copySummary = window.copySummaryText;
+function copySingleCard(i) {
+  const c = _lastCardsCache[i];
+  if (!c) return;
+  copyText(c.text).then(ok => toast(ok ? '✅ Copiado!' : '❌ Erro'));
+}
+function copySummaryText() {
+  copyText(window._lastSummaryCache || '').then(ok => toast(ok ? '✅ Copiado!' : '❌ Erro'));
+}
+function copyAllCards() {
+  const all = _lastCardsCache.map(c => c.text).join('\n\n════════════\n\n');
+  copyText(all).then(ok => toast(ok ? '✅ Todos copiados!' : '❌ Erro'));
+}
+function copySummary() { copySummaryText(); }
+
+function scrollToResults() {
+  const sec = document.getElementById('results-section');
+  if (sec && sec.style.display !== 'none') {
+    sec.scrollIntoView({ behavior: 'smooth' });
+    toast('📊 Resultados atualizados!');
+  } else {
+    toast('Nenhum registro ainda');
+  }
 }
 
 document.addEventListener('DOMContentLoaded', function() {});
