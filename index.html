@@ -388,7 +388,7 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
 
   <div class="settings-tabs" style="margin-bottom: 15px; flex-wrap: wrap;">
     <button class="av-tab active" data-av-tab="vendas" onclick="avulsoShowTab('vendas')">🧾 Vendas</button>
-    <button class="av-tab" data-av-tab="clientes" onclick="avulsoShowTab('clientes')">👥 Clientes</button>
+    <button class="av-tab" data-av-tab="clientes" onclick="avulsoShowTab('clientes')">💳 Clientes com Dívida Ativa</button>
     <button class="av-tab" data-av-tab="pagamentos" onclick="avulsoShowTab('pagamentos')">💰 Pagamentos</button>
     <button class="av-tab" data-av-tab="agendamentos" onclick="avulsoShowTab('agendamentos')">📅 Agendamentos</button>
     <button class="av-tab" data-av-tab="historico" onclick="avulsoShowTab('historico')">📜 Histórico</button>
@@ -1778,19 +1778,20 @@ function avulsoRenderClientes() {
       else saldo += avulsoSaldo(s);
     });
     return { nome: c.nome, telefone: c.telefone, sales: c.sales, total, pago, saldo, perdido };
-  }).sort((a,b) => b.saldo - a.saldo || a.nome.localeCompare(b.nome));
+  })
+  .filter(c => c.saldo > 0.005)
+  .sort((a,b) => b.saldo - a.saldo || a.nome.localeCompare(b.nome));
   window._avulsoClientesCache = arr;
 
   if (arr.length === 0) {
-    el.innerHTML = '<div class="av-empty">Sem clientes registrados.</div>';
+    el.innerHTML = '<div class="av-empty">✨ Nenhum cliente com dívida ativa!<br><br>Todos os débitos foram quitados.</div>';
     return;
   }
 
   let html = '';
   arr.forEach((c, idx) => {
-    const statusBadge = c.saldo === 0 && c.perdido === 0 ? '<span class="av-badge av-badge-pago">✓ Quitado</span>'
-      : c.saldo === 0 && c.perdido > 0 ? '<span class="av-badge av-badge-vencido">Perdida</span>'
-      : c.pago > 0 ? '<span class="av-badge av-badge-parcial">Parcial</span>'
+    const statusBadge = c.pago > 0
+      ? '<span class="av-badge av-badge-parcial">Parcial</span>'
       : '<span class="av-badge av-badge-pendente">Pendente</span>';
     const firstWithSaldo = c.sales.find(s => !s.baixaPerdida && avulsoSaldo(s) > 0);
     html += `<div class="av-sale-card">
