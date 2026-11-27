@@ -553,9 +553,15 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
     <h3>➕ Nova Venda Avulsa</h3>
 
     <div class="av-section-title"><h4>👤 Dados da Venda</h4></div>
-    <div class="form-grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px;">
-      <div class="form-group" style="margin-bottom: 0;"><label>Cliente *</label><input type="text" id="av-cliente" list="clientes-list" placeholder="Digite ou escolha o cliente"></div>
-      <div class="form-group" style="margin-bottom: 0;"><label>Data da venda</label><input type="date" id="av-data"></div>
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <div class="form-group" style="margin-bottom: 0; max-width: 210px;">
+        <label>Data da venda</label>
+        <input type="date" id="av-data">
+      </div>
+      <div class="form-group" style="margin-bottom: 0;">
+        <label>Cliente *</label>
+        <input type="text" id="av-cliente" list="clientes-list" placeholder="Digite ou escolha o cliente">
+      </div>
     </div>
 
     <div class="av-section-title">
