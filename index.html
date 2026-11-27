@@ -222,7 +222,9 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
 .av-badge-parcial { background: rgba(255,215,0,0.15); color: #ffd700; border: 1px solid rgba(255,215,0,0.4); }
 .av-badge-pendente { background: rgba(255,51,102,0.15); color: #ff3366; border: 1px solid rgba(255,51,102,0.4); }
 .av-badge-vencido { background: rgba(255,51,102,0.25); color: #ff3366; border: 1px solid #ff3366; animation: pulseRed 2s infinite ease-in-out; }
-.av-item-row { display: grid; grid-template-columns: 2fr 55px 85px 80px 28px; gap: 5px; margin-bottom: 5px; align-items: center; }
+.av-item-field { display: flex; flex-direction: column; gap: 3px; }
+.av-item-field label { font-size: 0.65rem; color: var(--text-muted); font-weight: 600; }
+.av-item-row { display: grid; grid-template-columns: 2fr 55px 85px 80px 28px; gap: 5px; margin-bottom: 5px; align-items: end; }
 .av-item-row input { padding: 6px; background: #0f1420; border: 1px solid var(--border); border-radius: 6px; color: var(--text-main); font-size: 0.78rem; width: 100%; font-family: inherit; }
 .av-item-row input:focus { outline: none; border-color: var(--neon-cyan); }
 @media (max-width: 500px) { .av-item-row { grid-template-columns: 1.5fr 45px 75px 25px; } .av-item-row .av-item-sub { display: none; } }
@@ -539,13 +541,11 @@ h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; lette
 </div>
 
 <div id="modal-nova-venda-avulsa" class="modal-overlay" style="display:none">
-  <div class="modal">
+  <div class="modal" style="max-width: 560px;">
     <h3>➕ Nova Venda Avulsa</h3>
-    <div class="form-grid" style="grid-template-columns: 1fr 1fr;">
+    <div class="form-grid" style="grid-template-columns: 1.4fr 1fr;">
       <div class="form-group"><label>Cliente *</label><input type="text" id="av-cliente" list="clientes-list" placeholder="Nome do cliente"></div>
-      <div class="form-group"><label>Telefone (opcional)</label><input type="text" id="av-telefone" placeholder="(11) 99999-9999"></div>
       <div class="form-group"><label>Data da venda</label><input type="date" id="av-data"></div>
-      <div class="form-group"><label>Desconto (R$)</label><input type="number" id="av-desconto" min="0" step="0.01" value="0" oninput="avulsoRecalcTotal()"></div>
     </div>
     <h4 style="margin: 12px 0 8px; color: var(--neon-cyan); font-size: 0.85rem;">Itens</h4>
     <div id="av-items-list"></div>
@@ -2139,9 +2139,7 @@ function avulsoCopyCardClienteByIndex(idx) {
 
 function avulsoOpenNovaVenda() {
   document.getElementById('av-cliente').value = '';
-  document.getElementById('av-telefone').value = '';
   document.getElementById('av-data').value = new Date().toISOString().slice(0,10);
-  document.getElementById('av-desconto').value = '0';
   document.getElementById('av-obs').value = '';
   document.getElementById('av-items-list').innerHTML = avulsoItemRowHtml(null, false);
   avulsoRecalcTotal();
@@ -2154,6 +2152,29 @@ function avulsoItemRowHtml(item, isEdit) {
   const qtd = (item && item.qtd) || 1;
   const vu = (item && item.valorUnit) || 0;
   const sub = qtd * vu;
+  if (!isEdit) {
+    return `<div class="av-item-row" style="margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px dashed var(--border);">
+      <div class="av-item-field">
+        <label>Descrição</label>
+        <input type="text" placeholder="Descrição do item" value="${desc}" data-field="descricao">
+      </div>
+      <div class="av-item-field">
+        <label>Qtd</label>
+        <input type="number" min="1" value="${qtd}" data-field="qtd" oninput="${recalcFn}()">
+      </div>
+      <div class="av-item-field">
+        <label>Valor (R$)</label>
+        <input type="number" min="0" step="0.01" value="${vu}" data-field="valorUnit" oninput="${recalcFn}()">
+      </div>
+      <div class="av-item-field av-item-sub">
+        <label>Subtotal</label>
+        <div style="font-size:0.75rem; color:var(--neon-cyan); text-align:right; padding:6px 0;">${formatCurrency(sub)}</div>
+      </div>
+      <div class="av-item-field">
+        <button type="button" class="btn-icon" onclick="this.closest('.av-item-row').remove(); ${recalcFn}()">🗑️</button>
+      </div>
+    </div>`;
+  }
   return `<div class="av-item-row">
     <input type="text" placeholder="Descrição" value="${desc}" data-field="descricao">
     <input type="number" min="1" value="${qtd}" data-field="qtd" oninput="${recalcFn}()">
@@ -2177,19 +2198,17 @@ function avulsoAddItemRowEdit() {
 function avulsoRecalcTotal() {
   const list = document.getElementById('av-items-list');
   if (!list) return;
-  let sub = 0;
+  let total = 0;
   list.querySelectorAll('.av-item-row').forEach(row => {
     const qtd = parseFloat(row.querySelector('[data-field="qtd"]').value) || 0;
     const vu = parseFloat(row.querySelector('[data-field="valorUnit"]').value) || 0;
     const subtotal = qtd * vu;
-    const subEl = row.querySelector('.av-item-sub');
+    const subEl = row.querySelector('.av-item-sub div') || row.querySelector('.av-item-sub');
     if (subEl) subEl.textContent = formatCurrency(subtotal);
-    sub += subtotal;
+    total += subtotal;
   });
-  const desc = parseFloat(document.getElementById('av-desconto').value) || 0;
-  const total = Math.max(0, sub - desc);
   const el = document.getElementById('av-total-preview');
-  if (el) el.textContent = formatCurrency(total);
+  if (el) el.textContent = formatCurrency(Math.max(0, total));
 }
 function avulsoRecalcTotalEdit() {
   const list = document.getElementById('edit-av-items-list');
@@ -2211,9 +2230,9 @@ function avulsoRecalcTotalEdit() {
 function avulsoSaveNovaVenda() {
   const cliente = applyAlias(document.getElementById('av-cliente').value);
   if (!cliente) { toast('Cliente obrigatório'); return; }
-  const telefone = document.getElementById('av-telefone').value.trim();
+  const telefone = '';
   const data = document.getElementById('av-data').value || new Date().toISOString().slice(0,10);
-  const desconto = parseFloat(document.getElementById('av-desconto').value) || 0;
+  const desconto = 0;
   const observacao = document.getElementById('av-obs').value.trim();
   const items = [];
   document.querySelectorAll('#av-items-list .av-item-row').forEach(row => {
